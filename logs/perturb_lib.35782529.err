@@ -1,0 +1,598 @@
+srun: error: supergpu28: task 15: Exited with exit code 113
+srun: error: gpusrv35: task 4: Exited with exit code 113
+srun: error: gpusrv41: task 6: Exited with exit code 113
+srun: error: gpusrv42: task 7: Exited with exit code 113
+srun: error: gpusrv50: task 12: Exited with exit code 113
+srun: error: gpusrv48: task 10: Exited with exit code 113
+srun: error: gpusrv46: task 8: Exited with exit code 113
+srun: error: gpusrv38: task 5: Exited with exit code 113
+srun: error: gpusrv49: task 11: Exited with exit code 113
+srun: error: gpusrv32: task 2: Exited with exit code 113
+srun: error: gpusrv47: task 9: Exited with exit code 113
+srun: error: gpusrv26: task 0: Exited with exit code 113
+srun: error: gpusrv29: task 1: Exited with exit code 113
+srun: error: gpusrv52: task 13: Exited with exit code 113
+srun: error: gpusrv33: task 3: Exited with exit code 113
+srun: error: supergpu02: task 14: Exited with exit code 113
+srun: error: gpusrv52: task 13: Exited with exit code 113
+srun: error: gpusrv35: task 4: Exited with exit code 113
+srun: error: gpusrv38: task 5: Exited with exit code 113
+srun: error: gpusrv46: task 8: Exited with exit code 113
+srun: error: gpusrv48: task 10: Exited with exit code 113
+srun: error: gpusrv42: task 7: Exited with exit code 113
+srun: error: gpusrv50: task 12: Exited with exit code 113
+srun: error: gpusrv41: task 6: Exited with exit code 113
+srun: error: gpusrv32: task 2: Exited with exit code 113
+srun: error: gpusrv49: task 11: Exited with exit code 113
+srun: error: gpusrv33: task 3: Exited with exit code 113
+srun: error: gpusrv47: task 9: Exited with exit code 113
+srun: error: supergpu28: task 15: Exited with exit code 113
+srun: error: supergpu02: task 14: Exited with exit code 113
+srun: error: gpusrv29: task 1: Exited with exit code 113
+srun: error: gpusrv35: task 4: Exited with exit code 113
+srun: error: supergpu28: task 15: Exited with exit code 113
+srun: error: gpusrv52: task 13: Exited with exit code 113
+srun: error: gpusrv46: task 8: Exited with exit code 113
+srun: error: gpusrv38: task 5: Exited with exit code 113
+srun: error: gpusrv49: task 11: Exited with exit code 113
+srun: error: gpusrv29: task 1: Exited with exit code 113
+srun: error: gpusrv32: task 2: Exited with exit code 113
+srun: error: gpusrv50: task 12: Exited with exit code 113
+srun: error: gpusrv48: task 10: Exited with exit code 113
+srun: error: gpusrv42: task 7: Exited with exit code 113
+srun: error: gpusrv41: task 6: Exited with exit code 113
+srun: error: gpusrv33: task 3: Exited with exit code 113
+srun: error: supergpu02: task 14: Exited with exit code 113
+srun: error: gpusrv47: task 9: Exited with exit code 113
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:05 | INFO | Fixing random seeds of numpy, pytorch, random, and perturb-lib to 13.
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:20 | INFO | Loading and training model with id=LPM
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Model training..
+16:48:21 | INFO | Loading and training model with id=LPM
+16:48:21 | INFO | Model training..
+16:48:27 | INFO | Fitting LPM..
+16:48:27 | INFO | Fitting LPM..
+16:48:27 | INFO | Fitting LPM..
+16:48:27 | INFO | Fitting LPM..
+16:48:27 | INFO | Fitting LPM..
+16:48:27 | INFO | Fitting LPM..
+16:48:27 | INFO | Fitting LPM..
+GPU available: True (cuda), used: True
+TPU available: False, using: 0 TPU cores
+HPU available: False, using: 0 HPUs
+16:48:27 | INFO | Fitting LPM..
+16:48:27 | INFO | Fitting LPM..
+16:48:27 | INFO | Fitting LPM..
+16:48:27 | INFO | Fitting LPM..
+16:48:27 | INFO | Fitting LPM..
+16:48:27 | INFO | Fitting LPM..
+16:48:28 | INFO | Fitting LPM..
+16:48:29 | INFO | Fitting LPM..
+16:48:29 | INFO | Fitting LPM..
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+16:49:01 | INFO | Step checkpoints every 1000 steps (keeping last 10) at /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/lpm_modified/LPM_af2405d6dc1fe638/seed_13/checkpoints
+The following callbacks returned in `LightningModule.configure_callbacks` will override existing callbacks passed to Trainer: ModelCheckpoint
+Initializing distributed: GLOBAL_RANK: 8, MEMBER: 9/16
+Initializing distributed: GLOBAL_RANK: 1, MEMBER: 2/16
+Initializing distributed: GLOBAL_RANK: 11, MEMBER: 12/16
+Initializing distributed: GLOBAL_RANK: 5, MEMBER: 6/16
+Initializing distributed: GLOBAL_RANK: 12, MEMBER: 13/16
+You are using a CUDA device ('NVIDIA A100-PCIE-40GB MIG 3g.20gb') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
+Initializing distributed: GLOBAL_RANK: 3, MEMBER: 4/16
+Initializing distributed: GLOBAL_RANK: 4, MEMBER: 5/16
+Initializing distributed: GLOBAL_RANK: 9, MEMBER: 10/16
+Initializing distributed: GLOBAL_RANK: 0, MEMBER: 1/16
+Initializing distributed: GLOBAL_RANK: 7, MEMBER: 8/16
+Initializing distributed: GLOBAL_RANK: 13, MEMBER: 14/16
+Initializing distributed: GLOBAL_RANK: 6, MEMBER: 7/16
+Initializing distributed: GLOBAL_RANK: 2, MEMBER: 3/16
+Initializing distributed: GLOBAL_RANK: 10, MEMBER: 11/16
+Initializing distributed: GLOBAL_RANK: 14, MEMBER: 15/16
+Initializing distributed: GLOBAL_RANK: 15, MEMBER: 16/16
+----------------------------------------------------------------------------------------------------
+distributed_backend=nccl
+All distributed processes registered. Starting with 16 processes
+----------------------------------------------------------------------------------------------------
+
+2026-04-29 16:49:46.954393: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:479] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-04-29 16:49:47.823089: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:10575] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-04-29 16:49:47.824191: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1442] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-04-29 16:49:49.252856: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-04-29 16:51:00.787641: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-95523b9a-2688-5f02-b0c1-5937010d5d7a]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-6f66a4db-c267-549f-945a-69946ecc988e]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-16007a59-529c-5576-835b-d41589ac37ab]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-8b0b7634-edcf-5c0f-b88f-8774a5a12bcd]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-e0df68bb-1411-5451-b9de-f747a79c3434]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-e479c0c7-6b16-58ac-a77b-40ea9ff345cd]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-9a313635-9858-53c2-bf39-1efe28d60682]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-cf6949c6-4511-51b3-b8a1-5947eb8f1117]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-3acbc457-82bc-59c2-a4db-9fd26324b7db]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-c622cd4c-5f1d-5d50-9776-0d279ea6ca9d]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-52c735f7-a582-5461-a060-43b869010675]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-8cd32ce2-568e-580b-bf26-43e8b8040758]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-f5917c58-e619-53d6-8d29-a2244f56ce03]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
+LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [MIG-e455f2f6-4cb9-5bc6-86b6-b11e202900ad]
+
+  | Name                    | Type         | Params | Mode 
+-----------------------------------------------------------------
+0 | loss                    | MSELoss      | 0      | train
+1 | predictor               | Sequential   | 262 K  | train
+2 | dataset_embedding_layer | Embedding    | 1.3 K  | train
+3 | context_embedding_layer | Embedding    | 16.6 K | train
+4 | perturb_embedding_layer | EmbeddingBag | 4.8 M  | train
+5 | readout_embedding_layer | Embedding    | 5.6 M  | train
+6 | log_dose_layer          | Linear       | 256    | train
+7 | time_layer              | Linear       | 256    | train
+-----------------------------------------------------------------
+10.6 M    Trainable params
+0         Non-trainable params
+10.6 M    Total params
+42.567    Total estimated model params size (MB)
+15        Modules in train mode
+0         Modules in eval mode
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+SLURM auto-requeueing enabled. Setting signal handlers.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/utilities/data.py:123: Your `IterableDataset` has `__len__` defined. In combination with multi-process data loading (when num_workers > 1), `__len__` could be inaccurate if each worker is not configured independently to avoid having duplicate data.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0062', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0063', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CL_0000182', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CL_0000515', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CL_0002484', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CL_0002539', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CL_0002551', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CD34', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0002', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0006', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0007', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0023', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0027', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0031', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0033', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0035', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0060', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0065', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0068', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0080', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0098', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0132', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0139', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0178', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0291', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0320', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0332', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0336', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0399', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0504', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0526', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0546', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0547', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0566', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0598', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0629', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0632', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1139', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1184', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1192', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1489', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1498', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1521', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1564', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1571', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1609', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1662', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1707', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1776', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1902', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1980', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_2057', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_2161', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_2235', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_2425', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_2520', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_2588', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_2675', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_2923', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_3158', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_3719', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_4656', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_5003', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_5111', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_5112', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_5136', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_8067', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_U602', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_UK07', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_VU89', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE NEU', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE NKDBA', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE NPC', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE PHH', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE SKB', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE ASC.C', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0030', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0395', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1794', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_2959', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_3383', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_B161', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE MNEU.E', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE NPC.CAS9', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE NPC.TAK', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE SKL', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE SKL.C', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0042', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0028', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0069', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0099', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0131', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0152', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0179', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0218', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0292', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0293', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0334', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0359', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0366', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0371', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0397', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0428', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0459', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_0480', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1055', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1056', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1094', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1097', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1098', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1119', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1125', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1239', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1285', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1381', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1478', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1495', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1517', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1547', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1550', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1577', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1635', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1666', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1693', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1715', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1716', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1717', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1724', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_1731', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Validation RMSE CVCL_C466', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+/ictstr01/home/icb/olga.novitskaia/deg_venv/lib/python3.12/site-packages/pytorch_lightning/trainer/connectors/logger_connector/result.py:434: It is recommended to use `self.log('Training RMSE', ..., sync_dist=True)` when logging on epoch level in distributed setting to accumulate the metric across devices.
+`Trainer.fit` stopped: `max_epochs=1` reached.
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Saving model training log...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | INFO | Running post-training evaluation...
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:45 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:45 | INFO | Cleaning up...
+17:58:45 | INFO | Model fitting completed
+17:58:45 | INFO | Model training done!
+17:58:45 | INFO | Saving trained model...
+17:58:46 | INFO | Saving model training log...
+17:58:46 | INFO | Running post-training evaluation...
+17:58:46 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:47 | INFO | Saving model training log...
+17:58:47 | INFO | Running post-training evaluation...
+17:58:47 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:47 | INFO | Saving model training log...
+17:58:47 | INFO | Saving model training log...
+17:58:47 | INFO | Saving model training log...
+17:58:47 | INFO | Saving model training log...
+17:58:47 | INFO | Saving model training log...
+17:58:47 | INFO | Saving model training log...
+17:58:47 | INFO | Saving model training log...
+17:58:47 | INFO | Running post-training evaluation...
+17:58:47 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:47 | INFO | Running post-training evaluation...
+17:58:47 | INFO | Running post-training evaluation...
+17:58:47 | INFO | Running post-training evaluation...
+17:58:47 | INFO | Running post-training evaluation...
+17:58:47 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:47 | INFO | Running post-training evaluation...
+17:58:47 | INFO | Running post-training evaluation...
+17:58:47 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:48 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:48 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:48 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:48 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:48 | INFO | Saving model training log...
+17:58:48 | INFO | Running post-training evaluation...
+17:58:48 | INFO | Saving model training log...
+17:58:48 | INFO | Saving model training log...
+17:58:48 | INFO | Saving model training log...
+17:58:48 | INFO | Saving model training log...
+17:58:48 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:48 | INFO | Saving model training log...
+17:58:48 | INFO | Running post-training evaluation...
+17:58:48 | INFO | Running post-training evaluation...
+17:58:48 | INFO | Running post-training evaluation...
+17:58:48 | INFO | Running post-training evaluation...
+17:58:48 | INFO | Running post-training evaluation...
+17:58:48 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:48 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:48 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:48 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+17:58:48 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:27 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:27 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:27 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:27 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:27 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:27 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:27 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:27 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:28 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:28 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:28 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:28 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:28 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:29 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:29 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:10:38 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:42 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:44 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:19:47 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:43 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:48 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:27:50 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:28:27 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:12 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:36:34 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:49 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:50 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:50 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:42:51 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:15 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:16 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:17 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+18:53:17 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:06 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:07 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:08 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:08 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:06:08 | WARNING | Using more than 1 worker with shuffle=False and a specified batch_size is not supported. Setting num_workers=1.
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | All done!
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | All done!
+19:19:39 | INFO | All done!
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | All done!
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | All done!
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | All done!
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:39 | INFO | All done!
+19:19:39 | INFO | All done!
+19:19:39 | INFO | All done!
+19:19:39 | INFO | All done!
+19:19:39 | INFO | All done!
+19:19:39 | INFO | All done!
+19:19:40 | INFO | All done!
+19:19:40 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:40 | INFO | All done!
+19:19:40 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:40 | INFO | All done!
+19:19:41 | INFO | Saving {'MAE': {'test': 0.4556, 'val': 0.4494}, 'Pearson': {'test': 0.3476, 'val': 0.358}, 'R2': {'test': 0.1201, 'val': 0.1263}, 'RMSE': {'test': 0.6685, 'val': 0.6626}}
+19:19:41 | INFO | All done!
