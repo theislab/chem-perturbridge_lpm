@@ -222,7 +222,7 @@ model_configs:
         num_nodes: 16
         strategy: ddp
         use_distributed_sampler: True
-        max_epochs: 50
+        max_epochs: 25
         # gradient clipping caps per-step gradient norm to 1.0 — protects against finite-but-huge
         # gradients from outlier batches (won't help if grad is already NaN; for that see detect_anomaly).
         #gradient_clip_val: 1.0
