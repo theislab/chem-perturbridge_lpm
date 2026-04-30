@@ -77,6 +77,7 @@ The knobs you'll most often touch, all under `model_configs[0].model_args`:
 | `num_workers` | DataLoader workers per rank. **6 with `on_disk`, 0 with `in_memory`.** | 6 |
 | `epoch_checkpoint_special` | Specific epochs to checkpoint (1-indexed). Must be **wrapped in an outer list** because the config loader treats inner lists as grid-search sweeps. | `[[1]]` for just epoch 1; `[[1, 3]]` for epochs 1 and 3 |
 | `epoch_checkpoint_every_n` | Save every Nth epoch. | `5` (→ epochs 5, 10, 15…) |
+| `epoch_checkpoint_save_last` | Roll a `last.ckpt` + `last.pt` every epoch (epoch-boundary, safe to resume). For preemption recovery. Set `false` to skip the per-epoch I/O. | `true` |
 | `resume_from_checkpoint` | Absolute path to a `.ckpt`, or remove for fresh. | `null` |
 
 Under `model_args.lightning_trainer_pars`:
@@ -100,27 +101,42 @@ Slurm knobs in `run.sh` `#SBATCH` block: `--nodes`, `--mem`, `--qos`,
 
 ## Checkpoints
 
-Two outputs per run, both under
+All outputs per run live under
 `.plib_cache/results/lpm_modified/<model_hash>/seed_<seed>/`:
 
-- **`model.pt`** — weights only, written once at end. For inference / fine-tuning.
+- **`model.pt`** — weights only, written once at end of training. For inference / fine-tuning.
   **Cannot be passed to `resume_from_checkpoint`** (no optimizer state).
 - **`checkpoints/epoch-NNNN.ckpt`** — full Lightning snapshots (weights +
-  optimizer + LR scheduler + step + epoch + RNG). Schedule is the union of
-  `epoch_checkpoint_special` and multiples of `epoch_checkpoint_every_n`. With
-  the current YAML: epochs `{1, 5, 10, 15, …}`, ~120 MB each, never deleted.
+  optimizer + LR scheduler + step + epoch + RNG) at scheduled epochs only,
+  never overwritten. Use these for `resume_from_checkpoint`.
+- **`checkpoints/epoch-NNNN.pt`** — weights-only sibling of each `.ckpt` at
+  scheduled epochs. Same format as the final `model.pt`; ~10× smaller than
+  the matching `.ckpt`. Use for inference / probing intermediate epochs.
+- **`checkpoints/last.ckpt`** + **`last.pt`** — rolling latest, overwritten at
+  the end of every training epoch (when `epoch_checkpoint_save_last: true`).
+  Always at an epoch boundary, so safe for `resume_from_checkpoint`. Intended
+  for preemption / crash recovery between scheduled epochs.
+
+Scheduled-save epochs = union of `epoch_checkpoint_special` and multiples of
+`epoch_checkpoint_every_n`. With the current YAML: `{1, 5, 10, 15, …}`.
 
 ## Resuming from a checkpoint
 
-1. Move the checkpoint **outside** `.plib_cache/results/lpm_modified/` so
-   `run.sh`'s pre-clean doesn't delete it (e.g. `mv .plib_cache/results/lpm_modified .plib_cache/results/epoch5`).
+1. Move the checkpoint dir **outside** `.plib_cache/results/lpm_modified/` so
+   `run.sh`'s pre-clean doesn't delete it (e.g. `mv .plib_cache/results/lpm_modified .plib_cache/results/run1`).
 2. In the YAML, set:
    ```yaml
-         resume_from_checkpoint: /ictstr01/.../epoch5/.../last.ckpt   # absolute Lustre path
+         # any epoch-boundary .ckpt: a scheduled `epoch-NNNN.ckpt` or the rolling `last.ckpt`
+         resume_from_checkpoint: /ictstr01/.../run1/.../checkpoints/last.ckpt
          ...
          max_epochs: 25                # > saved epoch, otherwise fit() exits immediately
    ```
 3. `sbatch run.sh`. Look for `Resuming training from checkpoint: ...` in the log.
+
+Use `last.ckpt` for the most-recent state (good for preemption recovery), or
+`epoch-NNNN.ckpt` to rewind to a specific scheduled epoch. **Avoid mid-step
+files** like the legacy `step-step=NNNNNNNN.ckpt`: Lightning's mid-step resume
+is unreliable with multi-worker DDP DataLoaders.
 
 Architecture must match — don't change `embedding_dim`, `hidden_dim`,
 `num_layers`, or the dataset list between save and resume.
