@@ -204,7 +204,12 @@ model_configs:
       # written under the legacy step-based scheme (filenames `step-step=NNNNNNNN.ckpt`)
       # but `last.ckpt` is format-identical to what the new CustomEpochCheckpoint writes.
       # Set to null (or remove this line) to start training from random init.
-      resume_from_checkpoint: /ictstr01/home/icb/olga.novitskaia/lpm_style/.plib_cache/results/epoch5/LPM_fa51c10d14c24fd9/seed_13/checkpoints/last.ckpt
+      # Resume disabled: the legacy `last.ckpt` was saved mid-step (step 522000, ~3000 steps
+      # before end of epoch 5), and Lightning's mid-epoch fast-forward of the DistributedSampler
+      # leaves some ranks with zero batches -> torch.cat([]) crash in on_train_epoch_end.
+      # The new CustomEpochCheckpoint writes only at epoch boundaries, which resume cleanly;
+      # once this fresh run produces an epoch-NNNN.ckpt, point this back at one of those.
+      resume_from_checkpoint: null
       lightning_trainer_pars:
         deterministic: True
         enable_checkpointing: True
@@ -217,7 +222,7 @@ model_configs:
         num_nodes: 16
         strategy: ddp
         use_distributed_sampler: True
-        max_epochs: 25
+        max_epochs: 50
         # gradient clipping caps per-step gradient norm to 1.0 — protects against finite-but-huge
         # gradients from outlier batches (won't help if grad is already NaN; for that see detect_anomaly).
         #gradient_clip_val: 1.0

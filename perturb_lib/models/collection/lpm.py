@@ -40,18 +40,36 @@ from perturb_lib.utils import inherit_docstring
 
 
 class CustomEpochCheckpoint(Callback):
-    """Save full Lightning checkpoints on a custom epoch schedule.
+    """Save full Lightning checkpoints + weights-only snapshots on a custom epoch schedule.
 
-    Saves at every epoch in ``special_epochs`` and additionally at every multiple of
-    ``every_n`` (when ``every_n > 0``). Files are named ``epoch-NNNN.ckpt``. Saves only on
-    the global rank 0 to avoid contention on shared filesystems; all other ranks no-op.
+    Two kinds of files are written under ``dirpath`` (rank 0 only):
 
-    No rolling deletion: every checkpoint that the schedule produces is kept on disk
-    forever (until removed manually). Disk usage is the caller's responsibility.
+    1. **Scheduled snapshots** at every epoch in ``special_epochs`` and at every multiple
+       of ``every_n`` (when ``every_n > 0``). For each scheduled epoch N a pair is written:
 
-    The format written by ``trainer.save_checkpoint`` is the standard Lightning checkpoint
-    (model + optimizer + LR scheduler + global_step + current_epoch + RNG), so any file
-    written here is drop-in compatible with ``resume_from_checkpoint`` / ``ckpt_path``.
+       - ``epoch-NNNN.ckpt`` -- full Lightning checkpoint via ``trainer.save_checkpoint``
+         (weights + optimizer + LR scheduler + global_step + current_epoch + RNG). Use
+         this for ``resume_from_checkpoint`` / ``ckpt_path``.
+       - ``epoch-NNNN.pt`` -- weights-only ``state_dict`` via ``torch.save`` (LPM's
+         overridden ``state_dict`` also bundles the four vocabularies, so the file is
+         self-contained for inference via ``model.load_state_dict(torch.load(...))``).
+
+       No rolling deletion -- scheduled files are kept until removed manually.
+
+    2. **Rolling latest** (when ``save_last=True``, the default) at the end of *every*
+       training epoch:
+
+       - ``last.ckpt`` and ``last.pt`` -- overwritten in place each epoch.
+
+       Because the write happens inside ``on_train_epoch_end`` after all batches of the
+       epoch have already been processed, ``last.ckpt`` always lands on an epoch boundary
+       and is safe for ``resume_from_checkpoint`` (unlike Lightning's default
+       ``ModelCheckpoint(save_last=True)``, which can land mid-step when paired with
+       ``every_n_train_steps`` and then fails to resume on multi-worker DDP DataLoaders).
+
+       Use ``last.ckpt`` for preemption / crash recovery: if Slurm kills the job between
+       scheduled epochs (e.g. epoch 3 of a 1/5/10 schedule), point
+       ``resume_from_checkpoint`` at ``last.ckpt`` to pick up from epoch 3 instead of 1.
     """
 
     def __init__(
@@ -59,11 +77,13 @@ class CustomEpochCheckpoint(Callback):
         dirpath: Path,
         special_epochs: tuple[int, ...] = (),
         every_n: int = 0,
+        save_last: bool = True,
     ):
         super().__init__()
         self.dirpath = Path(dirpath)
         self.special_epochs = set(special_epochs)
         self.every_n = every_n
+        self.save_last = save_last
 
     def _should_save(self, epoch_one_indexed: int) -> bool:
         if epoch_one_indexed in self.special_epochs:
@@ -76,11 +96,22 @@ class CustomEpochCheckpoint(Callback):
         if not trainer.is_global_zero:
             return
         epoch = trainer.current_epoch + 1  # current_epoch is 0-indexed; humans count from 1
-        if not self._should_save(epoch):
-            return
         self.dirpath.mkdir(parents=True, exist_ok=True)
-        ckpt_path = self.dirpath / f"epoch-{epoch:04d}.ckpt"
-        trainer.save_checkpoint(str(ckpt_path))
+
+        if self._should_save(epoch):
+            ckpt_path = self.dirpath / f"epoch-{epoch:04d}.ckpt"
+            trainer.save_checkpoint(str(ckpt_path))
+            # Weights-only sibling snapshot. Goes through LPM.state_dict() so the four
+            # symbol vocabularies are bundled in the file (see LPM.state_dict / load_state_dict).
+            pt_path = self.dirpath / f"epoch-{epoch:04d}.pt"
+            torch.save(pl_module.state_dict(), str(pt_path))
+
+        if self.save_last:
+            # Rolling latest: overwrites in place every epoch. Always epoch-boundary, so
+            # safe to resume from. Cheap on top of the scheduled write because most epochs
+            # only do this single ~120 MB rewrite.
+            trainer.save_checkpoint(str(self.dirpath / "last.ckpt"))
+            torch.save(pl_module.state_dict(), str(self.dirpath / "last.pt"))
 
 
 @inherit_docstring
@@ -112,6 +143,11 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             epochs (e.g. 5 -> epochs 5, 10, 15, ...). Set to 0 to disable; only the
             ``special`` epochs are then saved. No rolling deletion is done -- callers are
             responsible for cleaning up old checkpoints if disk usage matters.
+        epoch_checkpoint_save_last: If True, also write a rolling ``last.ckpt`` (and weights
+            ``last.pt``) at the end of *every* training epoch, overwriting in place. Always
+            epoch-boundary, so safe for ``resume_from_checkpoint`` -- intended for
+            preemption / crash recovery between scheduled epochs. Set False to skip and
+            save the per-epoch I/O.
     """
 
     def __init__(
@@ -133,6 +169,7 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         resume_from_checkpoint: str | None = None,
         epoch_checkpoint_special: list[int] | tuple[int, ...] = (),
         epoch_checkpoint_every_n: int = 0,
+        epoch_checkpoint_save_last: bool = True,
     ):
         super().__init__()
 
@@ -153,6 +190,7 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         # saved checkpoints are kept on disk until manually removed.
         self.epoch_checkpoint_special = tuple(epoch_checkpoint_special)
         self.epoch_checkpoint_every_n = epoch_checkpoint_every_n
+        self.epoch_checkpoint_save_last = epoch_checkpoint_save_last
         self.optimizer_name = optimizer_name
         self.embedding_aggregation_mode = embedding_aggregation_mode
         self.lightning_trainer_pars = {} if (lightning_trainer_pars is None) else lightning_trainer_pars
@@ -358,18 +396,24 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             # add model checkpointing callback
             logger.info(f"Temporary file for checkpoints is {self.ckpt_filename}.ckpt")
             cblist.append(ModelCheckpoint(self.model_checkpoints_path, self.ckpt_filename, monitor="Validation RMSE"))
-        if self.epoch_checkpoint_special or self.epoch_checkpoint_every_n > 0:
+        if (
+            self.epoch_checkpoint_special
+            or self.epoch_checkpoint_every_n > 0
+            or self.epoch_checkpoint_save_last
+        ):
             # Custom epoch-based checkpointing: writes at the union of `special_epochs`
-            # and every Nth epoch. No rolling deletion -- all saved checkpoints are kept.
+            # and every Nth epoch (kept forever), plus an optional rolling last.ckpt.
             logger.info(
-                f"Epoch checkpoints at special={sorted(self.epoch_checkpoint_special)} "
-                f"and every {self.epoch_checkpoint_every_n} epochs at {self.model_checkpoints_path}"
+                f"Epoch checkpoints at special={sorted(self.epoch_checkpoint_special)}, "
+                f"every {self.epoch_checkpoint_every_n} epochs, "
+                f"save_last={self.epoch_checkpoint_save_last} at {self.model_checkpoints_path}"
             )
             cblist.append(
                 CustomEpochCheckpoint(
                     dirpath=self.model_checkpoints_path,
                     special_epochs=tuple(self.epoch_checkpoint_special),
                     every_n=self.epoch_checkpoint_every_n,
+                    save_last=self.epoch_checkpoint_save_last,
                 )
             )
         return cblist
