@@ -188,27 +188,21 @@ model_configs:
       # worker. With 26 GB of train data and num_workers=6 that would be ~156 GB per rank, OOMing the node.
       # With in_memory + num_workers=0 there is no I/O during training so prefetch workers aren't needed.
       num_workers: 6
-      # Epoch-based checkpointing: save full Lightning checkpoints at chosen epochs.
-      # Final schedule = union of `epoch_checkpoint_special` and multiples of
-      # `epoch_checkpoint_every_n`. With the values below: epochs {1, 5, 10, 15, 20, ...}.
-      # No rolling deletion -- every saved checkpoint stays on disk until removed manually.
-      # Files are written as `epoch-NNNN.ckpt` under the per-run results dir's `checkpoints/`.
-      # `dict_product` (perturb_gym/configs/access.py:61) treats lists in model_args as
-      # grid-search sweeps -- so a literal list value must be wrapped in an outer list.
-      # Outer list = sweep candidates (length 1 -> no sweep); inner list = the actual value.
-      epoch_checkpoint_special: [[1]]
-      epoch_checkpoint_every_n: 5
+      # Epoch-based checkpointing via stock Lightning ModelCheckpoint (DDP-safe).
+      # Periodic snapshots written as `epoch-NNNN.ckpt` under the per-run results dir's
+      # `checkpoints/`, kept forever (no rolling deletion). With every_n=5 below: saves
+      # at end of epochs {5, 10, 15, 20, 25}. Set to 1 if you also want epoch 1.
+      # `last.ckpt` rolls at the same cadence when save_last=true (use every_n=1 for
+      # per-epoch resume granularity).
+      epoch_checkpoint_every_n: 1
+      epoch_checkpoint_save_last: true
       # Resume training from a previously saved Lightning checkpoint. The .ckpt is a full
       # snapshot (weights + optimizer + LR scheduler + global_step + current_epoch + RNG),
-      # so trainer.fit picks up exactly where the saved run stopped. The path below was
-      # written under the legacy step-based scheme (filenames `step-step=NNNNNNNN.ckpt`)
-      # but `last.ckpt` is format-identical to what the new CustomEpochCheckpoint writes.
-      # Set to null (or remove this line) to start training from random init.
-      # Resume disabled: the legacy `last.ckpt` was saved mid-step (step 522000, ~3000 steps
-      # before end of epoch 5), and Lightning's mid-epoch fast-forward of the DistributedSampler
-      # leaves some ranks with zero batches -> torch.cat([]) crash in on_train_epoch_end.
-      # The new CustomEpochCheckpoint writes only at epoch boundaries, which resume cleanly;
-      # once this fresh run produces an epoch-NNNN.ckpt, point this back at one of those.
+      # so trainer.fit picks up exactly where the saved run stopped. Set to null (or remove
+      # this line) to start training from random init. Always resume from an epoch-boundary
+      # checkpoint (`epoch-NNNN.ckpt` or `last.ckpt`) -- mid-step saves fast-forward the
+      # DistributedSampler in a way that can leave some ranks with zero batches and crash
+      # `on_train_epoch_end` on `torch.cat([])`.
       resume_from_checkpoint: null
       lightning_trainer_pars:
         deterministic: True

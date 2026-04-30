@@ -39,81 +39,6 @@ from perturb_lib.models.base import ModelMixin, to_tensor_dict
 from perturb_lib.utils import inherit_docstring
 
 
-class CustomEpochCheckpoint(Callback):
-    """Save full Lightning checkpoints + weights-only snapshots on a custom epoch schedule.
-
-    Two kinds of files are written under ``dirpath`` (rank 0 only):
-
-    1. **Scheduled snapshots** at every epoch in ``special_epochs`` and at every multiple
-       of ``every_n`` (when ``every_n > 0``). For each scheduled epoch N a pair is written:
-
-       - ``epoch-NNNN.ckpt`` -- full Lightning checkpoint via ``trainer.save_checkpoint``
-         (weights + optimizer + LR scheduler + global_step + current_epoch + RNG). Use
-         this for ``resume_from_checkpoint`` / ``ckpt_path``.
-       - ``epoch-NNNN.pt`` -- weights-only ``state_dict`` via ``torch.save`` (LPM's
-         overridden ``state_dict`` also bundles the four vocabularies, so the file is
-         self-contained for inference via ``model.load_state_dict(torch.load(...))``).
-
-       No rolling deletion -- scheduled files are kept until removed manually.
-
-    2. **Rolling latest** (when ``save_last=True``, the default) at the end of *every*
-       training epoch:
-
-       - ``last.ckpt`` and ``last.pt`` -- overwritten in place each epoch.
-
-       Because the write happens inside ``on_train_epoch_end`` after all batches of the
-       epoch have already been processed, ``last.ckpt`` always lands on an epoch boundary
-       and is safe for ``resume_from_checkpoint`` (unlike Lightning's default
-       ``ModelCheckpoint(save_last=True)``, which can land mid-step when paired with
-       ``every_n_train_steps`` and then fails to resume on multi-worker DDP DataLoaders).
-
-       Use ``last.ckpt`` for preemption / crash recovery: if Slurm kills the job between
-       scheduled epochs (e.g. epoch 3 of a 1/5/10 schedule), point
-       ``resume_from_checkpoint`` at ``last.ckpt`` to pick up from epoch 3 instead of 1.
-    """
-
-    def __init__(
-        self,
-        dirpath: Path,
-        special_epochs: tuple[int, ...] = (),
-        every_n: int = 0,
-        save_last: bool = True,
-    ):
-        super().__init__()
-        self.dirpath = Path(dirpath)
-        self.special_epochs = set(special_epochs)
-        self.every_n = every_n
-        self.save_last = save_last
-
-    def _should_save(self, epoch_one_indexed: int) -> bool:
-        if epoch_one_indexed in self.special_epochs:
-            return True
-        if self.every_n > 0 and epoch_one_indexed >= self.every_n and epoch_one_indexed % self.every_n == 0:
-            return True
-        return False
-
-    def on_train_epoch_end(self, trainer, pl_module):  # noqa: D102
-        if not trainer.is_global_zero:
-            return
-        epoch = trainer.current_epoch + 1  # current_epoch is 0-indexed; humans count from 1
-        self.dirpath.mkdir(parents=True, exist_ok=True)
-
-        if self._should_save(epoch):
-            ckpt_path = self.dirpath / f"epoch-{epoch:04d}.ckpt"
-            trainer.save_checkpoint(str(ckpt_path))
-            # Weights-only sibling snapshot. Goes through LPM.state_dict() so the four
-            # symbol vocabularies are bundled in the file (see LPM.state_dict / load_state_dict).
-            pt_path = self.dirpath / f"epoch-{epoch:04d}.pt"
-            torch.save(pl_module.state_dict(), str(pt_path))
-
-        if self.save_last:
-            # Rolling latest: overwrites in place every epoch. Always epoch-boundary, so
-            # safe to resume from. Cheap on top of the scheduled write because most epochs
-            # only do this single ~120 MB rewrite.
-            trainer.save_checkpoint(str(self.dirpath / "last.ckpt"))
-            torch.save(pl_module.state_dict(), str(self.dirpath / "last.pt"))
-
-
 @inherit_docstring
 @register_model
 class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
@@ -137,17 +62,13 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             state, and epoch/step counter are all restored). Requires
             ``enable_checkpointing: true`` in ``lightning_trainer_pars`` so that periodic
             checkpoints are actually written to disk during training.
-        epoch_checkpoint_special: Specific epoch numbers (1-indexed) at which to save a full
-            Lightning checkpoint. Combined (union) with ``epoch_checkpoint_every_n``.
-        epoch_checkpoint_every_n: Save a checkpoint at every multiple of this number of
-            epochs (e.g. 5 -> epochs 5, 10, 15, ...). Set to 0 to disable; only the
-            ``special`` epochs are then saved. No rolling deletion is done -- callers are
+        epoch_checkpoint_every_n: Save a Lightning ``.ckpt`` snapshot every Nth epoch
+            (e.g. 5 -> epochs 5, 10, 15, ...). Set to 1 to save every epoch (incl. epoch 1)
+            or 0 to disable scheduled snapshots. Snapshots are kept forever; callers are
             responsible for cleaning up old checkpoints if disk usage matters.
-        epoch_checkpoint_save_last: If True, also write a rolling ``last.ckpt`` (and weights
-            ``last.pt``) at the end of *every* training epoch, overwriting in place. Always
-            epoch-boundary, so safe for ``resume_from_checkpoint`` -- intended for
-            preemption / crash recovery between scheduled epochs. Set False to skip and
-            save the per-epoch I/O.
+        epoch_checkpoint_save_last: If True, also write a rolling ``last.ckpt`` at every
+            save event (i.e. every Nth epoch). Used for ``resume_from_checkpoint`` after
+            preemption / crash. Set False to skip and save a bit of disk I/O.
     """
 
     def __init__(
@@ -167,7 +88,6 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         profiler: bool = False,
         lightning_trainer_pars: dict | None = None,
         resume_from_checkpoint: str | None = None,
-        epoch_checkpoint_special: list[int] | tuple[int, ...] = (),
         epoch_checkpoint_every_n: int = 0,
         epoch_checkpoint_save_last: bool = True,
     ):
@@ -183,12 +103,11 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.num_workers = num_workers
         self.pin_memory = pin_memory
         self.early_stopping_patience = early_stopping_patience
-        # Epoch-based checkpoint schedule. We save at every epoch in `epoch_checkpoint_special`
-        # (e.g. [1] for an epoch-1 sanity snapshot) and additionally at every multiple of
-        # `epoch_checkpoint_every_n` (e.g. 5 -> epochs 5, 10, 15, ...). Set every_n=0 to only save
-        # the special epochs; set special=() to only save every Nth. No rolling deletion: all
-        # saved checkpoints are kept on disk until manually removed.
-        self.epoch_checkpoint_special = tuple(epoch_checkpoint_special)
+        # Epoch-based checkpointing is delegated to the stock Lightning ModelCheckpoint
+        # callback (configured in `configure_callbacks`). Periodic snapshots are saved
+        # every `epoch_checkpoint_every_n` epochs and kept forever; `last.ckpt` rolls at
+        # the same cadence when `epoch_checkpoint_save_last=True`. Set every_n=1 to
+        # capture every epoch (incl. epoch 1).
         self.epoch_checkpoint_every_n = epoch_checkpoint_every_n
         self.epoch_checkpoint_save_last = epoch_checkpoint_save_last
         self.optimizer_name = optimizer_name
@@ -396,23 +315,22 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             # add model checkpointing callback
             logger.info(f"Temporary file for checkpoints is {self.ckpt_filename}.ckpt")
             cblist.append(ModelCheckpoint(self.model_checkpoints_path, self.ckpt_filename, monitor="Validation RMSE"))
-        if (
-            self.epoch_checkpoint_special
-            or self.epoch_checkpoint_every_n > 0
-            or self.epoch_checkpoint_save_last
-        ):
-            # Custom epoch-based checkpointing: writes at the union of `special_epochs`
-            # and every Nth epoch (kept forever), plus an optional rolling last.ckpt.
+        if self.epoch_checkpoint_every_n > 0 or self.epoch_checkpoint_save_last:
+            # Stock Lightning ModelCheckpoint is properly DDP-aware (every rank calls
+            # trainer.save_checkpoint together). every_n_epochs >= 1 controls the cadence;
+            # save_top_k=-1 keeps all snapshots; save_last writes a rolling last.ckpt at
+            # the same cadence (use every_n=1 if you need per-epoch resume granularity).
+            every_n = max(self.epoch_checkpoint_every_n, 1)
             logger.info(
-                f"Epoch checkpoints at special={sorted(self.epoch_checkpoint_special)}, "
-                f"every {self.epoch_checkpoint_every_n} epochs, "
+                f"Epoch checkpoints every {every_n} epochs, "
                 f"save_last={self.epoch_checkpoint_save_last} at {self.model_checkpoints_path}"
             )
             cblist.append(
-                CustomEpochCheckpoint(
+                ModelCheckpoint(
                     dirpath=self.model_checkpoints_path,
-                    special_epochs=tuple(self.epoch_checkpoint_special),
-                    every_n=self.epoch_checkpoint_every_n,
+                    filename="epoch-{epoch:04d}",
+                    every_n_epochs=every_n,
+                    save_top_k=-1,
                     save_last=self.epoch_checkpoint_save_last,
                 )
             )
@@ -538,11 +456,50 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
                     )
 
     def on_validation_epoch_end(self):  # noqa: D102
-        metric_label, metric_result = self._reduce_outputs(self.validation_step_outputs)
-        self.log(f"Validation {metric_label}", metric_result)
-        for context in self.validation_step_per_context_outputs.keys():
-            metric_label, metric_result = self._reduce_outputs(self.validation_step_per_context_outputs[context])
-            self.log(f"Validation {metric_label} {context}", metric_result)
+        # Validation is sharded across DDP ranks (one whole shard per global worker),
+        # so each rank only sees a disjoint, unequal subset of contexts. Reducing
+        # locally would (a) bias the TB metric to rank 0's slice and (b) make per-rank
+        # `self.log` calls asymmetric in keys/order, which is a known DDP-desync trap
+        # at the epoch boundary. Instead we aggregate fixed-shape (sum_sq, count)
+        # tensors over all ranks via two tiny all_reduces, then log the global RMSE.
+        assert self.vocab is not None
+        num_contexts = len(self.vocab.context_vocab)
+        sum_sq = torch.zeros(num_contexts + 1, device=self.device)
+        count = torch.zeros(num_contexts + 1, device=self.device)
+
+        # Slot 0 = global metric across every sample this rank saw.
+        if self.validation_step_outputs:
+            global_loss = torch.cat(self.validation_step_outputs)
+            sum_sq[0] = global_loss.sum()
+            count[0] = global_loss.numel()
+
+        # Slots 1..N indexed by context code so all ranks fill the same layout.
+        symbol_to_code: dict[str, int] = dict(
+            zip(self.vocab.context_vocab["symbol"], self.vocab.context_vocab["code"])
+        )
+        for context_symbol, losses in self.validation_step_per_context_outputs.items():
+            if not losses:
+                continue
+            ctx_code = symbol_to_code[context_symbol]
+            ctx_loss = torch.cat(losses)
+            sum_sq[ctx_code + 1] = ctx_loss.sum()
+            count[ctx_code + 1] = ctx_loss.numel()
+
+        if torch.distributed.is_available() and torch.distributed.is_initialized():
+            torch.distributed.all_reduce(sum_sq, op=torch.distributed.ReduceOp.SUM)
+            torch.distributed.all_reduce(count, op=torch.distributed.ReduceOp.SUM)
+
+        rmse = (sum_sq / count.clamp(min=1)).sqrt()
+        # Single GPU->CPU sync for the per-slot count, used to skip empty contexts.
+        count_cpu = count.detach().cpu()
+
+        # After the all_reduce, every rank holds identical sum_sq/count, so these
+        # self.log calls are now symmetric across ranks (same keys, same order).
+        self.log("Validation RMSE", rmse[0])
+        for symbol, code in zip(self.vocab.context_vocab["symbol"], self.vocab.context_vocab["code"]):
+            if count_cpu[code + 1].item() > 0:
+                self.log(f"Validation RMSE {symbol}", rmse[code + 1])
+
         self.validation_step_outputs.clear()
         self.validation_step_per_context_outputs.clear()
 
