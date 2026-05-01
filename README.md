@@ -1,35 +1,37 @@
 # LPM-Style — Quick Reference
 
-This is a modified fork of [perturblib/perturblib](https://github.com/perturblib/perturblib),
-wired for multi-node DDP training of the 6-feature LPM on Slurm. The original library
-README is preserved here as [README_original.md](README_original.md).
+Fork of [perturblib/perturblib](https://github.com/perturblib/perturblib) wired
+for multi-node DDP training of the 6-feature LPM on Slurm. Original library
+README preserved as [README_original.md](README_original.md).
 
-## Quick start
+---
+
+## TL;DR
 
 ```bash
-sbatch run.sh                  # train with the YAML named in run.sh (default: lpm_modified)
+sbatch run.sh                   # train with the YAML named in run.sh
 tail -f perturb_lib.<jobid>.out
 ```
 
-Use the checklist below once per machine or workflow change; the sections that follow expand each block in order (`Environment` → `Submitting` → `Data shards` → `Config`).
+If unsure, work top-to-bottom: **1. Environment** → **2. Submitting** →
+**3. Data shards** → **4. Config** → **5. Checkpoints** → **6. Layout**.
 
-## Checklist before you submit
+---
 
-- [ ] **Mamba env path:** `run.sh` ~line 120 (`mamba activate ~/deg_venv`) matches where you created the env (`mamba env create --prefix ~/deg_venv --file env.yml`). Change both if you use another path.
-- [ ] **`run.sh` Slurm / resources:** In the `#SBATCH` block, check `#SBATCH --nodes`, `--ntasks-per-node`, `--gpus-per-task`, `--cpus-per-task`, `--mem`, `-t` (walltime), `--qos`, `--partition`, and `--exclude` for your cluster and queue.
-- [ ] **`run.sh` config id:** Bottom of `run.sh` passes `--config_file_id_or_path=...` (e.g. `lpm_modified` → `perturb_gym/configs/collection/lpm_modified.yaml`). Set this to the config you intend to train.
-- [ ] **Data on disk:** Shard directories exist under your project (commonly `.plib_cache/plibdata/<dataset_folder>/…` with `metadata.parquet` and `shard_*.parquet`; see Data shards below).
-- [ ] **YAML data section:** `data_configs[0].on_disk_shard_root` points at that parent directory; `on_disk_data_sources` lists the **exact subdirectory names** to train on (`data_storage_type: on_disk` as needed).
-- [ ] **YAML model / trainer:** Under `model_configs[0].model_args` and `lightning_trainer_pars`, sanity-check architecture, LR, `batch_size`, `num_workers`, checkpoint cadence, and **`num_nodes` must equal `run.sh` `--nodes`**.
-- [ ] **`max_epochs`** (and resume fields if used) align with how long you want to train.
+## 1. Environment
 
-## Environment
+The mamba env is **path-based** at `~/deg_venv` and activated by `run.sh`
+(line 120: `mamba activate ~/deg_venv`).
 
-Mamba env at `~/deg_venv` (path-based, not a conda *name*). `run.sh` activates
-it automatically — see **`run.sh` ~line 120 (`mamba activate ~/deg_venv`)**.
-Edit that path if your env lives elsewhere.
+### 1.1 Create the env (one-time)
 
-To activate manually (e.g. to run Python locally):
+```bash
+mamba env create --prefix ~/deg_venv --file env.yml      # --prefix, NOT --name
+mamba activate ~/deg_venv
+poetry install                                           # installs perturb_lib deps
+```
+
+### 1.2 Activate manually (e.g. local Python)
 
 ```bash
 mamba activate ~/deg_venv
@@ -37,73 +39,92 @@ cd ~/lpm_style
 poetry run python -c 'import perturb_lib; print("ok")'
 ```
 
-Refresh deps after `pyproject.toml` changes: `poetry install`.
+### 1.3 Use a different env path
 
-To create the env from scratch (e.g. on a new machine), use **`--prefix`** so
-it matches `run.sh` and `mamba activate ~/deg_venv`:
+If you put the env elsewhere, pass that path to **both** `--prefix`/`activate`
+**and** edit `run.sh` line 120 to match. Refresh deps after editing
+`pyproject.toml` with `poetry install`.
+
+---
+
+## 2. Submitting
+
+### 2.1 Pre-flight checklist
+
+Open `run.sh` and the YAML you intend to train, then verify:
+
+| In `run.sh` | In the YAML | Must agree |
+|---|---|---|
+| `mamba activate ~/deg_venv` (line 120) | — | env path is correct |
+| `#SBATCH --nodes=N` | `lightning_trainer_pars.num_nodes: N` | **same N** |
+| `--config_file_id_or_path=<id>` (last line) | filename `<id>.yaml` exists | the right config |
+| Slurm resources (`--gpus-per-task`, `--mem`, `-t`, `--qos`, `--partition`, `--exclude`) | — | fits your cluster |
+| — | `data_configs[0].on_disk_shard_root` + `on_disk_data_sources` | shard folders exist (see §3) |
+| — | `lightning_trainer_pars.max_epochs` | training length you want |
+
+### 2.2 Submit / monitor / cancel
 
 ```bash
-mamba env create --prefix ~/deg_venv --file env.yml
-mamba activate ~/deg_venv
-poetry install                # installs the perturb_lib deps from pyproject.toml
+sbatch run.sh                   # submit (pre-cleans .plib_cache/results/lpm_modified)
+CLEAN_RESULTS=0 sbatch run.sh   # submit without pre-clean (e.g. when resuming)
+squeue --me                     # check queue
+scancel <jobid>                 # cancel
+tail -f perturb_lib.<jobid>.out
 ```
 
-If you use a different directory, pass that same path to `--prefix`/`activate`
-and update the `mamba activate ...` line in `run.sh` (~line 120) to match.
-
-## Submitting
-
-```bash
-sbatch run.sh                  # default: cleans .plib_cache/results/lpm_modified first
-CLEAN_RESULTS=0 sbatch run.sh  # disable pre-clean (e.g. when resuming)
-squeue --me                    # check queue
-scancel <jobid>                # cancel
-```
-
-Slurm knobs in `run.sh` `#SBATCH` block: **`--nodes`**, **`--gpus-per-task`**, **`--ntasks-per-node`**, **`--cpus-per-task`**, **`--mem`**, **`-t` (walltime)**, **`--qos`**, **`--partition`**, **`--exclude`**. **`--nodes` must match `num_nodes` in the YAML** (`model_args.lightning_trainer_pars`).
-
-Training entry point:
+### 2.3 Direct entry point (without Slurm)
 
 ```bash
 poetry run python -m perturb_gym.training train_from_config_file \
-  --config_file_id_or_path=<id>    # mirrored at the bottom of run.sh (e.g. lpm_modified)
+  --config_file_id_or_path=<id>
 ```
 
-For routine experiments you usually only edit the YAML and re-`sbatch`; no code changes required.
+For routine experiments you only edit the YAML and re-`sbatch`; no code
+changes required.
 
-## Data shards
+---
 
-`data_configs[0].on_disk_shard_root` is the parent directory containing one
-folder per dataset; `on_disk_data_sources` selects which subfolders to use.
-Typically many datasets live under `.plib_cache/plibdata/`, produced by the
-`LPM_style_step1/2/3_*.ipynb` notebooks.
+## 3. Data shards
 
-Each dataset folder has the same shape:
+### 3.1 Per-dataset folder layout
+
+Each entry in `on_disk_data_sources` is a folder under `on_disk_shard_root`:
 
 ```
 .plib_cache/plibdata/dili_train_CL_0000182/
 ├── info.json              # {"PDATA_FORMAT_VERSION": 1, "SHARDSIZE": 200000, ...}
-├── metadata.parquet       # row-level metadata (split labels, timestamps, etc.)
-└── shard_NNNNNN.parquet   # 200k rows each, ~2.3 MB; data is split across N shards
+├── metadata.parquet       # row-level metadata (split labels, timestamps, ...)
+└── shard_NNNNNN.parquet   # 200k rows each, ~2.3 MB
 ```
 
-To add or remove a dataset from training, edit the `on_disk_data_sources` list
-in the YAML — the entries are exactly the directory names under
-`on_disk_shard_root`. To regenerate the shards from raw inputs, rerun the
-`LPM_style_step*` notebooks.
+### 3.2 Add / remove a dataset
 
-## Config
+1. Move/create its folder under `on_disk_shard_root`.
+2. Add (or remove) the **exact** folder name in YAML `on_disk_data_sources`.
+3. Re-`sbatch run.sh`.
 
-YAML files live under `perturb_gym/configs/collection/`. The stem of the filename
-(without `.yaml`) is the id you pass as `--config_file_id_or_path` (e.g. `lpm_modified`).
+### 3.3 Build shards from raw inputs
 
-Three main sections:
+Rerun the `LPM_style_step1_*.ipynb`, `LPM_style_step2_*.ipynb`, and
+`LPM_style_step3_*.ipynb` notebooks (in order).
 
-- `environment_configs` — seeds  
-- `data_configs` — shard root + which folders (`on_disk_data_sources`)  
-- `model_configs` — model hyperparameters + `lightning_trainer_pars` (DDP, epochs, …)
+---
 
-Knobs you'll most often touch, under `model_configs[0].model_args`:
+## 4. Config
+
+YAMLs live in `perturb_gym/configs/collection/`. The filename stem is the id
+used in `--config_file_id_or_path` (e.g. `lpm_modified.yaml` → id
+`lpm_modified`).
+
+### 4.1 Sections
+
+| Section | Purpose |
+|---|---|
+| `environment_configs` | Random seeds. |
+| `data_configs` | Shard root + which folders to use (`on_disk_data_sources`). |
+| `model_configs` | Architecture + optimizer + `lightning_trainer_pars`. |
+
+### 4.2 Knobs in `model_configs[0].model_args`
 
 | Key | Purpose | Typical |
 |---|---|---|
@@ -112,48 +133,51 @@ Knobs you'll most often touch, under `model_configs[0].model_args`:
 | `learning_rate_decay` | Per-epoch ExpLR factor. | 0.97 |
 | `embedding_dim` / `hidden_dim` / `num_layers` / `dropout` | Architecture. | 128 / 256 / 2 / 0.1 |
 | `num_workers` | DataLoader workers per rank. **6 with `on_disk`, 0 with `in_memory`.** | 6 |
-| `epoch_checkpoint_every_n` | Save a Lightning `.ckpt` every Nth epoch. Set to `1` for every epoch or `0` to disable scheduled snapshots. | `1` (every epoch; lighter I/O: use `5`, `10`, …) |
-| `epoch_checkpoint_save_last` | Roll a `last.ckpt` at every save event (same cadence as `every_n`). Used for `resume_from_checkpoint` after preemption. Set `false` to skip. | `true` |
-| `resume_from_checkpoint` | Absolute path to a `.ckpt`, or remove for fresh. | `null` |
+| `epoch_checkpoint_every_n` | Save `.ckpt` every Nth epoch. `0` disables, `1` saves every epoch. | `1` (use `5`/`10` for less I/O) |
+| `epoch_checkpoint_save_last` | Roll a `last.ckpt` at the same cadence (preemption recovery). | `true` |
+| `resume_from_checkpoint` | Absolute path to a `.ckpt`, or `null`. | `null` |
 
-Under `model_args.lightning_trainer_pars`:
+### 4.3 Knobs in `model_args.lightning_trainer_pars`
 
 | Key | Purpose |
 |---|---|
-| `max_epochs` | Training ceiling. **Must exceed saved epoch when resuming.** |
-| `num_nodes` | Must equal `--nodes` in `run.sh`. |
+| `max_epochs` | Training ceiling. Must exceed the saved epoch when resuming. |
+| `num_nodes` | **Must equal `#SBATCH --nodes` in `run.sh`.** |
 
-## Checkpoints
+---
 
-All outputs per run live under
-`.plib_cache/results/lpm_modified/<model_hash>/seed_<seed>/`:
+## 5. Checkpoints
 
-- **`model.pt`** — weights only, written once at end of training. For inference / fine-tuning.
-  **Cannot be passed to `resume_from_checkpoint`** (no optimizer state).
-- **`checkpoints/epoch-NNNN.ckpt`** — full Lightning snapshots (weights +
-  optimizer + LR scheduler + step + epoch + RNG) at the cadence set by
-  `epoch_checkpoint_every_n`, never overwritten. Use these for
-  `resume_from_checkpoint`. Weights for inference are accessible via
-  `torch.load(path)["state_dict"]`.
-- **`checkpoints/last.ckpt`** — rolling latest, overwritten at every save
-  event when `epoch_checkpoint_save_last: true` (same cadence as
-  `every_n`). Always at an epoch boundary, so safe for
-  `resume_from_checkpoint`. Intended for preemption / crash recovery.
+Per-run outputs live under
+`.plib_cache/results/lpm_modified/<model_hash>/seed_<seed>/`.
 
-Scheduled-save epochs = multiples of `epoch_checkpoint_every_n`. With the
-current YAML (`every_n: 1`, `max_epochs: 25`): `{1, 2, …, 25}` — a full
-checkpoint at the end of **every** epoch. Use a larger `every_n` (e.g. `5`) if
-you want fewer files and less disk use.
+### 5.1 What gets written
 
-## Layout
+| File | Contents | Use for |
+|---|---|---|
+| `model.pt` | Weights only, written once at end of training. | Inference / fine-tuning. **Not** for resume. |
+| `checkpoints/epoch-NNNN.ckpt` | Full Lightning snapshot (weights + optimizer + LR sched + step + epoch + RNG). Cadence = `epoch_checkpoint_every_n`. | `resume_from_checkpoint`. Weights via `torch.load(path)["state_dict"]`. |
+| `checkpoints/last.ckpt` | Rolling latest, overwritten at every save event. | Preemption / crash recovery. |
+
+### 5.2 Cadence
+
+Saved epochs = multiples of `epoch_checkpoint_every_n`. With the current YAML
+(`every_n: 1`, `max_epochs: 25`) → `{1, 2, …, 25}` (every epoch). Use a larger
+`every_n` (e.g. `5`) for fewer files and less disk use.
+
+---
+
+## 6. Layout
 
 | Path | Purpose |
 |---|---|
 | `run.sh` | Slurm batch script. `sbatch run.sh` launches everything. |
-| `perturb_gym/configs/collection/` | YAML training configs (`<id>.yaml`; id used in `--config_file_id_or_path`). |
+| `env.yml` | Conda env spec for `mamba env create`. |
+| `pyproject.toml` | Python deps installed via `poetry install`. |
+| `perturb_gym/configs/collection/` | YAML training configs (`<id>.yaml`). |
 | `perturb_gym/training.py` | Entry point invoked by `run.sh`. |
-| `perturb_lib/models/collection/lpm.py` | LPM model + checkpoint callbacks. |
+| `perturb_lib/models/collection/lpm.py` | LPM model + checkpoint logic. |
 | `.plib_cache/plibdata/` | Pre-built parquet shards (one folder per dataset). |
-| `.plib_cache/results/lpm_modified/` | Output: TensorBoard logs, `model.pt`, checkpoints. |
+| `.plib_cache/results/<config_id>/` | Output: TensorBoard logs, `model.pt`, checkpoints. |
 | `perturb_lib.<jobid>.{out,err}` | Slurm log files. |
-| `quick_train_dili.ipynb` | Single-GPU canary for fast smoke tests. |
+| `quick_train_dili.ipynb` | Single-GPU canary for smoke tests. |
