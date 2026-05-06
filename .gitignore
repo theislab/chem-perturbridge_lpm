@@ -131,3 +131,9 @@ packrat/lib*/
 lightning_logs
 checkpoints
 slurm-*.out
+
+# Slurm stdout/stderr written by run.sh (LOG_DIR=logs/). We keep the directory
+# itself (via logs/.gitkeep) but ignore the per-job log files.
+logs/*.out
+logs/*.err
+!logs/.gitkeep
