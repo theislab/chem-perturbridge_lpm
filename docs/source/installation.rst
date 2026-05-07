@@ -19,7 +19,7 @@ This can be done by setting the environment variables for :code:`perturb-lib`, :
 
 .. code-block:: bash
 
-    SCRATCH_DIR=/your/path/to/scratch/space
+    SCRATCH_DIR=/path/to/scratch/space
     export PERTURB_LIB_CACHE_DIR=$SCRATCH_DIR/plib_cache
     export POETRY_CACHE_DIR=$SCRATCH_DIR/poetry_cache
     export PIP_CACHE_DIR=$SCRATCH_DIR/pip_cache

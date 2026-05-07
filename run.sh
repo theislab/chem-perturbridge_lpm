@@ -5,14 +5,11 @@
 #SBATCH -t 24:00:00
 # NOTE: the directory in -o/-e above is parsed by Slurm before this script runs,
 # so it has to be a literal string. Keep it in sync with LOG_DIR below.
-#SBATCH --qos=gpu_normal
-#SBATCH --partition=gpu_p
 #SBATCH --nodes=16
 #SBATCH --ntasks-per-node=1
 #SBATCH --gpus-per-task=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
-#SBATCH --exclude=gpusrv34,gpusrv53,gpusrv62
 
 # ============================================================================
 # Slurm launcher for multi-node DDP LPM training.
@@ -47,8 +44,8 @@ readonly DEFAULT_CONFIG_ID="lpm_modified_all_data"
 # Slurm silently drops stdout/stderr.
 readonly LOG_DIR="logs"
 
-# Cluster firewall blocks most peer-to-peer ports between gpusrv* nodes.
-# The first port reachable from every rank to the master becomes MASTER_PORT.
+# Some schedulers restrict peer-to-peer ports between compute nodes. The first
+# port reachable from every rank to the master becomes MASTER_PORT.
 readonly PORT_CANDIDATES=(
     29500 12355 23456 8888 7000 6000 5000 9000 10000
     30000 35000 40000 45000 50000 55000 60000 4000 3000 2000
@@ -134,8 +131,8 @@ validate_config() {
 # Stage 2: environment
 # ---------------------------------------------------------------------------
 setup_env() {
-    export HOME=${HOME:-/home/icb/olga.novitskaia}
-    export TMPDIR=${SLURM_TMPDIR:-${HOME}/tmp}
+    : "${HOME:?HOME must be set by the shell or scheduler}"
+    export TMPDIR=${SLURM_TMPDIR:-${TMPDIR:-${HOME}/tmp}}
     mkdir -p "${TMPDIR}"
     # Defensive: Slurm already opened the log file at job start, but if someone
     # blew away logs/ between submissions we want the next sbatch to succeed.
@@ -230,7 +227,7 @@ find_master_port() {
 
     warn "none of the candidate ports passed the all-peers probe."
     echo "[run.sh] Tried: ${PORT_CANDIDATES[*]}" >&2
-    echo "[run.sh] Next step: ask cluster admins for the allowed peer-to-peer TCP" >&2
+    echo "[run.sh] Next step: ask site administrators for the allowed peer-to-peer TCP" >&2
     echo "[run.sh] port range, or switch to a shared-FS rendezvous (init_method=file://)." >&2
     exit 1
 }

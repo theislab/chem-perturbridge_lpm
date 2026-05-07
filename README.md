@@ -1,12 +1,12 @@
-# LPM-inspired model trained on transcriptomic responses from the Chem-PerturBridge resource 
+# LPM-style model for transcriptomic perturbation responses
 
-It is a fork of [perturblib/perturblib](https://github.com/perturblib/perturblib) adapted for multi-node DDP training of the 6-feature LPM (an MLP over 4 embeddings (`dataset`, `context`, `perturbation`, `readout`) and 2 continuous features (`log-dose`, `time`)) on a SLURM-managed HPC cluster. The original README is preserved as [README_original.md](README_original.md).
+This repository is derived from [perturblib/perturblib](https://github.com/perturblib/perturblib) and adapts the LPM architecture for multi-node DDP training over a prepared collection of transcriptomic perturbation-response shards. The model uses 4 categorical embeddings (`dataset`, `context`, `perturbation`, `readout`) and 2 continuous features (`log-dose`, `time`).
 
 ---
 
 ## Quick start guide
 
-This repository runs LPM training on the Chem-PerturBridge dataset collection across distributed GPU nodes via SLURM. Two training modes are shipped: L1000-only and multi-dataset.
+This repository runs LPM training across distributed GPU nodes via SLURM. Two training modes are shipped: L1000-only and multi-dataset.
 
 ### 1. Environment
 
@@ -14,7 +14,7 @@ The Mamba environment must be set up once before training. The path `./lpm_train
 
 **1.1** **Create the environment**
 ```
-cd ~/lpm_style
+cd /path/to/lpm_style
 mamba env create --prefix ./lpm_training_venv --file env.yml
 mamba activate ./lpm_training_venv
 poetry install
@@ -22,7 +22,7 @@ poetry install
 
 **1.2** **Verify the environment (optional)**
 ```
-cd ~/lpm_style
+cd /path/to/lpm_style
 mamba activate ./lpm_training_venv
 poetry run python -c 'import perturb_lib; print("ok")'
 ```
@@ -31,7 +31,7 @@ poetry run python -c 'import perturb_lib; print("ok")'
 
 ### 2. Data
 
-Training data is read from pre-built parquet shards. The shard root is set by `data_configs[0].on_disk_shard_root` in the YAML config (default `.plib_cache/plibdata/`). The Chem-PerturBridge datasets are converted into this format via the `LPM_style_step{1,2,3}_*.ipynb` notebooks (see 2.3).
+Training data is read from pre-built parquet shards. The shard root is set by `data_configs[0].on_disk_shard_root` in the YAML config (default `.plib_cache/plibdata/`). The dataset collection is converted into this format via the notebooks in `notebooks/` (see 2.3).
 
 **2.1** **Per-dataset folder layout**
 
@@ -49,7 +49,7 @@ Each entry is a `(dataset, context)` slice named `<dataset_id>_<context_id>` (e.
 
 **2.3** **Build shards from raw inputs**
 
-Rerun the `LPM_style_step1_*.ipynb`, `LPM_style_step2_*.ipynb`, and `LPM_style_step3_*.ipynb` notebooks in this order.
+Rerun the formatting, splitting, and shard-writing notebooks in `notebooks/` in that order.
 
 ### 3. Config files
 
@@ -57,7 +57,7 @@ YAML configs live in `perturb_gym/configs/collection/`. The filename stem is the
 
 **3.1** `lpm_modified_l1000_data`: L1000 phase 1 and phase 2 only. Single-platform, original LPM domain.
 
-**3.2** `lpm_modified_all_data` (default): full Chem-PerturBridge collection (L1000 phase 1/2, CIGS MCE/TCM, DILI, GDPx2, etc.).
+**3.2** `lpm_modified_all_data` (default): multi-dataset collection (L1000 phase 1/2 plus additional perturbation-response sources).
 
 **NB!** Both configs use the same 6-feature LPM architecture and differ only in `data_configs[0].on_disk_data_sources`.
 
@@ -89,7 +89,7 @@ Check the `#SBATCH` specifications at the top of `run.sh` against your cluster p
 
 **4.2** **Submit**
 ```
-cd ~/lpm_style
+cd /path/to/lpm_style
 sbatch run.sh -c lpm_modified_l1000_data    # L1000-only
 sbatch run.sh                               # multi-dataset (default)
 ```
@@ -123,7 +123,7 @@ Checkpoints are saved at multiples of `epoch_checkpoint_every_n`. With the shipp
 
 Training metrics (loss, LR, throughput, validation scores) are written via Lightning's `TensorBoardLogger` to `.plib_cache/results/<config_id>/<model_hash>/seed_<seed>/learning_curves/version_<N>/`. Inspect them with:
 ```
-cd ~/lpm_style
+cd /path/to/lpm_style
 poetry run tensorboard --logdir .plib_cache/results/<config_id>
 ```
 Then open `http://localhost:6006`. Pointing `--logdir` at the config results root lets TensorBoard compare seeds and `model_hash` runs side by side.
