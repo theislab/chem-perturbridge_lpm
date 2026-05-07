@@ -1,6 +1,6 @@
 # LPM-inspired model trained on transcriptomic responses from the Chem-PerturBridge resource 
 
-It is a fork of [perturblib/perturblib](https://github.com/perturblib/perturblib) adapted for multi-node DDP training of the 6-feature LPM on a SLURM-managed HPC cluster. The original README is preserved as [README_original.md](README_original.md).
+It is a fork of [perturblib/perturblib](https://github.com/perturblib/perturblib) adapted for multi-node DDP training of the 6-feature LPM (an MLP over 4 embeddings (`dataset`, `context`, `perturbation`, `readout`) and 2 continuous features (`log-dose`, `time`)) on a SLURM-managed HPC cluster. The original README is preserved as [README_original.md](README_original.md).
 
 ---
 
@@ -55,7 +55,7 @@ Rerun the `LPM_style_step1_*.ipynb`, `LPM_style_step2_*.ipynb`, and `LPM_style_s
 
 YAML configs live in `perturb_gym/configs/collection/`. The filename stem is the config id passed to `run.sh -c <id>`. Each YAML declares `environment_configs` (seeds), `data_configs` (shard root and slices), and `model_configs` (architecture, optimizer, trainer parameters). Two configs are shipped:
 
-**3.1** `lpm_modified_l1000_data`: L1000 phase 1 and phase 2 only (about one hundred cell-line slices, prefix `l1000_phase*`). Single-platform, original LPM domain.
+**3.1** `lpm_modified_l1000_data`: L1000 phase 1 and phase 2 only. Single-platform, original LPM domain.
 
 **3.2** `lpm_modified_all_data` (default): full Chem-PerturBridge collection (L1000 phase 1/2, CIGS MCE/TCM, DILI, GDPx2, etc.).
 
@@ -63,16 +63,16 @@ YAML configs live in `perturb_gym/configs/collection/`. The filename stem is the
 
 **3.3** **Common knobs to adjust**
 
-The most frequently edited keys live under `model_configs[0].model_args`:
+Model and training hyperparameters can be set in the YAML config under `model_configs[0].model_args`:
 
-* `batch_size`: per-rank micro-batch (global = `batch_size` * `num_nodes`). Typical 4096 to 16384.
-* `learning_rate`: initial LR. Typical 1e-3 to 5e-3.
-* `learning_rate_decay`: per-epoch ExpLR factor. Typical 0.97.
-* `embedding_dim`, `hidden_dim`, `num_layers`, `dropout`: architecture. Defaults 128, 256, 2, 0.1.
-* `num_workers`: DataLoader workers per rank. 6 for `on_disk`, 0 for `in_memory`.
-* `epoch_checkpoint_every_n`: save a checkpoint every Nth epoch (0 disables, 1 saves every epoch).
-* `epoch_checkpoint_save_last`: when `true`, also rolls `last.ckpt` for preemption recovery.
-* `resume_from_checkpoint`: absolute path to a `.ckpt`, or `null`.
+* `batch_size`: per-rank micro-batch (global = `batch_size` * `num_nodes`). Set to 16384 to speed up training.
+* `learning_rate`: initial LR. Default 2e-3.
+* `learning_rate_decay`: per-epoch ExpLR factor. Default 0.97.
+* `embedding_dim`, `hidden_dim`, `num_layers`, `dropout`: architecture. Used default parameters: 128, 256, 2, 0.1.
+* `num_workers`: DataLoader workers per rank. Use 6 for `on_disk`, 0 for `in_memory`.
+* `epoch_checkpoint_every_n`: save a checkpoint every Nth epoch (0 disables). Set to 1 (every epoch).
+* `epoch_checkpoint_save_last`: when `true`, also rolls `last.ckpt` for preemption recovery. Set to `true`.
+* `resume_from_checkpoint`: absolute path to a `.ckpt`, or `null`. Set to `null`.
 
 Inside `model_configs[0].model_args.lightning_trainer_pars`:
 
