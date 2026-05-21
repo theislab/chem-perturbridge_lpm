@@ -137,3 +137,5 @@ slurm-*.out
 logs/*.out
 logs/*.err
 !logs/.gitkeep
+
+lpm_training_venv/

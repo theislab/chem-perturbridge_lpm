@@ -12,6 +12,7 @@
 #SBATCH --gpus-per-task=1
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=64G
+#SBATCH --constraint=a100_20gb
 #SBATCH --exclude=gpusrv34,gpusrv53,gpusrv62
 
 # ============================================================================
@@ -174,33 +175,83 @@ resolve_master_addr() {
 # and try to connect from every rank. Returns 0 if every rank reaches it.
 probe_port() {
     local ip="$1" port="$2"
+    local expected_nodes="${SLURM_JOB_NUM_NODES:-${SLURM_NNODES:-1}}"
+    local probe_dir ready_file fail_file
     log "-- Probing $ip:$port --"
 
+    probe_dir=$(mktemp -d "${SLURM_SUBMIT_DIR}/.port_probe.${SLURM_JOB_ID:-local}.${port}.XXXXXX")
+    ready_file="${probe_dir}/ready"
+    fail_file="${probe_dir}/fail"
+
     # Listener on master.
-    srun --nodes=1 --ntasks=1 --overlap --chdir="${SLURM_SUBMIT_DIR}" -w "$MASTER_NODE_SHORT" \
+    srun --cpu-bind=none --nodes=1 --ntasks=1 --overlap --chdir="${SLURM_SUBMIT_DIR}" -w "$MASTER_NODE_SHORT" \
         python3 -c "
-import socket, time
+import socket, sys, time
+
+port = int(sys.argv[1])
+expected = int(sys.argv[2])
+ready_file = sys.argv[3]
+fail_file = sys.argv[4]
+
 s = socket.socket()
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 try:
-    s.bind(('0.0.0.0', $port))
+    s.bind(('0.0.0.0', port))
 except OSError as e:
-    print(f'LISTENER_BIND_FAIL: {e}'); raise
-s.listen(128)
+    with open(fail_file, 'w') as f:
+        f.write(f'LISTENER_BIND_FAIL: {e}\n')
+    raise
+s.listen(max(128, expected * 2))
+with open(ready_file, 'w') as f:
+    f.write('ready\n')
 s.settimeout(1.0)
-end = time.time() + 20
-while time.time() < end:
+accepted = 0
+end = time.time() + 30
+while time.time() < end and accepted < expected:
     try:
         c, _ = s.accept(); c.close()
+        accepted += 1
     except socket.timeout:
         pass
-" >/dev/null 2>&1 &
+if accepted < expected:
+    with open(fail_file, 'w') as f:
+        f.write(f'accepted {accepted}/{expected} connections\n')
+    raise SystemExit(99)
+" "$port" "$expected_nodes" "$ready_file" "$fail_file" >"${probe_dir}/listener.out" 2>"${probe_dir}/listener.err" &
     local pid=$!
-    sleep 2
+
+    local listener_ready=0
+    for _ in $(seq 1 50); do
+        if [[ -f "$ready_file" ]]; then
+            listener_ready=1
+            break
+        fi
+        if [[ -f "$fail_file" ]]; then
+            warn "Listener could not bind $ip:$port: $(cat "$fail_file")"
+            wait "$pid" 2>/dev/null || true
+            rm -rf "$probe_dir"
+            return 98
+        fi
+        if ! kill -0 "$pid" 2>/dev/null; then
+            wait "$pid" 2>/dev/null || true
+            warn "Listener exited before becoming ready on $ip:$port"
+            rm -rf "$probe_dir"
+            return 98
+        fi
+        sleep 0.1
+    done
+
+    if [[ "$listener_ready" != "1" ]]; then
+        warn "Listener did not become ready on $ip:$port"
+        kill "$pid" 2>/dev/null || true
+        wait "$pid" 2>/dev/null || true
+        rm -rf "$probe_dir"
+        return 98
+    fi
 
     # Connect probe from every rank.
     local rc=0
-    srun --ntasks-per-node=1 --overlap --chdir="${SLURM_SUBMIT_DIR}" python3 -c "
+    srun --cpu-bind=none --ntasks-per-node=1 --overlap --chdir="${SLURM_SUBMIT_DIR}" python3 -c "
 import socket, sys, os
 host, port = '$ip', $port
 hostname = os.uname().nodename.split('.')[0]
@@ -212,8 +263,31 @@ except Exception as e:
     sys.exit(113)
 " || rc=$?
 
-    kill "$pid" 2>/dev/null || true
-    wait "$pid" 2>/dev/null || true
+    if [[ "$rc" -eq 0 ]]; then
+        wait "$pid" 2>/dev/null || rc=$?
+        if [[ "$rc" -ne 0 && -f "$fail_file" ]]; then
+            warn "Listener probe failed on $ip:$port: $(cat "$fail_file")"
+        fi
+    else
+        kill "$pid" 2>/dev/null || true
+        wait "$pid" 2>/dev/null || true
+    fi
+
+    if [[ "$rc" -eq 0 ]]; then
+        srun --cpu-bind=none --nodes=1 --ntasks=1 --overlap --chdir="${SLURM_SUBMIT_DIR}" -w "$MASTER_NODE_SHORT" \
+            python3 -c "
+import socket, sys
+s = socket.socket()
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+s.bind(('0.0.0.0', int(sys.argv[1])))
+s.close()
+" "$port" >/dev/null 2>&1 || rc=$?
+        if [[ "$rc" -ne 0 ]]; then
+            warn "Port $ip:$port was reachable, but could not be rebound after the probe."
+        fi
+    fi
+
+    rm -rf "$probe_dir"
     return $rc
 }
 
@@ -239,7 +313,7 @@ find_master_port() {
 # Stage 4: NCCL / Gloo — pin to the interface that owns MASTER_ADDR
 # ---------------------------------------------------------------------------
 pin_nccl_iface() {
-    NCCL_IFACE=$(srun --nodes=1 --ntasks=1 --overlap --chdir="${SLURM_SUBMIT_DIR}" \
+    NCCL_IFACE=$(srun --cpu-bind=none --nodes=1 --ntasks=1 --overlap --chdir="${SLURM_SUBMIT_DIR}" \
                   -w "$MASTER_NODE_SHORT" \
                   bash -c "ip -4 -o addr show | awk -v ip='$MASTER_ADDR' '\$4 ~ \"^\"ip\"/\" {print \$2; exit}'" \
                   | tr -d '[:space:]')
@@ -276,10 +350,14 @@ activate_env() {
     fi
 
     log "Activating conda env at $venv_path"
-    # `set +u` because mamba's shell hook references unbound vars.
+    # Avoid stale virtualenv state from the submit shell taking precedence over
+    # the project-local conda prefix on PATH.
+    unset VIRTUAL_ENV VIRTUAL_ENV_PROMPT
+    # `set +u` because conda's shell hook references unbound vars.
     set +u
-    eval "$(mamba shell hook --shell bash)"
-    mamba activate "$venv_path"
+    eval "$(conda shell.bash hook)"
+    conda activate "$venv_path"
+    export PATH="$venv_path/bin:$PATH"
     set -u
 }
 
@@ -300,8 +378,9 @@ clean_results() {
 # ---------------------------------------------------------------------------
 launch_training() {
     log "Launching training for config_id=${CONFIG_ID}"
-    srun --chdir="${SLURM_SUBMIT_DIR}" \
-        poetry run python -m perturb_gym.training train_from_config_file \
+    export PERTURB_GYM_RESULTS_PRE_CLEANED=1
+    srun --cpu-bind=none --chdir="${SLURM_SUBMIT_DIR}" \
+        python -m perturb_gym.training train_from_config_file \
         --config_file_id_or_path="${CONFIG_ID}"
 }
 

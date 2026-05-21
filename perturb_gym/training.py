@@ -202,10 +202,17 @@ def train_from_config_file(
         config_results_dir = results_dir / config_file_id_or_path
 
     if config_results_dir.is_dir() and any(config_results_dir.iterdir()):
-        if not get_user_confirmation(f"This will delete all files in '{config_results_dir}'. Continue? (yes/no)"):
+        if os.environ.get("PERTURB_GYM_RESULTS_PRE_CLEANED") == "1":
+            plib.logger.info(
+                f"Continuing with existing results directory '{config_results_dir}' "
+                "because PERTURB_GYM_RESULTS_PRE_CLEANED=1."
+            )
+        elif not get_user_confirmation(f"This will delete all files in '{config_results_dir}'. Continue? (yes/no)"):
             return
-        shutil.rmtree(config_results_dir)
-    config_results_dir.mkdir(exist_ok=True)
+        else:
+            shutil.rmtree(config_results_dir)
+    if not config_results_dir.exists():
+        config_results_dir.mkdir(exist_ok=True)
 
     # loop over training configurations training different perturbation models
     for training_config in load_training_configs(config_file_id_or_path):
