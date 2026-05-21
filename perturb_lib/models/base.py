@@ -104,10 +104,19 @@ def to_tensor_dict(enc_data):
 
     result: dict[str, torch.Tensor] = {}
 
-    if "dataset" in enc_data.columns:
+    # Multi-output shards are already encoded by the preprocessing script. Each
+    # row is one sample and carries ragged target/readout lists, so map their
+    # column names onto the tensor keys consumed by the model.
+    if "dataset_code" in enc_data.columns:
+        result["dataset"] = numeric_series2tensor(enc_data["dataset_code"])
+
+    elif "dataset" in enc_data.columns:
         result["dataset"] = numeric_series2tensor(enc_data["dataset"])
 
-    if "context" in enc_data.columns:
+    if "context_code" in enc_data.columns:
+        result["context"] = numeric_series2tensor(enc_data["context_code"])
+
+    elif "context" in enc_data.columns:
         contexts_tensor = numeric_series2tensor(enc_data["context"])
         result["context"] = contexts_tensor
 
@@ -124,7 +133,24 @@ def to_tensor_dict(enc_data):
     if "time" in enc_data.columns:
         result["time"] = numeric_series2tensor(enc_data["time"])
 
-    if "perturbation" in enc_data.columns:
+    if "perturbation_codes" in enc_data.columns:
+        lazy_enc_data = enc_data.lazy()
+        lazy_perturbation_inds = lazy_enc_data.select(
+            pl.col("perturbation_codes").list.explode().alias("perturbation_flat")
+        )
+        lazy_perturbations_offsets = lazy_enc_data.select(
+            pl.col("perturbation_codes")
+            .list.len()
+            .shift(n=1, fill_value=0)
+            .cum_sum()
+            .alias("perturbation_offset")
+            .cast(pl.Int64)
+        )
+        perturbation_inds, perturbation_offsets = pl.collect_all([lazy_perturbation_inds, lazy_perturbations_offsets])
+        result["perturbation_flat"] = numeric_series2tensor(perturbation_inds["perturbation_flat"])
+        result["perturbation_offset"] = numeric_series2tensor(perturbation_offsets["perturbation_offset"])
+
+    elif "perturbation" in enc_data.columns:
         # convert perturbations to two tensors: flat indices and offsets
         lazy_enc_data = enc_data.lazy()
         lazy_perturbation_inds = lazy_enc_data.select(pl.col("perturbation").list.explode().alias("perturbation_flat"))
@@ -142,6 +168,21 @@ def to_tensor_dict(enc_data):
 
     if "value" in enc_data.columns:
         result["value"] = numeric_series2tensor(enc_data["value"])
+
+    if "readout_codes" in enc_data.columns:
+        lazy_enc_data = enc_data.lazy()
+        lazy_readout_inds = lazy_enc_data.select(
+            pl.col("readout_codes").list.explode().cast(pl.Int64).alias("readout_flat")
+        )
+        readout_inds = lazy_readout_inds.collect()
+        result["readout_flat"] = numeric_series2tensor(readout_inds["readout_flat"])
+
+    if "values" in enc_data.columns:
+        values = enc_data.lazy().select(pl.col("values").list.explode().alias("value")).collect()
+        result["value"] = numeric_series2tensor(values["value"])
+
+    if "n_values" in enc_data.columns:
+        result["n_values"] = numeric_series2tensor(enc_data["n_values"].cast(pl.Int64))
 
     return result
 

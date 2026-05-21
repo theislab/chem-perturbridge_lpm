@@ -53,6 +53,10 @@ EVALUATION_METRICS = {
 INDEX_KEYS = ["target_contexts", "preprocessing_type"]
 
 
+def _is_multiout_data(data: PlibData) -> bool:
+    return {"dataset_code", "context_code", "perturbation_codes", "readout_codes"}.issubset(data.columns)
+
+
 def evaluate_model(
     model: plib.ModelMixin,
     data: Tuple[PlibData, PlibData | None, PlibData | None],
@@ -79,16 +83,29 @@ def evaluate_model(
         evaluator = plib.load_evaluator(evaluator_id)
         results[evaluator_id] = {}
         for data_split_key, data_to_evaluate_on in data_dict.items():
-            # Upstream perturblib only needs ["context", "perturbation", "readout"] for predict,
-            # but the local LPM (perturb_lib/models/collection/lpm.py) consumes 6 features:
-            # dataset, context, perturbation, readout, log_dose, time. The encoder
-            # _encode_polars_df references pl.col("dataset") and the model's forward() reads
-            # batch["log_dose"] / batch["time"], so any of these missing columns crashes
-            # predict at the DataLoader-worker level (see job 35765343:
-            # `polars.exceptions.ColumnNotFoundError: dataset`). Keep all 6 here.
-            predict_input = data_to_evaluate_on.subset_columnwise(
-                ["dataset", "context", "perturbation", "readout", "log_dose", "time"]
-            )
+            if _is_multiout_data(data_to_evaluate_on):
+                predict_input = data_to_evaluate_on.subset_columnwise(
+                    [
+                        "dataset_code",
+                        "context_code",
+                        "perturbation_codes",
+                        "log_dose",
+                        "time",
+                        "readout_codes",
+                        "n_values",
+                    ]
+                )
+            else:
+                # Upstream perturblib only needs ["context", "perturbation", "readout"] for predict,
+                # but the local LPM (perturb_lib/models/collection/lpm.py) consumes 6 features:
+                # dataset, context, perturbation, readout, log_dose, time. The encoder
+                # _encode_polars_df references pl.col("dataset") and the model's forward() reads
+                # batch["log_dose"] / batch["time"], so any of these missing columns crashes
+                # predict at the DataLoader-worker level (see job 35765343:
+                # `polars.exceptions.ColumnNotFoundError: dataset`). Keep all 6 here.
+                predict_input = data_to_evaluate_on.subset_columnwise(
+                    ["dataset", "context", "perturbation", "readout", "log_dose", "time"]
+                )
             predictions = model.predict(predict_input)
             results[evaluator_id][data_split_key] = round(
                 float(evaluator.evaluate(predictions, data_to_evaluate_on)) + 1e-10, 4

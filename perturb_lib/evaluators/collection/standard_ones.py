@@ -23,13 +23,22 @@ from perturb_lib.evaluators.base import PlibEvaluatorMixin
 from perturb_lib.utils import inherit_docstring
 
 
+def _target_values(true_values: PlibData):
+    values_df = true_values[:]
+    if "value" in values_df.columns:
+        return values_df["value"]
+    if "values" in values_df.columns:
+        return values_df.select(values=values_df["values"].list.explode())["values"]
+    raise ValueError("Expected true values to contain either 'value' or multi-output 'values'.")
+
+
 @register_evaluator
 @inherit_docstring
 class RMSE(PlibEvaluatorMixin):
     """Root-mean-square error (RMSE)."""
 
     def evaluate(self, predictions: NDArray, true_values: PlibData) -> float:  # noqa: D102
-        return root_mean_squared_error(true_values[:]["value"], predictions)
+        return root_mean_squared_error(_target_values(true_values), predictions)
 
 
 @register_evaluator
@@ -38,7 +47,7 @@ class MAE(PlibEvaluatorMixin):
     """Mean absolute error (MAE)."""
 
     def evaluate(self, predictions: NDArray, true_values: PlibData) -> float:  # noqa: D102\
-        return mean_absolute_error(true_values[:]["value"], predictions)
+        return mean_absolute_error(_target_values(true_values), predictions)
 
 
 @register_evaluator
@@ -51,7 +60,7 @@ class R2(PlibEvaluatorMixin):
     """
 
     def evaluate(self, predictions: NDArray, true_values: PlibData) -> float:  # noqa: D102
-        return r2_score(true_values[:]["value"], predictions)
+        return r2_score(_target_values(true_values), predictions)
 
 
 @register_evaluator
@@ -64,4 +73,4 @@ class Pearson(PlibEvaluatorMixin):
     """
 
     def evaluate(self, predictions: NDArray, true_values: PlibData) -> float:  # noqa: D102
-        return pearsonr(true_values[:]["value"], predictions).statistic
+        return pearsonr(_target_values(true_values), predictions).statistic

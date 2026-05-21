@@ -15,7 +15,6 @@ Large perturbation model implementation.
 
 import string
 from abc import ABCMeta
-from collections import defaultdict
 from collections.abc import Mapping
 from pathlib import Path
 from typing import Any, Literal, cast
@@ -69,6 +68,9 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         epoch_checkpoint_save_last: If True, also write a rolling ``last.ckpt`` at every
             save event (i.e. every Nth epoch). Used for ``resume_from_checkpoint`` after
             preemption / crash. Set False to skip and save a bit of disk I/O.
+        output_mode: ``scalar`` keeps the original one-row-per-readout behavior; ``multiout``
+            predicts all readouts for each sample and computes loss only for available readouts.
+            ``auto`` selects ``multiout`` when the dataset has sample-level ragged readout columns.
     """
 
     def __init__(
@@ -90,6 +92,7 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         resume_from_checkpoint: str | None = None,
         epoch_checkpoint_every_n: int = 0,
         epoch_checkpoint_save_last: bool = True,
+        output_mode: Literal["auto", "scalar", "multiout"] = "auto",
     ):
         super().__init__()
 
@@ -112,6 +115,9 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.epoch_checkpoint_save_last = epoch_checkpoint_save_last
         self.optimizer_name = optimizer_name
         self.embedding_aggregation_mode = embedding_aggregation_mode
+        self.output_mode = output_mode
+        self.active_output_mode: Literal["scalar", "multiout"] = "scalar"
+        self.output_dim = 1
         self.lightning_trainer_pars = {} if (lightning_trainer_pars is None) else lightning_trainer_pars
         self.resume_from_checkpoint: str | None = resume_from_checkpoint
         self.loss = nn.MSELoss(reduction="none")
@@ -133,10 +139,11 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.predictor = self.build_predictor()
 
         # PL-related
-        self.training_step_outputs: list[torch.Tensor] = []
-        self.validation_step_outputs: list[torch.Tensor] = []
+        self.training_loss_sum: torch.Tensor | None = None
+        self.training_loss_count: torch.Tensor | None = None
+        self.validation_loss_sum: torch.Tensor | None = None
+        self.validation_loss_count: torch.Tensor | None = None
         self.throughput_outputs: list[float] = []
-        self.validation_step_per_context_outputs: dict[str, list[torch.Tensor]] = defaultdict(list)
         self.lightning_trainer_pars["default_root_dir"] = self.default_root_dir
         self.save_hyperparameters(ignore=["lightning_trainer_pars", "resume_from_checkpoint"])
         self.model_checkpoints_path = self.default_root_dir / "checkpoints"
@@ -156,10 +163,12 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             state["perturb_symbols"] = self.vocab.perturb_vocab["symbol"].to_list()
             state["readout_symbols"] = self.vocab.readout_vocab["symbol"].to_list()
             state["dataset_symbols"] = self.vocab.dataset_vocab["symbol"].to_list()
+            state["active_output_mode"] = self.active_output_mode
         return state
 
     def load_state_dict(self, state_dict: Mapping[str, Any], strict: bool = True, assign: bool = False):  # noqa: D102
         state_dict = cast(dict[str, Any], state_dict)  # to avoid MyPy complaining about "pop" operation
+        active_output_mode = state_dict.pop("active_output_mode", None)
         if "context_symbols" in state_dict:
             self.vocab = Vocabulary.initialize_from_symbols(
                 context_symbols=state_dict["context_symbols"],
@@ -171,6 +180,10 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             state_dict.pop("perturb_symbols")
             state_dict.pop("readout_symbols")
             state_dict.pop("dataset_symbols")
+            if active_output_mode in {"scalar", "multiout"}:
+                self.active_output_mode = active_output_mode
+                self.output_dim = len(self.vocab.readout_vocab) if self.active_output_mode == "multiout" else 1
+                self.predictor = self.build_predictor()
         if "context_embedding_layer.weight" in state_dict:
             self.context_embedding_layer = nn.Embedding.from_pretrained(state_dict["context_embedding_layer.weight"])
         if "perturb_embedding_layer.weight" in state_dict:
@@ -181,40 +194,62 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             self.dataset_embedding_layer = nn.Embedding.from_pretrained(state_dict["dataset_embedding_layer.weight"])
         super().load_state_dict(state_dict, strict, assign)
 
-    def _initialize_vocabularies_and_embeddings(self, data: PlibData):
+    @staticmethod
+    def _has_multiout_columns(columns: list[str]) -> bool:
+        return {"dataset_code", "context_code", "perturbation_codes", "readout_codes"}.issubset(columns)
+
+    @classmethod
+    def _is_multiout_data(cls, data: PlibData[pl.DataFrame]) -> bool:
+        return cls._has_multiout_columns(data.columns)
+
+    def _resolve_output_mode(self, data: PlibData[pl.DataFrame]) -> Literal["scalar", "multiout"]:
+        if self.output_mode == "auto":
+            return "multiout" if self._is_multiout_data(data) else "scalar"
+        return self.output_mode
+
+    def _initialize_vocabularies_and_embeddings(self, data: PlibData[pl.DataFrame]):
         self.vocab = Vocabulary.initialize_from_data(data)
+        self.active_output_mode = self._resolve_output_mode(data)
+        self.output_dim = len(self.vocab.readout_vocab) if self.active_output_mode == "multiout" else 1
 
         self.dataset_embedding_layer = nn.Embedding(len(self.vocab.dataset_vocab), self.embedding_dim)
         self.context_embedding_layer = nn.Embedding(len(self.vocab.context_vocab), self.embedding_dim)
         self.perturb_embedding_layer = nn.EmbeddingBag(
             len(self.vocab.perturb_vocab), self.embedding_dim, mode=self.embedding_aggregation_mode
         )
-        self.readout_embedding_layer = nn.Embedding(len(self.vocab.readout_vocab), self.embedding_dim)
+        self.readout_embedding_layer = (
+            None
+            if self.active_output_mode == "multiout"
+            else nn.Embedding(len(self.vocab.readout_vocab), self.embedding_dim)
+        )
         self.log_dose_layer = nn.Linear(1, self.embedding_dim)
         self.time_layer = nn.Linear(1, self.embedding_dim)
+        self.predictor = self.build_predictor()
 
     def _check_layers_initialized(self) -> None:
         if (
             self.dataset_embedding_layer is None
             or self.context_embedding_layer is None
             or self.perturb_embedding_layer is None
-            or self.readout_embedding_layer is None
             or self.log_dose_layer is None
             or self.time_layer is None
         ):
             raise ValueError("Embedding layers not initialized.")
+        if self.active_output_mode == "scalar" and self.readout_embedding_layer is None:
+            raise ValueError("Readout embedding layer not initialized.")
 
-    def embed(  # noqa: D102
-        self, batch: pl.DataFrame
-    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    def embed(self, batch: pl.DataFrame) -> tuple[torch.Tensor, ...]:  # noqa: D102
         # This method is not used during training, but we keep it for convenience.
         self._check_layers_initialized()
 
-        encode_first = not (
-            batch["context"].dtype.is_integer()
-            and batch["perturbation"].dtype.is_nested()
-            and batch["readout"].dtype.is_integer()
-        )
+        if self._has_multiout_columns(batch.columns):
+            encode_first = False
+        else:
+            encode_first = not (
+                batch["context"].dtype.is_integer()
+                and batch["perturbation"].dtype.is_nested()
+                and batch["readout"].dtype.is_integer()
+            )
         if encode_first:
             if self.vocab is None:
                 raise ValueError("Vocabulary must be set before embedding.")
@@ -224,29 +259,23 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
 
         tensor_dict = to_tensor_dict(enc_batch)
         # Move tensors to the same device as the embedding layers.
-        assert self.readout_embedding_layer is not None  # for type checkers
-        device = self.readout_embedding_layer.weight.device
+        assert self.context_embedding_layer is not None  # for type checkers
+        device = self.context_embedding_layer.weight.device
         tensor_dict = {k: v.to(device, non_blocking=True) for k, v in tensor_dict.items()}
         return self.embed_tensor_dict(tensor_dict)
 
-    def embed_tensor_dict(  # noqa: D102
-        self, batch: dict[str, torch.Tensor]
-    ) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
+    def embed_tensor_dict(self, batch: dict[str, torch.Tensor]) -> tuple[torch.Tensor, ...]:  # noqa: D102
         self._check_layers_initialized()
         # for type checkers — _check_layers_initialized guarantees these are not None
         assert self.dataset_embedding_layer is not None
         assert self.context_embedding_layer is not None
         assert self.perturb_embedding_layer is not None
-        assert self.readout_embedding_layer is not None
         assert self.log_dose_layer is not None
         assert self.time_layer is not None
 
         embedded_dataset = self.dataset_embedding_layer(batch["dataset"])
         embedded_context = self.context_embedding_layer(batch["context"])
-        embedded_perturb = self.perturb_embedding_layer(
-            batch["perturbation_flat"], batch["perturbation_offset"]
-        )
-        embedded_readout = self.readout_embedding_layer(batch["readout"])
+        embedded_perturb = self.perturb_embedding_layer(batch["perturbation_flat"], batch["perturbation_offset"])
 
         # Continuous features: cast to the same float dtype as the embedding tables (Linear
         # layers default to float32; parquet floats are float64) and add a feature dim.
@@ -256,6 +285,17 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         embedded_log_dose = self.log_dose_layer(log_dose)
         embedded_time = self.time_layer(time)
 
+        if self.active_output_mode == "multiout":
+            return (
+                embedded_dataset,
+                embedded_context,
+                embedded_perturb,
+                embedded_log_dose,
+                embedded_time,
+            )
+
+        assert self.readout_embedding_layer is not None
+        embedded_readout = self.readout_embedding_layer(batch["readout"])
         return (
             embedded_dataset,
             embedded_context,
@@ -289,13 +329,23 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self._initialize_vocabularies_and_embeddings(traindata)
         assert self.vocab is not None
 
-        traindata_tensors = to_tensor_dict(encode_data(traindata, self.vocab))
+        if self.active_output_mode == "multiout":
+            traindata_tensors = to_tensor_dict(traindata)
+        else:
+            traindata_tensors = to_tensor_dict(encode_data(traindata, self.vocab))
         train_loader = traindata_tensors.get_data_loader(
             self.batch_size, self.num_workers, self.pin_memory, shuffle=True
         )
         if valdata is not None:
-            valdata_tensors = to_tensor_dict(encode_data(valdata, self.vocab))
-            val_loader = valdata_tensors.get_data_loader(None, self.num_workers, self.pin_memory, shuffle=False)
+            if self.active_output_mode == "multiout":
+                valdata_tensors = to_tensor_dict(valdata)
+                val_batch_size = self.batch_size
+            else:
+                valdata_tensors = to_tensor_dict(encode_data(valdata, self.vocab))
+                val_batch_size = None
+            val_loader = valdata_tensors.get_data_loader(
+                val_batch_size, self.num_workers, self.pin_memory, shuffle=False
+            )
         else:
             val_loader = None
 
@@ -354,14 +404,23 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.to(device)
         self.eval()
 
+        if self.active_output_mode == "multiout" and batch_size is not None:
+            batch_size = min(batch_size, self.batch_size)
         batch_size = min(len(data_x), batch_size) if batch_size is not None else None
-        data_x_tensors = to_tensor_dict(encode_data(data_x, self.vocab))
+        if self._is_multiout_data(data_x):
+            data_x_tensors = to_tensor_dict(data_x)
+        else:
+            data_x_tensors = to_tensor_dict(encode_data(data_x, self.vocab))
         data_loader = data_x_tensors.get_data_loader(batch_size, self.num_workers, self.pin_memory, shuffle=False)
 
         predictions_list: list[torch.Tensor] = []
         for batch in data_loader:
             batch_device = {k: v.to(device, non_blocking=True) for k, v in batch.items()}
-            predictions_list.append(self(batch_device))
+            pred = self(batch_device)
+            if self.active_output_mode == "multiout":
+                predictions_list.append(self._select_predictions_for_available_readouts(pred, batch_device))
+            else:
+                predictions_list.append(pred)
 
         return torch.cat(predictions_list).cpu().detach().numpy().flatten()
 
@@ -372,16 +431,62 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
 
     def build_predictor(self) -> nn.Module:
         """Where neural network architecture is instantiated."""
-        # 6 D-dim feature vectors: dataset, context, perturbation, readout, log_dose, time.
-        input_dim = 6 * self.embedding_dim
+        # Scalar mode consumes 6 D-dim feature vectors including readout. Multi-output
+        # mode consumes only sample features and predicts every readout at once.
+        n_input_embeddings = 5 if self.active_output_mode == "multiout" else 6
+        input_dim = n_input_embeddings * self.embedding_dim
         neural_network = nn.Sequential()
         for i in range(self.num_layers):
             neural_network.append(nn.Linear(self.hidden_dim if i > 0 else input_dim, self.hidden_dim))
             neural_network.append(nn.ReLU())
             neural_network.append(nn.Dropout(self.dropout))
-        neural_network.append(nn.Linear(self.hidden_dim if self.num_layers > 0 else input_dim, 1))
+        neural_network.append(nn.Linear(self.hidden_dim if self.num_layers > 0 else input_dim, self.output_dim))
         neural_network.apply(self._init_weights)
         return neural_network
+
+    @staticmethod
+    def _value_row_indices(batch: dict[str, torch.Tensor]) -> torch.Tensor:
+        return torch.repeat_interleave(
+            torch.arange(batch["context"].shape[0], device=batch["context"].device),
+            batch["n_values"].to(device=batch["context"].device).long(),
+        )
+
+    def _select_predictions_for_available_readouts(
+        self, pred: torch.Tensor, batch: dict[str, torch.Tensor]
+    ) -> torch.Tensor:
+        if "readout_flat" in batch and "n_values" in batch:
+            row_indices = self._value_row_indices(batch)
+            return pred[row_indices, batch["readout_flat"].long()]
+        if "readout" in batch:
+            row_indices = torch.arange(batch["readout"].shape[0], device=batch["readout"].device)
+            return pred[row_indices, batch["readout"].long()]
+        raise ValueError("Multi-output prediction requires either readout_flat/n_values or readout tensors.")
+
+    def _loss_for_batch(self, pred: torch.Tensor, batch: dict[str, torch.Tensor]) -> torch.Tensor:
+        if self.active_output_mode == "multiout":
+            selected_pred = self._select_predictions_for_available_readouts(pred, batch)
+            return self.loss(selected_pred, batch["value"].to(dtype=selected_pred.dtype)).reshape(-1)
+        return self.loss(pred, batch["value"].unsqueeze(-1)).squeeze().reshape(-1)
+
+    def _context_codes_for_losses(self, batch: dict[str, torch.Tensor], unreduced_loss: torch.Tensor) -> torch.Tensor:
+        if self.active_output_mode == "multiout":
+            return torch.repeat_interleave(
+                batch["context"], batch["n_values"].to(device=batch["context"].device).long()
+            )
+        return batch["context"]
+
+    @staticmethod
+    def _new_metric_buffers(num_slots: int, device: torch.device) -> tuple[torch.Tensor, torch.Tensor]:
+        return (
+            torch.zeros(num_slots, device=device, dtype=torch.float64),
+            torch.zeros(num_slots, device=device, dtype=torch.float64),
+        )
+
+    @staticmethod
+    def _all_reduce_metric_buffers(sum_sq: torch.Tensor, count: torch.Tensor) -> None:
+        if torch.distributed.is_available() and torch.distributed.is_initialized():
+            torch.distributed.all_reduce(sum_sq, op=torch.distributed.ReduceOp.SUM)
+            torch.distributed.all_reduce(count, op=torch.distributed.ReduceOp.SUM)
 
     # -----------------------------------------------------
     # PyTorch Lightning-related methods
@@ -408,36 +513,41 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
 
     def training_step(self, batch: dict[str, torch.Tensor], batch_idx: int):  # noqa: D102
         pred: torch.Tensor = self(batch)
-        unreduced_loss: torch.Tensor = self.loss(pred, batch["value"].unsqueeze(-1)).squeeze()
-        self.training_step_outputs.append(unreduced_loss.detach())  # detach() to not keep the graph alive
+        unreduced_loss = self._loss_for_batch(pred, batch)
+        loss_for_metric = unreduced_loss.detach()
+        if self.training_loss_sum is None or self.training_loss_count is None:
+            self.training_loss_sum, self.training_loss_count = self._new_metric_buffers(1, loss_for_metric.device)
+        self.training_loss_sum[0] += loss_for_metric.sum(dtype=torch.float64)
+        self.training_loss_count[0] += loss_for_metric.numel()
         return unreduced_loss.mean()
 
     def validation_step(self, batch: dict[str, torch.Tensor], batch_idx: int):  # noqa: D102
         pred = self(batch)
-        unreduced_loss = self.loss(pred, batch["value"].unsqueeze(-1)).squeeze()
-        self.validation_step_outputs.append(unreduced_loss)
+        unreduced_loss = self._loss_for_batch(pred, batch)
 
         assert self.vocab is not None
-        context_codes = torch.unique(batch["context"])
-        # NOTE: this will cause a GPU-CPU synchronization, but can't be avoided since the vocabulary is on the CPU
-        context_codes_series = pl.from_numpy(context_codes.cpu().numpy(), schema=["context"])["context"]
-        context_symbol_series = context_codes_series.replace_strict(
-            self.vocab.context_vocab["code"], self.vocab.context_vocab["symbol"]
-        )
+        loss_for_metric = unreduced_loss.detach()
+        num_contexts = len(self.vocab.context_vocab)
+        if self.validation_loss_sum is None or self.validation_loss_count is None:
+            self.validation_loss_sum, self.validation_loss_count = self._new_metric_buffers(
+                num_contexts + 1, loss_for_metric.device
+            )
 
-        for context_code, context_symbol in zip(context_codes_series, context_symbol_series):
-            context_mask = batch["context"] == context_code
-            unreduced_context_loss = unreduced_loss[context_mask]
-            self.validation_step_per_context_outputs[context_symbol].append(unreduced_context_loss)
-
-    @staticmethod
-    def _reduce_outputs(outputs):
-        return "RMSE", torch.cat(outputs).mean().sqrt()
+        # Slot 0 = global metric; slots 1..N are indexed by context code.
+        self.validation_loss_sum[0] += loss_for_metric.sum(dtype=torch.float64)
+        self.validation_loss_count[0] += loss_for_metric.numel()
+        loss_context = self._context_codes_for_losses(batch, unreduced_loss).long()
+        slot_indices = loss_context + 1
+        self.validation_loss_sum.index_add_(0, slot_indices, loss_for_metric.to(dtype=torch.float64))
+        self.validation_loss_count.index_add_(0, slot_indices, torch.ones_like(loss_for_metric, dtype=torch.float64))
 
     def on_train_epoch_end(self):  # noqa: D102
-        metric_label, metric_result = self._reduce_outputs(self.training_step_outputs)
-        self.log(f"Training {metric_label}", metric_result)
-        self.training_step_outputs.clear()
+        if self.training_loss_sum is not None and self.training_loss_count is not None:
+            self._all_reduce_metric_buffers(self.training_loss_sum, self.training_loss_count)
+            metric_result = (self.training_loss_sum / self.training_loss_count.clamp(min=1)).sqrt()[0]
+            self.log("Training RMSE", metric_result)
+        self.training_loss_sum = None
+        self.training_loss_count = None
         # Throughput is read from the tqdm progress bar, which Lightning only
         # advances on rank 0. On other ranks `format_dict["elapsed"]` is 0 and
         # the division blows up. Skip it everywhere except rank 0 (and still
@@ -464,30 +574,13 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         # tensors over all ranks via two tiny all_reduces, then log the global RMSE.
         assert self.vocab is not None
         num_contexts = len(self.vocab.context_vocab)
-        sum_sq = torch.zeros(num_contexts + 1, device=self.device)
-        count = torch.zeros(num_contexts + 1, device=self.device)
+        if self.validation_loss_sum is None or self.validation_loss_count is None:
+            sum_sq, count = self._new_metric_buffers(num_contexts + 1, self.device)
+        else:
+            sum_sq = self.validation_loss_sum
+            count = self.validation_loss_count
 
-        # Slot 0 = global metric across every sample this rank saw.
-        if self.validation_step_outputs:
-            global_loss = torch.cat(self.validation_step_outputs)
-            sum_sq[0] = global_loss.sum()
-            count[0] = global_loss.numel()
-
-        # Slots 1..N indexed by context code so all ranks fill the same layout.
-        symbol_to_code: dict[str, int] = dict(
-            zip(self.vocab.context_vocab["symbol"], self.vocab.context_vocab["code"])
-        )
-        for context_symbol, losses in self.validation_step_per_context_outputs.items():
-            if not losses:
-                continue
-            ctx_code = symbol_to_code[context_symbol]
-            ctx_loss = torch.cat(losses)
-            sum_sq[ctx_code + 1] = ctx_loss.sum()
-            count[ctx_code + 1] = ctx_loss.numel()
-
-        if torch.distributed.is_available() and torch.distributed.is_initialized():
-            torch.distributed.all_reduce(sum_sq, op=torch.distributed.ReduceOp.SUM)
-            torch.distributed.all_reduce(count, op=torch.distributed.ReduceOp.SUM)
+        self._all_reduce_metric_buffers(sum_sq, count)
 
         rmse = (sum_sq / count.clamp(min=1)).sqrt()
         # Single GPU->CPU sync for the per-slot count, used to skip empty contexts.
@@ -500,8 +593,8 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             if count_cpu[code + 1].item() > 0:
                 self.log(f"Validation RMSE {symbol}", rmse[code + 1])
 
-        self.validation_step_outputs.clear()
-        self.validation_step_per_context_outputs.clear()
+        self.validation_loss_sum = None
+        self.validation_loss_count = None
 
     def on_fit_end(self):  # noqa: D102
         # at the end of training
