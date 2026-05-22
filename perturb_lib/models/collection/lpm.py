@@ -131,6 +131,8 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.context_embedding_layer: nn.Embedding | None = None
         self.perturb_embedding_layer: nn.EmbeddingBag | None = None
         self.readout_embedding_layer: nn.Embedding | None = None
+        self.dataset_output_weight: nn.Parameter | None = None
+        self.dataset_output_bias: nn.Parameter | None = None
         # Continuous-feature projections: a single scalar -> embedding_dim vector.
         self.log_dose_layer: nn.Linear | None = None
         self.time_layer: nn.Linear | None = None
@@ -184,6 +186,8 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
                 self.active_output_mode = active_output_mode
                 self.output_dim = len(self.vocab.readout_vocab) if self.active_output_mode == "multiout" else 1
                 self.predictor = self.build_predictor()
+                if self.active_output_mode == "multiout" and "dataset_output_weight" in state_dict:
+                    self._initialize_dataset_output_heads(len(self.vocab.dataset_vocab), len(self.vocab.readout_vocab))
         if "context_embedding_layer.weight" in state_dict:
             self.context_embedding_layer = nn.Embedding.from_pretrained(state_dict["context_embedding_layer.weight"])
         if "perturb_embedding_layer.weight" in state_dict:
@@ -192,6 +196,10 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             self.readout_embedding_layer = nn.Embedding.from_pretrained(state_dict["readout_embedding_layer.weight"])
         if "dataset_embedding_layer.weight" in state_dict:
             self.dataset_embedding_layer = nn.Embedding.from_pretrained(state_dict["dataset_embedding_layer.weight"])
+        if "log_dose_layer.weight" in state_dict and self.log_dose_layer is None:
+            self.log_dose_layer = nn.Linear(1, self.embedding_dim)
+        if "time_layer.weight" in state_dict and self.time_layer is None:
+            self.time_layer = nn.Linear(1, self.embedding_dim)
         super().load_state_dict(state_dict, strict, assign)
 
     @staticmethod
@@ -212,7 +220,11 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.active_output_mode = self._resolve_output_mode(data)
         self.output_dim = len(self.vocab.readout_vocab) if self.active_output_mode == "multiout" else 1
 
-        self.dataset_embedding_layer = nn.Embedding(len(self.vocab.dataset_vocab), self.embedding_dim)
+        self.dataset_embedding_layer = (
+            None
+            if self.active_output_mode == "multiout"
+            else nn.Embedding(len(self.vocab.dataset_vocab), self.embedding_dim)
+        )
         self.context_embedding_layer = nn.Embedding(len(self.vocab.context_vocab), self.embedding_dim)
         self.perturb_embedding_layer = nn.EmbeddingBag(
             len(self.vocab.perturb_vocab), self.embedding_dim, mode=self.embedding_aggregation_mode
@@ -225,16 +237,23 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.log_dose_layer = nn.Linear(1, self.embedding_dim)
         self.time_layer = nn.Linear(1, self.embedding_dim)
         self.predictor = self.build_predictor()
+        if self.active_output_mode == "multiout":
+            self._initialize_dataset_output_heads(len(self.vocab.dataset_vocab), len(self.vocab.readout_vocab))
 
     def _check_layers_initialized(self) -> None:
         if (
-            self.dataset_embedding_layer is None
-            or self.context_embedding_layer is None
+            self.context_embedding_layer is None
             or self.perturb_embedding_layer is None
             or self.log_dose_layer is None
             or self.time_layer is None
         ):
             raise ValueError("Embedding layers not initialized.")
+        if self.active_output_mode == "multiout":
+            if self.dataset_output_weight is None or self.dataset_output_bias is None:
+                raise ValueError("Dataset-specific output heads not initialized.")
+            return
+        if self.dataset_embedding_layer is None:
+            raise ValueError("Dataset embedding layer not initialized.")
         if self.active_output_mode == "scalar" and self.readout_embedding_layer is None:
             raise ValueError("Readout embedding layer not initialized.")
 
@@ -267,13 +286,11 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
     def embed_tensor_dict(self, batch: dict[str, torch.Tensor]) -> tuple[torch.Tensor, ...]:  # noqa: D102
         self._check_layers_initialized()
         # for type checkers — _check_layers_initialized guarantees these are not None
-        assert self.dataset_embedding_layer is not None
         assert self.context_embedding_layer is not None
         assert self.perturb_embedding_layer is not None
         assert self.log_dose_layer is not None
         assert self.time_layer is not None
 
-        embedded_dataset = self.dataset_embedding_layer(batch["dataset"])
         embedded_context = self.context_embedding_layer(batch["context"])
         embedded_perturb = self.perturb_embedding_layer(batch["perturbation_flat"], batch["perturbation_offset"])
 
@@ -287,14 +304,15 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
 
         if self.active_output_mode == "multiout":
             return (
-                embedded_dataset,
                 embedded_context,
                 embedded_perturb,
                 embedded_log_dose,
                 embedded_time,
             )
 
+        assert self.dataset_embedding_layer is not None
         assert self.readout_embedding_layer is not None
+        embedded_dataset = self.dataset_embedding_layer(batch["dataset"])
         embedded_readout = self.readout_embedding_layer(batch["readout"])
         return (
             embedded_dataset,
@@ -431,18 +449,46 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
 
     def build_predictor(self) -> nn.Module:
         """Where neural network architecture is instantiated."""
-        # Scalar mode consumes 6 D-dim feature vectors including readout. Multi-output
-        # mode consumes only sample features and predicts every readout at once.
-        n_input_embeddings = 5 if self.active_output_mode == "multiout" else 6
+        # Scalar mode consumes 6 D-dim feature vectors including dataset/readout.
+        # Multi-output mode consumes sample features only; dataset selects a
+        # separate output head instead of being an input embedding.
+        n_input_embeddings = 4 if self.active_output_mode == "multiout" else 6
         input_dim = n_input_embeddings * self.embedding_dim
         neural_network = nn.Sequential()
         for i in range(self.num_layers):
             neural_network.append(nn.Linear(self.hidden_dim if i > 0 else input_dim, self.hidden_dim))
             neural_network.append(nn.ReLU())
             neural_network.append(nn.Dropout(self.dropout))
-        neural_network.append(nn.Linear(self.hidden_dim if self.num_layers > 0 else input_dim, self.output_dim))
+        if self.active_output_mode != "multiout":
+            neural_network.append(nn.Linear(self.hidden_dim if self.num_layers > 0 else input_dim, self.output_dim))
         neural_network.apply(self._init_weights)
         return neural_network
+
+    def _predictor_output_dim(self) -> int:
+        if self.num_layers > 0:
+            return self.hidden_dim
+        return (4 if self.active_output_mode == "multiout" else 6) * self.embedding_dim
+
+    def _initialize_dataset_output_heads(self, num_datasets: int, num_readouts: int) -> None:
+        head_input_dim = self._predictor_output_dim()
+        weight = torch.empty(num_datasets, num_readouts, head_input_dim)
+        bias = torch.empty(num_datasets, num_readouts)
+        for dataset_idx in range(num_datasets):
+            nn.init.xavier_uniform_(weight[dataset_idx], gain=nn.init.calculate_gain("linear"))
+            nn.init.zeros_(bias[dataset_idx])
+        self.dataset_output_weight = nn.Parameter(weight)
+        self.dataset_output_bias = nn.Parameter(bias)
+
+    def _apply_dataset_output_heads(self, features: torch.Tensor, dataset_codes: torch.Tensor) -> torch.Tensor:
+        if self.dataset_output_weight is None or self.dataset_output_bias is None:
+            raise ValueError("Dataset-specific output heads not initialized.")
+        dataset_codes = dataset_codes.long()
+        pred = features.new_empty((features.shape[0], self.output_dim))
+        for dataset_code in dataset_codes.unique(sorted=True):
+            mask = dataset_codes == dataset_code
+            head_idx = dataset_code.item()
+            pred[mask] = features[mask] @ self.dataset_output_weight[head_idx].t() + self.dataset_output_bias[head_idx]
+        return pred
 
     @staticmethod
     def _value_row_indices(batch: dict[str, torch.Tensor]) -> torch.Tensor:
@@ -509,7 +555,10 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         return [optimizer], [scheduler]
 
     def forward(self, batch: dict[str, torch.Tensor]) -> torch.Tensor:  # noqa: D102
-        return self.predictor(torch.cat(self.embed_tensor_dict(batch), dim=1))
+        features = self.predictor(torch.cat(self.embed_tensor_dict(batch), dim=1))
+        if self.active_output_mode == "multiout":
+            return self._apply_dataset_output_heads(features, batch["dataset"])
+        return features
 
     def training_step(self, batch: dict[str, torch.Tensor], batch_idx: int):  # noqa: D102
         pred: torch.Tensor = self(batch)

@@ -25,9 +25,12 @@ def _write_multiout_plibdata(root):
     source_dir.mkdir(parents=True)
     rows = [
         (0, 0, [1], 0.0, 24.0, "train", [0, 1], [1.0, 2.0], 2),
+        (1, 0, [1], 0.0, 24.0, "train", [0, 1], [1.5, 2.5], 2),
         (0, 0, [1], 1.0, 24.0, "train", [1, 2], [3.0, 4.0], 2),
         (0, 0, [0], -5.0, 24.0, "val", [0, 2], [0.5, 1.5], 2),
+        (1, 0, [0], -5.0, 24.0, "val", [0, 2], [0.75, 1.75], 2),
         (0, 0, [1], 2.0, 48.0, "test", [0, 1, 2], [2.0, 1.0, 0.0], 3),
+        (1, 0, [1], 2.0, 48.0, "test", [0, 1, 2], [2.5, 1.5, 0.5], 3),
     ]
     df = pl.DataFrame(
         rows,
@@ -57,7 +60,7 @@ def _write_multiout_plibdata(root):
                 "scalar_values": int(shard["n_values"].sum()),
                 "split": split,
                 "context": "C0",
-                "datasets": ["D0"],
+                "datasets": [f"D{idx}" for idx in sorted(set(shard["dataset_code"].to_list()))],
                 "contexts": ["C0"],
                 "perturbations": ["Control", "P1"],
                 "readouts": ["R0", "R1", "R2"],
@@ -165,27 +168,33 @@ def test_lpm_can_fit_predict_multiout(tmp_path):
     plib_data = _write_multiout_plibdata(tmp_path)
     traindata, valdata = plib.split_plibdata_2fold(plib_data, None)
 
+    model_args = {
+        "optimizer_name": "AdamW",
+        "learning_rate": 0.001,
+        "learning_rate_decay": 0.999,
+        "num_layers": 1,
+        "hidden_dim": 16,
+        "batch_size": 2,
+        "embedding_dim": 4,
+        "output_mode": "multiout",
+        "lightning_trainer_pars": {
+            "max_epochs": 1,
+            "logger": False,
+            "accelerator": "cpu",
+            "enable_checkpointing": False,
+            "enable_progress_bar": False,
+        },
+    }
     model = plib.load_model(
         "LPM",
-        model_args={
-            "optimizer_name": "AdamW",
-            "learning_rate": 0.001,
-            "learning_rate_decay": 0.999,
-            "num_layers": 1,
-            "hidden_dim": 16,
-            "batch_size": 2,
-            "embedding_dim": 4,
-            "output_mode": "multiout",
-            "lightning_trainer_pars": {
-                "max_epochs": 1,
-                "logger": False,
-                "accelerator": "cpu",
-                "enable_checkpointing": False,
-                "enable_progress_bar": False,
-            },
-        },
+        model_args=model_args,
     )
     model.fit(traindata, valdata)
+    assert model.dataset_embedding_layer is None
+    assert model.readout_embedding_layer is None
+    assert model.dataset_output_weight is not None
+    assert model.dataset_output_bias is not None
+    assert model.dataset_output_weight.shape[:2] == (2, 3)
 
     predict_input = valdata.subset_columnwise(
         ["dataset_code", "context_code", "perturbation_codes", "log_dose", "time", "readout_codes", "n_values"]
@@ -195,3 +204,9 @@ def test_lpm_can_fit_predict_multiout(tmp_path):
 
     assert isinstance(predictions, np.ndarray)
     assert predictions.shape == (expected_n_predictions,)
+
+    model_path = tmp_path / "lpm_multiout.pt"
+    plib.save_trained_model(model, model_path, model_args)
+    loaded = plib.load_trained_model(model_path)
+    loaded_predictions = loaded.predict(predict_input)
+    np.testing.assert_allclose(loaded_predictions, predictions, rtol=1e-6, atol=1e-6)
