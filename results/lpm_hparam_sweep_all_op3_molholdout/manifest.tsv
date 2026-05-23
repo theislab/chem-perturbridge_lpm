@@ -1,0 +1,21 @@
+run_name	config_id	submit	job_id	learning_rate	learning_rate_decay	num_layers	hidden_dim	embedding_dim	dropout	batch_size	num_workers	max_epochs
+run00_baseline_existing	lpm_multiout_all_data_plus_tahoe_novartis_op3_molholdout_h100_2x_bs4096_200epoch_lustre	existing	36693408	0.002	0.97	2	256	128	0.1	4096	4	200
+run01_lr1e3_decay99_l2_h256_e128_d10_bs4096	lpm_multiout_all_op3_molholdout_hparam_01	array		0.001	0.99	2	256	128	0.1	4096	4	200
+run02_lr3e3_decay97_l2_h256_e128_d10_bs4096	lpm_multiout_all_op3_molholdout_hparam_02	array		0.003	0.97	2	256	128	0.1	4096	4	200
+run03_lr15e4_decay985_l2_h512_e128_d10_bs4096	lpm_multiout_all_op3_molholdout_hparam_03	array		0.0015	0.985	2	512	128	0.1	4096	4	200
+run04_lr2e3_decay985_l3_h512_e128_d10_bs4096	lpm_multiout_all_op3_molholdout_hparam_04	array		0.002	0.985	3	512	128	0.1	4096	4	200
+run05_lr1e3_decay99_l3_h512_e192_d10_bs4096	lpm_multiout_all_op3_molholdout_hparam_05	array		0.001	0.99	3	512	192	0.1	4096	4	200
+run06_lr2e3_decay99_l1_h512_e128_d05_bs4096	lpm_multiout_all_op3_molholdout_hparam_06	array		0.002	0.99	1	512	128	0.05	4096	4	200
+run07_lr2e3_decay97_l4_h512_e128_d20_bs4096	lpm_multiout_all_op3_molholdout_hparam_07	array		0.002	0.97	4	512	128	0.2	4096	4	200
+run08_lr8e4_decay995_l3_h768_e128_d10_bs4096	lpm_multiout_all_op3_molholdout_hparam_08	array		0.0008	0.995	3	768	128	0.1	4096	4	200
+run09_lr15e4_decay99_l2_h768_e192_d10_bs4096	lpm_multiout_all_op3_molholdout_hparam_09	array		0.0015	0.99	2	768	192	0.1	4096	4	200
+run10_lr25e4_decay985_l2_h512_e256_d10_bs4096	lpm_multiout_all_op3_molholdout_hparam_10	array		0.0025	0.985	2	512	256	0.1	4096	4	200
+run11_lr1e3_decay1_l2_h512_e256_d20_bs4096	lpm_multiout_all_op3_molholdout_hparam_11	array		0.001	1.0	2	512	256	0.2	4096	4	200
+run12_lr3e3_decay99_l3_h256_e128_d05_bs4096	lpm_multiout_all_op3_molholdout_hparam_12	array		0.003	0.99	3	256	128	0.05	4096	4	200
+run13_lr2e3_decay985_l2_h384_e128_d0_bs8192	lpm_multiout_all_op3_molholdout_hparam_13	array		0.002	0.985	2	384	128	0.0	8192	8	200
+run14_lr15e4_decay99_l3_h384_e128_d10_bs8192	lpm_multiout_all_op3_molholdout_hparam_14	array		0.0015	0.99	3	384	128	0.1	8192	8	200
+run15_lr3e3_decay97_l2_h384_e192_d20_bs8192	lpm_multiout_all_op3_molholdout_hparam_15	array		0.003	0.97	2	384	192	0.2	8192	8	200
+run16_lr1e3_decay995_l4_h384_e192_d15_bs4096	lpm_multiout_all_op3_molholdout_hparam_16	array		0.001	0.995	4	384	192	0.15	4096	4	200
+run17_lr5e4_decay1_l2_h512_e128_d10_bs2048	lpm_multiout_all_op3_molholdout_hparam_17	array		0.0005	1.0	2	512	128	0.1	2048	4	200
+run18_lr2e3_decay99_l1_h256_e128_d0_bs2048	lpm_multiout_all_op3_molholdout_hparam_18	array		0.002	0.99	1	256	128	0.0	2048	4	200
+run19_lr4e3_decay97_l2_h256_e128_d20_bs8192	lpm_multiout_all_op3_molholdout_hparam_19	array		0.004	0.97	2	256	128	0.2	8192	8	200

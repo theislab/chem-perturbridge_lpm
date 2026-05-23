@@ -52,9 +52,12 @@ class DataConfig(dotdict):
             ``metadata.parquet``). Mutually exclusive with ``training_contexts`` when both would load data.
         on_disk_data_sources: Names of immediate subdirectories under ``on_disk_shard_root`` to stack together.
             Requires ``data_storage_type: on_disk``.
+        on_disk_split_annotation_path: Optional raw sample split annotation used by preprocessing scripts when
+            generating ``on_disk_shard_root``. The split is baked into shards and is not read during training.
         val_perturbations_selected_from: if specified, defines context from which validation perturbations are selected.
         val_and_test_perturbations_selected_from: if specified, defines context from which both validation and
         test perturbations are selected.
+        cache_shards_in_memory: if true for on-disk prebuilt shards, DataLoader workers cache shards after first read.
         preprocessing_type: the type of preprocessing to apply on each context.
     """
 
@@ -63,8 +66,10 @@ class DataConfig(dotdict):
         training_contexts: List[str] | str | None = None,
         on_disk_shard_root: str | Path | None = None,
         on_disk_data_sources: List[str] | None = None,
+        on_disk_split_annotation_path: str | Path | None = None,
         val_perturbations_selected_from: str | None = None,
         val_and_test_perturbations_selected_from: str | None = None,
+        cache_shards_in_memory: bool = False,
         preprocessing_type: plib.PreprocessingType = plib.DEFAULT_PREPROCESSING_TYPE,
         data_storage_type: Literal["in_memory", "on_disk"] = "in_memory",
     ):
@@ -82,6 +87,8 @@ class DataConfig(dotdict):
             self.training_contexts = None
             self.on_disk_shard_root = Path(on_disk_shard_root)
             self.on_disk_data_sources = list(on_disk_data_sources)
+            if on_disk_split_annotation_path is not None:
+                self.on_disk_split_annotation_path = Path(on_disk_split_annotation_path)
         else:
             if training_contexts is None:
                 raise ValueError("Either training_contexts or on_disk_shard_root + on_disk_data_sources is required.")
@@ -90,6 +97,7 @@ class DataConfig(dotdict):
             self.val_perturbations_selected_from = val_perturbations_selected_from
         if val_and_test_perturbations_selected_from is not None:
             self.val_and_test_perturbations_selected_from = val_and_test_perturbations_selected_from
+        self.cache_shards_in_memory = cache_shards_in_memory
         self.preprocessing_type = preprocessing_type
         self.data_storage_type = data_storage_type
 
@@ -109,10 +117,13 @@ class DataConfig(dotdict):
             )
         else:
             assert self.on_disk_shard_root is not None and self.on_disk_data_sources is not None
-            all_data = plibdata_type(
-                data_sources=self.on_disk_data_sources,
-                path_to_data_sources=self.on_disk_shard_root,
-            )
+            kwargs = {
+                "data_sources": self.on_disk_data_sources,
+                "path_to_data_sources": self.on_disk_shard_root,
+            }
+            if plibdata_type is OnDiskPlibData:
+                kwargs["cache_shards_in_memory"] = self.cache_shards_in_memory
+            all_data = plibdata_type(**kwargs)
 
         if "val_and_test_perturbations_selected_from" in self:  # validation and test data are specified
             vt = self.val_and_test_perturbations_selected_from
@@ -145,6 +156,8 @@ class ModelConfig(dotdict):
             When set, training continues from the given checkpoint (weights, optimizer state, and
             epoch/step counter are all restored). Requires ``enable_checkpointing: true`` in
             ``lightning_trainer_pars`` so that periodic checkpoints are written.
+        wandb_config: Optional W&B logger settings. When ``enabled`` is true, these settings are
+            passed to PyTorch Lightning's ``WandbLogger``.
     """
 
     def __init__(
@@ -154,6 +167,7 @@ class ModelConfig(dotdict):
         save_model_after_training: bool = False,
         torch_compile: bool = False,
         resume_from_checkpoint: str | None = None,
+        wandb_config: Dict | None = None,
     ):
         super().__init__()
         self.model_id = model_id
@@ -161,6 +175,7 @@ class ModelConfig(dotdict):
         self.save_model_after_training = save_model_after_training
         self.torch_compile = torch_compile
         self.resume_from_checkpoint = resume_from_checkpoint
+        self.wandb_config = wandb_config or {}
 
 
 class TrainingConfig(dotdict):

@@ -45,11 +45,22 @@ CONTROL_SYMBOL = "Control"
 
 
 @dataclass(frozen=True)
+class CachePaths:
+    cache_root: Path
+    raw_root: Path
+    annotations_path: Path
+    plibdata_root: Path
+
+
+@dataclass(frozen=True)
 class SourceSpec:
     source: str
     dataset_folder: str
     context: str
     files: tuple[Path, ...]
+    cache_root: Path
+    annotations_path: Path
+    plibdata_root: Path
 
 
 @dataclass
@@ -128,15 +139,57 @@ def source_files(raw_root: Path, dataset_folder: str, context: str) -> tuple[Pat
     return tuple(candidates or files)
 
 
-def make_source_specs(raw_root: Path, sources: list[str]) -> list[SourceSpec]:
-    folders = raw_dataset_folders(raw_root)
+def source_context(files: tuple[Path, ...], context: str) -> str:
+    if not files:
+        return context
+    contexts = (
+        pl.scan_parquet([str(path) for path in files])
+        .select(pl.col("context").unique())
+        .collect()["context"]
+        .drop_nulls()
+        .to_list()
+    )
+    if context in contexts:
+        return context
+    normalized = context.replace("_", " ")
+    if normalized in contexts:
+        return normalized
+    if len(contexts) == 1:
+        return str(contexts[0])
+    return context
+
+
+def make_source_specs(cache_paths: list[CachePaths], sources: list[str]) -> list[SourceSpec]:
+    folder_lists = [(paths, raw_dataset_folders(paths.raw_root)) for paths in cache_paths]
     specs: list[SourceSpec] = []
     for source in sources:
-        dataset_folder, context = split_source_name(source, folders)
-        files = source_files(raw_root, dataset_folder, context)
-        if not files:
-            raise FileNotFoundError(f"No raw parquet files found for source {source} in {raw_root / dataset_folder}")
-        specs.append(SourceSpec(source=source, dataset_folder=dataset_folder, context=context, files=files))
+        errors: list[str] = []
+        for paths, folders in folder_lists:
+            try:
+                dataset_folder, context = split_source_name(source, folders)
+                files = source_files(paths.raw_root, dataset_folder, context)
+            except ValueError as exc:
+                errors.append(f"{paths.raw_root}: {exc}")
+                continue
+            if not files:
+                errors.append(f"{paths.raw_root / dataset_folder}: no raw parquet files")
+                continue
+            specs.append(
+                SourceSpec(
+                    source=source,
+                    dataset_folder=dataset_folder,
+                    context=source_context(files, context),
+                    files=files,
+                    cache_root=paths.cache_root,
+                    annotations_path=paths.annotations_path,
+                    plibdata_root=paths.plibdata_root,
+                )
+            )
+            break
+        else:
+            raise FileNotFoundError(
+                f"Could not resolve source {source} in any configured cache root: " + "; ".join(errors)
+            )
     return specs
 
 
@@ -173,6 +226,24 @@ def atomic_write_parquet(df: pl.DataFrame, path: Path, compression: str) -> None
     tmp = path.with_name(f"{path.name}.tmp.{os.getpid()}")
     df.write_parquet(tmp, compression=compression, statistics=True)
     tmp.replace(path)
+
+
+def source_list_text(sources: list[str]) -> str:
+    return "\n".join(["index\tsource"] + [f"{idx}\t{source}" for idx, source in enumerate(sources)]) + "\n"
+
+
+def validate_existing_sources(output_root: Path, sources: list[str]) -> None:
+    sources_path = output_root / "sources.tsv"
+    if not sources_path.exists():
+        return
+    expected = source_list_text(sources)
+    existing = sources_path.read_text()
+    if existing == expected:
+        return
+    raise RuntimeError(
+        f"{output_root} already has a sources.tsv from a different source list. "
+        "Use a distinct on_disk_shard_root for each dataset subset; refusing to overwrite."
+    )
 
 
 def write_vocab(output_root: Path, vocab: Vocab, compression: str) -> None:
@@ -243,27 +314,31 @@ def write_dataset_scaffolding(
     output_root: Path,
     config_path: Path,
     config: dict[str, Any],
-    cache_root: Path,
-    raw_root: Path,
-    annotations_path: Path,
-    plibdata_root: Path,
+    cache_paths: list[CachePaths],
+    source_specs: list[SourceSpec],
     sources: list[str],
     target_values_per_shard: int,
     value_dtype: str,
     float_feature_dtype: str,
     include_symbols: bool,
 ) -> None:
-    source_lines = ["index\tsource"] + [f"{idx}\t{source}" for idx, source in enumerate(sources)]
-    atomic_write_text(output_root / "sources.tsv", "\n".join(source_lines) + "\n")
+    validate_existing_sources(output_root, sources)
+    atomic_write_text(output_root / "sources.tsv", source_list_text(sources))
+    primary_paths = cache_paths[0]
+    source_input_cache_roots = {spec.source: str(spec.cache_root) for spec in source_specs}
+    source_reference_plibdata_roots = {spec.source: str(spec.plibdata_root) for spec in source_specs}
 
     manifest = {
         "format": "lpm_multiout_plibdata",
         "format_version": 1,
         "created_from_config": str(config_path),
-        "input_cache_root": str(cache_root),
-        "input_raw_datasets_root": str(raw_root),
-        "input_annotations_split": str(annotations_path),
-        "reference_plibdata_root_for_count_validation": str(plibdata_root),
+        "input_cache_root": str(primary_paths.cache_root),
+        "input_raw_datasets_root": str(primary_paths.raw_root),
+        "input_annotations_split": str(primary_paths.annotations_path),
+        "reference_plibdata_root_for_count_validation": str(primary_paths.plibdata_root),
+        "input_cache_roots": sorted({str(paths.cache_root) for paths in cache_paths}),
+        "source_input_cache_roots": source_input_cache_roots,
+        "source_reference_plibdata_roots": source_reference_plibdata_roots,
         "source_count": len(sources),
         "join_keys_matching_notebook_03": JOIN_KEYS,
         "sample_columns": SAMPLE_COLUMNS,
@@ -419,11 +494,44 @@ def expected_scalar_values_from_plibdata(plibdata_root: Path, source: str) -> in
     return int(pl.read_parquet(metadata_path, columns=["size"])["size"].sum())
 
 
+def source_lock_path(output_root: Path, source: str) -> Path:
+    safe_source = "".join(ch if ch.isalnum() or ch in "._-" else "_" for ch in source)
+    lock_dir = output_root / ".locks"
+    lock_dir.mkdir(parents=True, exist_ok=True)
+    return lock_dir / f"{safe_source}.lock"
+
+
 def process_source(
     spec: SourceSpec,
     output_root: Path,
-    annotations_path: Path,
-    plibdata_root: Path,
+    vocab: Vocab,
+    target_values_per_shard: int,
+    compression: str,
+    overwrite: bool,
+    skip_existing: bool,
+    include_symbols: bool,
+    value_dtype_name: str,
+    feature_dtype_name: str,
+) -> SourceStats:
+    with open(source_lock_path(output_root, spec.source), "w") as lock_handle:
+        fcntl.flock(lock_handle, fcntl.LOCK_EX)
+        return _process_source_locked(
+            spec=spec,
+            output_root=output_root,
+            vocab=vocab,
+            target_values_per_shard=target_values_per_shard,
+            compression=compression,
+            overwrite=overwrite,
+            skip_existing=skip_existing,
+            include_symbols=include_symbols,
+            value_dtype_name=value_dtype_name,
+            feature_dtype_name=feature_dtype_name,
+        )
+
+
+def _process_source_locked(
+    spec: SourceSpec,
+    output_root: Path,
     vocab: Vocab,
     target_values_per_shard: int,
     compression: str,
@@ -446,7 +554,7 @@ def process_source(
     feature_dtype = pl.Float32 if feature_dtype_name == "float32" else pl.Float64
 
     split_lookup = (
-        pl.read_parquet(annotations_path, columns=JOIN_KEYS + ["split"])
+        pl.read_parquet(spec.annotations_path, columns=JOIN_KEYS + ["split"])
         .unique(subset=JOIN_KEYS, maintain_order=True)
         .filter(pl.col("context") == spec.context)
     )
@@ -481,7 +589,10 @@ def process_source(
         buffer = []
         buffered_values = 0
 
-    log(f"{spec.source}: raw folder={spec.dataset_folder}, context={spec.context}, files={len(spec.files)}")
+    log(
+        f"{spec.source}: cache_root={spec.cache_root}, raw folder={spec.dataset_folder}, "
+        f"context={spec.context}, files={len(spec.files)}"
+    )
     for raw_path in spec.files:
         raw = pl.read_parquet(raw_path, columns=RAW_COLUMNS).filter(pl.col("context") == spec.context)
         if raw.is_empty():
@@ -523,7 +634,7 @@ def process_source(
             f"{stats.joined_scalar_values} raw rows to split labels."
         )
 
-    expected = expected_scalar_values_from_plibdata(plibdata_root, spec.source)
+    expected = expected_scalar_values_from_plibdata(spec.plibdata_root, spec.source)
     if expected is not None and expected != stats.scalar_values_written:
         raise RuntimeError(
             f"{spec.source}: multiout wrote {stats.scalar_values_written} scalar values, "
@@ -548,6 +659,19 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     )
     parser.add_argument("--raw-root", type=Path, default=None, help="Override raw_datasets root.")
     parser.add_argument("--annotations", type=Path, default=None, help="Override df_annot_split.parquet path.")
+    parser.add_argument(
+        "--reference-plibdata-root",
+        type=Path,
+        default=None,
+        help="Optional original scalar plibdata root used only for count validation.",
+    )
+    parser.add_argument(
+        "--fallback-cache-root",
+        action="append",
+        type=Path,
+        default=None,
+        help="Additional cache root(s) to search when a source is missing from the primary cache.",
+    )
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
     parser.add_argument(
         "--source", action="append", default=None, help="Configured source name to process. Repeatable."
@@ -573,8 +697,37 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
     plibdata_root, all_sources, config = load_config(args.config)
+    config_annotation = config.get("data_configs", [{}])[0].get("on_disk_split_annotation_path")
+    annotation_overridden = args.annotations is not None or bool(config_annotation)
+    if args.annotations is None and config_annotation:
+        args.annotations = Path(config_annotation)
     cache_root, raw_root, annotations_path = resolve_cache_paths(args, plibdata_root)
-    all_specs = make_source_specs(raw_root, all_sources)
+    reference_plibdata_root = args.reference_plibdata_root or plibdata_root
+    cache_paths = [
+        CachePaths(
+            cache_root=cache_root,
+            raw_root=raw_root,
+            annotations_path=annotations_path,
+            plibdata_root=reference_plibdata_root,
+        )
+    ]
+    for fallback_cache_root in args.fallback_cache_root or []:
+        fallback_raw_root = fallback_cache_root / "raw_datasets"
+        fallback_annotations_path = annotations_path if annotation_overridden else fallback_cache_root / "annotations" / "df_annot_split.parquet"
+        fallback_plibdata_root = fallback_cache_root / "plibdata"
+        if not fallback_raw_root.is_dir():
+            raise FileNotFoundError(f"Missing fallback raw dataset root: {fallback_raw_root}")
+        if not fallback_annotations_path.is_file():
+            raise FileNotFoundError(f"Missing fallback split annotation file: {fallback_annotations_path}")
+        cache_paths.append(
+            CachePaths(
+                cache_root=fallback_cache_root,
+                raw_root=fallback_raw_root,
+                annotations_path=fallback_annotations_path,
+                plibdata_root=fallback_plibdata_root,
+            )
+        )
+    all_specs = make_source_specs(cache_paths, all_sources)
 
     selected_specs = list(all_specs)
     if args.max_sources is not None:
@@ -594,13 +747,16 @@ def main(argv: list[str] | None = None) -> int:
     log(f"cache_root={cache_root}")
     log(f"raw_root={raw_root}")
     log(f"annotations={annotations_path}")
-    log(f"reference_plibdata_root={plibdata_root}")
+    log(f"reference_plibdata_root={reference_plibdata_root}")
+    for fallback_paths in cache_paths[1:]:
+        log(f"fallback_cache_root={fallback_paths.cache_root}")
     log(f"output_root={args.output_root}")
     log(f"selected_sources={len(selected_specs)} of {len(all_specs)}")
     if args.dry_run:
         for spec in selected_specs:
             log(
-                f"dry-run source: {spec.source} <- {spec.dataset_folder}, context={spec.context}, files={len(spec.files)}"
+                f"dry-run source: {spec.source} <- {spec.dataset_folder}, context={spec.context}, "
+                f"files={len(spec.files)}, cache_root={spec.cache_root}"
             )
         return 0
 
@@ -611,10 +767,8 @@ def main(argv: list[str] | None = None) -> int:
         output_root=args.output_root,
         config_path=args.config,
         config=config,
-        cache_root=cache_root,
-        raw_root=raw_root,
-        annotations_path=annotations_path,
-        plibdata_root=plibdata_root,
+        cache_paths=cache_paths,
+        source_specs=all_specs,
         sources=all_sources,
         target_values_per_shard=args.target_values_per_shard,
         value_dtype=args.value_dtype,
@@ -627,8 +781,6 @@ def main(argv: list[str] | None = None) -> int:
         stats = process_source(
             spec=spec,
             output_root=args.output_root,
-            annotations_path=annotations_path,
-            plibdata_root=plibdata_root,
             vocab=vocab,
             target_values_per_shard=args.target_values_per_shard,
             compression=args.compression,

@@ -16,9 +16,10 @@ Data-related utility functions.
 from __future__ import annotations
 
 import math
-from collections.abc import Callable, Iterable, Iterator
+from collections.abc import Callable, Iterable, Iterator, Sequence
 from typing import Generic, Literal, Protocol, cast, runtime_checkable
 
+import numpy as np
 import pandas as pd
 import polars as pl
 import scanpy as sc
@@ -134,6 +135,7 @@ class ShardedIterableDataset(Protocol):
         start_shard_idx: int | None = None,
         end_shard_idx: int | None = None,
         shard_step_size: int = 1,
+        shard_indices: Sequence[int] | None = None,
     ) -> Iterator[pl.DataFrame]:
         """Iterate over shards of data.
 
@@ -142,6 +144,7 @@ class ShardedIterableDataset(Protocol):
             start_shard_idx: Start iterating from this shard index.
             end_shard_idx: Stop iterating before reaching this shard index.
             shard_step_size: Step size for iterating over shards
+            shard_indices: Explicit shard indices to iterate. If provided, start/stop/step are ignored.
 
         Returns: Iterator over shards of data.
 
@@ -199,6 +202,7 @@ class ShuffleBuffer(torch.utils.data.IterableDataset[SBOutT], Generic[SBOutT]):
         self._start_shard_idx: int | None = None
         self._stop_shard_idx: int | None = None
         self._shard_step_size = 1
+        self._num_workers_for_len = 0
 
         self._buffer: list[pl.DataFrame] = []
 
@@ -238,24 +242,172 @@ class ShuffleBuffer(torch.utils.data.IterableDataset[SBOutT], Generic[SBOutT]):
             self._buffer = []
         return self.transforms(batch)
 
+    def _local_shard_indices_for_len(self) -> list[int]:
+        balanced_indices = self._balanced_shard_indices_by_rank()
+        if balanced_indices is not None:
+            return balanced_indices[get_rank_info().rank]
+
+        rank_info = get_rank_info()
+        num_shards = self.dataset._num_shards()
+        if num_shards == 0:
+            return []
+
+        if self._start_shard_idx is not None or self._stop_shard_idx is not None or self._shard_step_size != 1:
+            start = 0 if self._start_shard_idx is None else self._start_shard_idx
+            stop = num_shards if self._stop_shard_idx is None else self._stop_shard_idx
+            return list(range(start, stop, self._shard_step_size))
+
+        num_workers = max(self._num_workers_for_len, 0)
+        if num_workers > 0:
+            global_num_workers = rank_info.world_size * num_workers
+            starts = range(rank_info.rank * num_workers, (rank_info.rank + 1) * num_workers)
+            return [idx for start in starts for idx in range(start, num_shards, global_num_workers)]
+
+        return list(range(rank_info.rank, num_shards, rank_info.world_size))
+
+    def _shard_sizes(self) -> list[int] | None:
+        data = getattr(self.dataset, "_data", None)
+        if isinstance(data, pl.DataFrame) and "size" in data.columns:
+            return [int(size) for size in data["size"].to_list()]
+        return None
+
+    def _balanced_shard_indices_by_rank(self) -> list[list[int]] | None:
+        rank_info = get_rank_info()
+        if rank_info.world_size <= 1:
+            return None
+
+        shard_sizes = self._shard_sizes()
+        if shard_sizes is None:
+            return None
+
+        # Largest-processing-time scheduling keeps DDP ranks close in number of samples.
+        # That matters for IterableDataset DDP: if one rank has extra batches, the ranks
+        # can enter different collectives and deadlock.
+        ranked_shards = sorted(range(len(shard_sizes)), key=lambda idx: (shard_sizes[idx], -idx), reverse=True)
+        rank_indices: list[list[int]] = [[] for _ in range(rank_info.world_size)]
+        rank_loads = [0 for _ in range(rank_info.world_size)]
+        for shard_idx in ranked_shards:
+            rank = min(range(rank_info.world_size), key=lambda idx: (rank_loads[idx], idx))
+            rank_indices[rank].append(shard_idx)
+            rank_loads[rank] += shard_sizes[shard_idx]
+
+        return rank_indices
+
+    def _assigned_shard_indices(self, seed: int | None) -> list[int] | None:
+        rank_info = get_rank_info()
+        worker_info = torch.utils.data.get_worker_info()
+        worker_id = 0 if worker_info is None else worker_info.id
+        num_workers = max(self._num_workers_for_len, 0) if worker_info is None else worker_info.num_workers
+
+        rank_indices = self._balanced_shard_indices_by_rank()
+        if rank_indices is None:
+            return None
+
+        local_indices = rank_indices[rank_info.rank]
+        if num_workers > 1:
+            shard_sizes = self._shard_sizes()
+            assert shard_sizes is not None
+            worker_indices: list[list[int]] = [[] for _ in range(num_workers)]
+            worker_loads = [0 for _ in range(num_workers)]
+            for shard_idx in sorted(local_indices, key=lambda idx: (shard_sizes[idx], -idx), reverse=True):
+                worker = min(range(num_workers), key=lambda idx: (worker_loads[idx], idx))
+                worker_indices[worker].append(shard_idx)
+                worker_loads[worker] += shard_sizes[shard_idx]
+            local_indices = worker_indices[worker_id]
+
+        if seed is not None and len(local_indices) > 1:
+            local_indices = list(local_indices)
+            np.random.RandomState(seed).shuffle(local_indices)
+
+        return local_indices
+
+    def _batch_count_for_shards(self, shard_indices: list[int]) -> int:
+        if self.batch_size is None:
+            return len(shard_indices)
+
+        shard_sizes = self._shard_sizes()
+        if shard_sizes is None:
+            return math.ceil(len(self.dataset) * len(shard_indices) / self.dataset._num_shards() / self.batch_size)
+
+        return math.ceil(sum(shard_sizes[idx] for idx in shard_indices) / self.batch_size)
+
+    def _balanced_batch_count_for_len(self) -> int | None:
+        rank_info = get_rank_info()
+        if rank_info.world_size <= 1:
+            return None
+
+        rank_indices = self._balanced_shard_indices_by_rank()
+        if rank_indices is None:
+            return None
+
+        num_workers = max(self._num_workers_for_len, 0)
+        shard_sizes = self._shard_sizes()
+        assert shard_sizes is not None
+
+        rank_batch_counts = []
+        for local_indices in rank_indices:
+            if num_workers > 1:
+                worker_indices: list[list[int]] = [[] for _ in range(num_workers)]
+                worker_loads = [0 for _ in range(num_workers)]
+                for shard_idx in sorted(local_indices, key=lambda idx: (shard_sizes[idx], -idx), reverse=True):
+                    worker = min(range(num_workers), key=lambda idx: (worker_loads[idx], idx))
+                    worker_indices[worker].append(shard_idx)
+                    worker_loads[worker] += shard_sizes[shard_idx]
+                rank_batch_counts.append(sum(self._batch_count_for_shards(indices) for indices in worker_indices))
+            else:
+                rank_batch_counts.append(self._batch_count_for_shards(local_indices))
+
+        return min(rank_batch_counts)
+
+    def _local_sample_count_for_len(self) -> int:
+        shard_indices = self._local_shard_indices_for_len()
+        if not shard_indices:
+            return 0
+        data = getattr(self.dataset, "_data", None)
+        if isinstance(data, pl.DataFrame) and "size" in data.columns:
+            return int(data["size"].gather(shard_indices).sum())
+        return math.ceil(len(self.dataset) * len(shard_indices) / self.dataset._num_shards())
+
     def __len__(self):
+        balanced_batch_count = self._balanced_batch_count_for_len()
+        if balanced_batch_count is not None:
+            return balanced_batch_count
+
         if self.batch_size is None:
             # noinspection PyProtectedMember
-            return self.dataset._num_shards()
+            return len(self._local_shard_indices_for_len())
         else:
-            return math.ceil(len(self.dataset) / self.batch_size)
+            return math.ceil(self._local_sample_count_for_len() / self.batch_size)
 
     def __iter__(self):
         self._iter_counter += 1
         self._buffer = []
 
+        seed = self._get_seed_for_current_iteration()
+        assigned_shard_indices = self._assigned_shard_indices(seed)
+
+        if assigned_shard_indices is not None:
+            start_shard_idx = None
+            shard_step_size = 1
+        elif self._start_shard_idx is None and self._stop_shard_idx is None and self._shard_step_size == 1:
+            rank_info = get_rank_info()
+            start_shard_idx = rank_info.rank
+            shard_step_size = rank_info.world_size
+        else:
+            start_shard_idx = self._start_shard_idx
+            shard_step_size = self._shard_step_size
+
+        iterate_kwargs = {
+            "seed": seed if assigned_shard_indices is None else None,
+            "start_shard_idx": start_shard_idx,
+            "end_shard_idx": self._stop_shard_idx,
+            "shard_step_size": shard_step_size,
+        }
+        if assigned_shard_indices is not None:
+            iterate_kwargs["shard_indices"] = assigned_shard_indices
+
         # noinspection PyProtectedMember
-        for shard in self.dataset._iterate_shards(
-            seed=self._get_seed_for_current_iteration(),
-            start_shard_idx=self._start_shard_idx,
-            end_shard_idx=self._stop_shard_idx,
-            shard_step_size=self._shard_step_size,
-        ):
+        for shard in self.dataset._iterate_shards(**iterate_kwargs):
             self._add_shard(shard)
 
             if self._num_samples_in_buffer > self.refill_threshold:

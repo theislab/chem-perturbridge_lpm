@@ -13,6 +13,7 @@ limitations under the License.
 Large perturbation model implementation.
 """
 
+import os
 import string
 from abc import ABCMeta
 from collections.abc import Mapping
@@ -68,6 +69,8 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         epoch_checkpoint_save_last: If True, also write a rolling ``last.ckpt`` at every
             save event (i.e. every Nth epoch). Used for ``resume_from_checkpoint`` after
             preemption / crash. Set False to skip and save a bit of disk I/O.
+        keep_best_validation_checkpoint: If True, keep the best ``Validation RMSE``
+            checkpoint whenever validation data is provided and checkpointing is enabled.
         output_mode: ``scalar`` keeps the original one-row-per-readout behavior; ``multiout``
             predicts all readouts for each sample and computes loss only for available readouts.
             ``auto`` selects ``multiout`` when the dataset has sample-level ragged readout columns.
@@ -92,6 +95,7 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         resume_from_checkpoint: str | None = None,
         epoch_checkpoint_every_n: int = 0,
         epoch_checkpoint_save_last: bool = True,
+        keep_best_validation_checkpoint: bool = True,
         output_mode: Literal["auto", "scalar", "multiout"] = "auto",
     ):
         super().__init__()
@@ -113,6 +117,7 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         # capture every epoch (incl. epoch 1).
         self.epoch_checkpoint_every_n = epoch_checkpoint_every_n
         self.epoch_checkpoint_save_last = epoch_checkpoint_save_last
+        self.keep_best_validation_checkpoint = keep_best_validation_checkpoint
         self.optimizer_name = optimizer_name
         self.embedding_aggregation_mode = embedding_aggregation_mode
         self.output_mode = output_mode
@@ -143,10 +148,16 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.training_loss_count: torch.Tensor | None = None
         self.validation_loss_sum: torch.Tensor | None = None
         self.validation_loss_count: torch.Tensor | None = None
+        self.validation_dataset_loss_sum: torch.Tensor | None = None
+        self.validation_dataset_loss_count: torch.Tensor | None = None
         self.throughput_outputs: list[float] = []
         self.lightning_trainer_pars["default_root_dir"] = self.default_root_dir
         self.save_hyperparameters(ignore=["lightning_trainer_pars", "resume_from_checkpoint"])
         self.model_checkpoints_path = self.default_root_dir / "checkpoints"
+        self._has_validation_data = False
+        self.best_validation_checkpoint_callback: ModelCheckpoint | None = None
+        self.best_validation_checkpoint_path: str | None = None
+        self.best_validation_score: float | None = None
         if profiler:
             self.lightning_trainer_pars["profiler"] = LPMProfiler()
         self.ckpt_filename: str | None
@@ -207,9 +218,44 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             return "multiout" if self._is_multiout_data(data) else "scalar"
         return self.output_mode
 
+    @staticmethod
+    def _load_preencoded_vocab(data: PlibData[pl.DataFrame]) -> Vocabulary | None:
+        metadata = getattr(data, "_data", None)
+        if metadata is None or "shard_path" not in metadata.columns or metadata.is_empty():
+            return None
+
+        roots = {Path(path).parent.parent for path in metadata["shard_path"].to_list()}
+        if len(roots) != 1:
+            logger.warning(
+                "Could not infer one shared preencoded vocabulary root from shard paths. "
+                "Falling back to split-local vocabulary initialization."
+            )
+            return None
+
+        vocab_dir = roots.pop() / "vocab"
+        vocab_paths = {
+            "context_vocab": vocab_dir / "context_vocab.parquet",
+            "perturb_vocab": vocab_dir / "perturb_vocab.parquet",
+            "readout_vocab": vocab_dir / "readout_vocab.parquet",
+            "dataset_vocab": vocab_dir / "dataset_vocab.parquet",
+        }
+        if not all(path.is_file() for path in vocab_paths.values()):
+            return None
+
+        logger.info(f"Loading preencoded multi-output vocabulary from {vocab_dir}")
+        return Vocabulary(
+            context_vocab=pl.read_parquet(vocab_paths["context_vocab"]).sort("code"),
+            perturb_vocab=pl.read_parquet(vocab_paths["perturb_vocab"]).sort("code"),
+            readout_vocab=pl.read_parquet(vocab_paths["readout_vocab"]).sort("code"),
+            dataset_vocab=pl.read_parquet(vocab_paths["dataset_vocab"]).sort("code"),
+        )
+
     def _initialize_vocabularies_and_embeddings(self, data: PlibData[pl.DataFrame]):
-        self.vocab = Vocabulary.initialize_from_data(data)
         self.active_output_mode = self._resolve_output_mode(data)
+        if self.active_output_mode == "multiout":
+            self.vocab = self._load_preencoded_vocab(data) or Vocabulary.initialize_from_data(data)
+        else:
+            self.vocab = Vocabulary.initialize_from_data(data)
         self.output_dim = len(self.vocab.readout_vocab) if self.active_output_mode == "multiout" else 1
 
         self.dataset_embedding_layer = nn.Embedding(len(self.vocab.dataset_vocab), self.embedding_dim)
@@ -328,6 +374,7 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
 
         self._initialize_vocabularies_and_embeddings(traindata)
         assert self.vocab is not None
+        self._has_validation_data = valdata is not None
 
         if self.active_output_mode == "multiout":
             traindata_tensors = to_tensor_dict(traindata)
@@ -344,14 +391,28 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
                 valdata_tensors = to_tensor_dict(encode_data(valdata, self.vocab))
                 val_batch_size = None
             val_loader = valdata_tensors.get_data_loader(
-                val_batch_size, self.num_workers, self.pin_memory, shuffle=False
+                val_batch_size, self.num_workers, self.pin_memory, shuffle=False, preserve_order=False
             )
         else:
             val_loader = None
 
-        trainer = pyl.Trainer(**self.lightning_trainer_pars)
+        lightning_trainer_pars = dict(self.lightning_trainer_pars)
+        if os.environ.get("PERTURB_GYM_FORCE_LIGHTNING_ENV") == "1":
+            from lightning_fabric.plugins.environments import LightningEnvironment
+
+            lightning_env = LightningEnvironment()
+            plugins = lightning_trainer_pars.get("plugins")
+            if plugins is None:
+                lightning_trainer_pars["plugins"] = [lightning_env]
+            elif isinstance(plugins, list):
+                lightning_trainer_pars["plugins"] = [*plugins, lightning_env]
+            else:
+                lightning_trainer_pars["plugins"] = [plugins, lightning_env]
+
+        trainer = pyl.Trainer(**lightning_trainer_pars)
         logger.info(f"Fitting {self.__class__.__name__}..")
         trainer.fit(model=self, train_dataloaders=train_loader, val_dataloaders=val_loader, ckpt_path=ckpt_path)
+        self._capture_best_validation_checkpoint()
         if len(self.throughput_outputs) > 1:
             avg_thr = sum(self.throughput_outputs[1:]) / len(self.throughput_outputs[1:])
             logger.info(f"Average throughput: {int(avg_thr)} samples/sec == {int(avg_thr / self.batch_size)} it/sec")
@@ -365,6 +426,25 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             # add model checkpointing callback
             logger.info(f"Temporary file for checkpoints is {self.ckpt_filename}.ckpt")
             cblist.append(ModelCheckpoint(self.model_checkpoints_path, self.ckpt_filename, monitor="Validation RMSE"))
+        if self.keep_best_validation_checkpoint:
+            if not self._has_validation_data:
+                logger.info("Skipping best Validation RMSE checkpoint because no validation data was provided.")
+            elif not self.lightning_trainer_pars.get("enable_checkpointing", True):
+                logger.warning(
+                    "Skipping best Validation RMSE checkpoint because enable_checkpointing is False."
+                )
+            else:
+                logger.info(f"Saving best Validation RMSE checkpoint at {self.model_checkpoints_path}")
+                self.best_validation_checkpoint_callback = ModelCheckpoint(
+                    dirpath=self.model_checkpoints_path,
+                    filename="best-validation-rmse-epoch{epoch:04d}",
+                    monitor="Validation RMSE",
+                    mode="min",
+                    save_top_k=1,
+                    save_last=False,
+                    auto_insert_metric_name=False,
+                )
+                cblist.append(self.best_validation_checkpoint_callback)
         if self.epoch_checkpoint_every_n > 0 or self.epoch_checkpoint_save_last:
             # Stock Lightning ModelCheckpoint is properly DDP-aware (every rank calls
             # trainer.save_checkpoint together). every_n_epochs >= 1 controls the cadence;
@@ -386,8 +466,64 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             )
         return cblist
 
-    def add_logger(self, output_dir: Path, log_name: str):  # noqa: D102
-        self.lightning_trainer_pars["logger"] = TensorBoardLogger(save_dir=output_dir, name=log_name)
+    def _capture_best_validation_checkpoint(self) -> None:
+        callback = self.best_validation_checkpoint_callback
+        if callback is None:
+            return
+        best_model_path = getattr(callback, "best_model_path", "") or ""
+        self.best_validation_checkpoint_path = best_model_path or None
+        best_model_score = getattr(callback, "best_model_score", None)
+        if best_model_score is not None:
+            try:
+                self.best_validation_score = float(best_model_score.detach().cpu().item())
+            except AttributeError:
+                self.best_validation_score = float(best_model_score)
+
+    def add_logger(
+        self,
+        output_dir: Path,
+        log_name: str,
+        wandb_config: Mapping[str, Any] | None = None,
+        run_config: Mapping[str, Any] | None = None,
+    ):  # noqa: D102
+        output_dir = Path(output_dir)
+        tensorboard_logger = TensorBoardLogger(save_dir=output_dir, name=log_name)
+        loggers: list[Any] = [tensorboard_logger]
+
+        wandb_settings = dict(wandb_config or {})
+        wandb_enabled = bool(wandb_settings.pop("enabled", False))
+        if wandb_enabled:
+            required = bool(wandb_settings.pop("required", False))
+            user_wandb_config = dict(wandb_settings.pop("config", {}) or {})
+            if run_config:
+                user_wandb_config.update(dict(run_config))
+            if user_wandb_config:
+                wandb_settings["config"] = user_wandb_config
+            wandb_settings.setdefault("project", "chem-perturbridge-lpm")
+            wandb_settings.setdefault("name", f"{output_dir.parent.name}-{output_dir.name}")
+            wandb_root = output_dir / "wandb"
+            for path in (wandb_root, wandb_root / "cache", wandb_root / "data"):
+                path.mkdir(parents=True, exist_ok=True)
+            os.environ.setdefault("WANDB_CACHE_DIR", str(wandb_root / "cache"))
+            os.environ.setdefault("WANDB_DATA_DIR", str(wandb_root / "data"))
+            wandb_settings.setdefault("save_dir", str(wandb_root))
+
+            try:
+                from pytorch_lightning.loggers import WandbLogger
+
+                wandb_logger = WandbLogger(**wandb_settings)
+                _ = wandb_logger.experiment
+                loggers.append(wandb_logger)
+            except Exception as exc:
+                msg = (
+                    "W&B logging was requested but could not be initialized. "
+                    "Install wandb and configure WANDB_API_KEY, or set offline=true in wandb_config."
+                )
+                if required:
+                    raise RuntimeError(msg) from exc
+                logger.warning(f"{msg} Falling back to TensorBoard only. Error: {exc}")
+
+        self.lightning_trainer_pars["logger"] = loggers if len(loggers) > 1 else tensorboard_logger
         # Co-locate step/epoch checkpoints with the per-run TensorBoard logs so that
         # everything for one training run lives under the same results dir (and is
         # wiped together when run.sh clears RESULTS_DIR before the next run).
@@ -475,6 +611,13 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             )
         return batch["context"]
 
+    def _dataset_codes_for_losses(self, batch: dict[str, torch.Tensor], unreduced_loss: torch.Tensor) -> torch.Tensor:
+        if self.active_output_mode == "multiout":
+            return torch.repeat_interleave(
+                batch["dataset"], batch["n_values"].to(device=batch["dataset"].device).long()
+            )
+        return batch["dataset"]
+
     @staticmethod
     def _new_metric_buffers(num_slots: int, device: torch.device) -> tuple[torch.Tensor, torch.Tensor]:
         return (
@@ -528,9 +671,14 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         assert self.vocab is not None
         loss_for_metric = unreduced_loss.detach()
         num_contexts = len(self.vocab.context_vocab)
+        num_datasets = len(self.vocab.dataset_vocab)
         if self.validation_loss_sum is None or self.validation_loss_count is None:
             self.validation_loss_sum, self.validation_loss_count = self._new_metric_buffers(
                 num_contexts + 1, loss_for_metric.device
+            )
+        if self.validation_dataset_loss_sum is None or self.validation_dataset_loss_count is None:
+            self.validation_dataset_loss_sum, self.validation_dataset_loss_count = self._new_metric_buffers(
+                num_datasets, loss_for_metric.device
             )
 
         # Slot 0 = global metric; slots 1..N are indexed by context code.
@@ -541,11 +689,17 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.validation_loss_sum.index_add_(0, slot_indices, loss_for_metric.to(dtype=torch.float64))
         self.validation_loss_count.index_add_(0, slot_indices, torch.ones_like(loss_for_metric, dtype=torch.float64))
 
+        loss_dataset = self._dataset_codes_for_losses(batch, unreduced_loss).long()
+        self.validation_dataset_loss_sum.index_add_(0, loss_dataset, loss_for_metric.to(dtype=torch.float64))
+        self.validation_dataset_loss_count.index_add_(
+            0, loss_dataset, torch.ones_like(loss_for_metric, dtype=torch.float64)
+        )
+
     def on_train_epoch_end(self):  # noqa: D102
         if self.training_loss_sum is not None and self.training_loss_count is not None:
             self._all_reduce_metric_buffers(self.training_loss_sum, self.training_loss_count)
             metric_result = (self.training_loss_sum / self.training_loss_count.clamp(min=1)).sqrt()[0]
-            self.log("Training RMSE", metric_result)
+            self.log("Training RMSE", metric_result, sync_dist=True)
         self.training_loss_sum = None
         self.training_loss_count = None
         # Throughput is read from the tqdm progress bar, which Lightning only
@@ -579,28 +733,51 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         else:
             sum_sq = self.validation_loss_sum
             count = self.validation_loss_count
+        num_datasets = len(self.vocab.dataset_vocab)
+        if self.validation_dataset_loss_sum is None or self.validation_dataset_loss_count is None:
+            dataset_sum_sq, dataset_count = self._new_metric_buffers(num_datasets, self.device)
+        else:
+            dataset_sum_sq = self.validation_dataset_loss_sum
+            dataset_count = self.validation_dataset_loss_count
 
         self._all_reduce_metric_buffers(sum_sq, count)
+        self._all_reduce_metric_buffers(dataset_sum_sq, dataset_count)
 
         rmse = (sum_sq / count.clamp(min=1)).sqrt()
+        dataset_rmse = (dataset_sum_sq / dataset_count.clamp(min=1)).sqrt()
         # Single GPU->CPU sync for the per-slot count, used to skip empty contexts.
         count_cpu = count.detach().cpu()
+        dataset_count_cpu = dataset_count.detach().cpu()
 
-        # After the all_reduce, every rank holds identical sum_sq/count, so these
-        # self.log calls are now symmetric across ranks (same keys, same order).
-        self.log("Validation RMSE", rmse[0])
+        # After the all_reduce, every rank holds identical sum_sq/count. We still
+        # ask Lightning to sync scalar logs so its DDP logger path stays quiet.
+        self.log("Validation RMSE", rmse[0], sync_dist=True)
         for symbol, code in zip(self.vocab.context_vocab["symbol"], self.vocab.context_vocab["code"]):
             if count_cpu[code + 1].item() > 0:
-                self.log(f"Validation RMSE {symbol}", rmse[code + 1])
+                self.log(f"Validation RMSE {symbol}", rmse[code + 1], sync_dist=True)
+        for symbol, code in zip(self.vocab.dataset_vocab["symbol"], self.vocab.dataset_vocab["code"]):
+            if dataset_count_cpu[code].item() > 0:
+                self.log(f"Validation RMSE dataset/{symbol}", dataset_rmse[code], sync_dist=True)
 
         self.validation_loss_sum = None
         self.validation_loss_count = None
+        self.validation_dataset_loss_sum = None
+        self.validation_dataset_loss_count = None
 
     def on_fit_end(self):  # noqa: D102
         # at the end of training
         logger.info("Cleaning up...")
-        # if applicable, load the best model, the one that minimizes validation loss
-        if self.ckpt_filename is not None:
+        self._capture_best_validation_checkpoint()
+        if self.best_validation_checkpoint_path is not None and Path(self.best_validation_checkpoint_path).is_file():
+            logger.info(f"Loading best Validation RMSE checkpoint: {self.best_validation_checkpoint_path}")
+            best_model = LPM.load_from_checkpoint(self.best_validation_checkpoint_path, **self.hparams)
+            self.load_state_dict(best_model.state_dict())
+            if self.ckpt_filename is not None:
+                legacy_checkpoint = self.model_checkpoints_path / (self.ckpt_filename + ".ckpt")
+                if legacy_checkpoint.is_file():
+                    legacy_checkpoint.unlink()
+        elif self.ckpt_filename is not None:
+            # Legacy early-stopping checkpoint path, kept as a fallback for older runs.
             path_to_checkpoint = self.model_checkpoints_path / (self.ckpt_filename + ".ckpt")
             best_model = LPM.load_from_checkpoint(path_to_checkpoint, **self.hparams)
             self.load_state_dict(best_model.state_dict())

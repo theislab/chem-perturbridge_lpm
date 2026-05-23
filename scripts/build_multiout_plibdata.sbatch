@@ -37,6 +37,11 @@ export POLARS_MAX_THREADS="${SLURM_CPUS_PER_TASK:-8}"
 
 CONFIG="${CONFIG:-perturb_gym/configs/collection/lpm_modified_all_data_1epoch_lustre.yaml}"
 OUTPUT_ROOT="${OUTPUT_ROOT:-.plib_cache/plibdata_multiout/lpm_modified_all_data_1epoch_lustre}"
+CACHE_ROOT="${CACHE_ROOT:-}"
+RAW_ROOT="${RAW_ROOT:-}"
+ANNOTATIONS="${ANNOTATIONS:-}"
+REFERENCE_PLIBDATA_ROOT="${REFERENCE_PLIBDATA_ROOT:-}"
+FALLBACK_CACHE_ROOT="${FALLBACK_CACHE_ROOT:-}"
 PYTHON="${PYTHON:-${SLURM_SUBMIT_DIR:-$(pwd)}/lpm_training_venv/bin/python}"
 TARGET_VALUES_PER_SHARD="${TARGET_VALUES_PER_SHARD:-8000000}"
 VALUE_DTYPE="${VALUE_DTYPE:-float32}"
@@ -47,10 +52,41 @@ INCLUDE_SYMBOLS="${INCLUDE_SYMBOLS:-0}"
 echo "[build_multiout_plibdata.sbatch] job=${SLURM_JOB_ID:-local} task=${SLURM_ARRAY_TASK_ID:-none}"
 echo "[build_multiout_plibdata.sbatch] config=${CONFIG}"
 echo "[build_multiout_plibdata.sbatch] output_root=${OUTPUT_ROOT}"
+if [[ -n "${CACHE_ROOT}" ]]; then
+    echo "[build_multiout_plibdata.sbatch] cache_root=${CACHE_ROOT}"
+fi
+if [[ -n "${RAW_ROOT}" ]]; then
+    echo "[build_multiout_plibdata.sbatch] raw_root=${RAW_ROOT}"
+fi
+if [[ -n "${ANNOTATIONS}" ]]; then
+    echo "[build_multiout_plibdata.sbatch] annotations=${ANNOTATIONS}"
+fi
+if [[ -n "${REFERENCE_PLIBDATA_ROOT}" ]]; then
+    echo "[build_multiout_plibdata.sbatch] reference_plibdata_root=${REFERENCE_PLIBDATA_ROOT}"
+fi
+if [[ -n "${FALLBACK_CACHE_ROOT}" ]]; then
+    echo "[build_multiout_plibdata.sbatch] fallback_cache_root=${FALLBACK_CACHE_ROOT}"
+fi
 echo "[build_multiout_plibdata.sbatch] python=${PYTHON}"
 echo "[build_multiout_plibdata.sbatch] cpus=${SLURM_CPUS_PER_TASK:-8}"
 
 SOURCE_INDEX="${SLURM_ARRAY_TASK_ID:-0}"
+PATH_ARGS=()
+if [[ -n "${CACHE_ROOT}" ]]; then
+    PATH_ARGS+=(--cache-root "${CACHE_ROOT}")
+fi
+if [[ -n "${RAW_ROOT}" ]]; then
+    PATH_ARGS+=(--raw-root "${RAW_ROOT}")
+fi
+if [[ -n "${ANNOTATIONS}" ]]; then
+    PATH_ARGS+=(--annotations "${ANNOTATIONS}")
+fi
+if [[ -n "${REFERENCE_PLIBDATA_ROOT}" ]]; then
+    PATH_ARGS+=(--reference-plibdata-root "${REFERENCE_PLIBDATA_ROOT}")
+fi
+if [[ -n "${FALLBACK_CACHE_ROOT}" ]]; then
+    PATH_ARGS+=(--fallback-cache-root "${FALLBACK_CACHE_ROOT}")
+fi
 EXTRA_ARGS=(--skip-existing)
 if [[ "${OVERWRITE}" == "1" ]]; then
     EXTRA_ARGS=(--overwrite)
@@ -62,6 +98,7 @@ fi
 "${PYTHON}" scripts/build_multiout_plibdata.py \
     --config "${CONFIG}" \
     --output-root "${OUTPUT_ROOT}" \
+    "${PATH_ARGS[@]}" \
     --source-index "${SOURCE_INDEX}" \
     --target-values-per-shard "${TARGET_VALUES_PER_SHARD}" \
     --value-dtype "${VALUE_DTYPE}" \

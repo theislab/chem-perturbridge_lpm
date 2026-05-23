@@ -1,0 +1,4 @@
+role	job_id	notes
+baseline_existing	36693408	current all-data+OP3 mol-holdout baseline, counted as run00
+sweep_array	36693717	19 additional candidates, array 0-18, max 4 concurrent, 2xH100 each
+summary_afterany	36693726	runs summarize_lpm_hparam_sweep.py after baseline and array complete

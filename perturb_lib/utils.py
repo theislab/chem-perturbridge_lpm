@@ -13,6 +13,7 @@ limitations under the License.
 Library-level utility functions.
 """
 
+import os
 from collections import defaultdict
 from dataclasses import dataclass
 
@@ -226,5 +227,15 @@ def get_rank_info(group: torch.distributed.ProcessGroup | None = None) -> RankIn
         group = group or torch.distributed.group.WORLD
         rank = torch.distributed.get_rank(group=group)
         world_size = torch.distributed.get_world_size(group=group)
+    else:
+        rank_env = os.environ.get("RANK") or os.environ.get("SLURM_PROCID")
+        world_size_env = os.environ.get("WORLD_SIZE") or os.environ.get("SLURM_NTASKS")
+        if rank_env is not None and world_size_env is not None:
+            try:
+                rank = int(rank_env)
+                world_size = int(world_size_env)
+            except ValueError:
+                rank = 0
+                world_size = 1
 
     return RankInfo(rank=rank, world_size=world_size)

@@ -17,7 +17,7 @@ from __future__ import annotations
 
 import copy
 from abc import abstractmethod
-from collections.abc import Callable, Iterator
+from collections.abc import Callable, Iterator, Sequence
 from pathlib import Path
 from typing import Generic, Self, cast
 
@@ -106,7 +106,12 @@ class PlibData(TorchData[OutT], Generic[OutT]):
 
     @abstractmethod
     def get_data_loader(
-        self, batch_size: int | None, num_workers: int = 0, pin_memory: bool = False, shuffle: bool = False
+        self,
+        batch_size: int | None,
+        num_workers: int = 0,
+        pin_memory: bool = False,
+        shuffle: bool = False,
+        preserve_order: bool = True,
     ) -> TorchDataLoader[OutT]:
         """Fetch a torch-style data loader for batch sampling.
 
@@ -187,7 +192,12 @@ class InMemoryPlibData(PlibData[OutT], Generic[OutT]):
         return batch[0]
 
     def get_data_loader(
-        self, batch_size: int | None, num_workers: int = 0, pin_memory: bool = False, shuffle: bool = False
+        self,
+        batch_size: int | None,
+        num_workers: int = 0,
+        pin_memory: bool = False,
+        shuffle: bool = False,
+        preserve_order: bool = True,
     ) -> TorchDataLoader[OutT]:
         """Fetch a torch-style data loader for batch sampling.
 
@@ -196,6 +206,7 @@ class InMemoryPlibData(PlibData[OutT], Generic[OutT]):
             num_workers: Number of pytorch workers.
             pin_memory: If true, Copy Tensors into device pinned memory before returning them.
             shuffle: If false, samples will be sampled sequentially to form batches. If true, samples will be shuffled.
+            preserve_order: Kept for API symmetry with ``OnDiskPlibData``. In-memory loaders preserve sampler order.
 
         Returns:
             an instance of ``torch.utils.data.DataLoader``
@@ -252,8 +263,11 @@ class OnDiskPlibData(PlibData[OutT], Generic[OutT]):
         data_sources: str | None = None,
         path_to_data_sources: Path | None = None,
         columns: list[str] | None = None,
+        cache_shards_in_memory: bool = False,
     ):
         super().__init__(data, data_sources, path_to_data_sources)
+        self.cache_shards_in_memory = cache_shards_in_memory
+        self._shard_cache: dict[int, pl.DataFrame] = {}
         if columns:
             self._columns = columns
         else:
@@ -269,8 +283,13 @@ class OnDiskPlibData(PlibData[OutT], Generic[OutT]):
         return metadata.collect()
 
     def _load_shard(self, shard_number: int) -> pl.DataFrame:
+        if self.cache_shards_in_memory and shard_number in self._shard_cache:
+            return self._shard_cache[shard_number]
+
         shard_metadata: dict = self._data.row(shard_number, named=True)
         shard = pl.read_parquet(shard_metadata["shard_path"], columns=self.columns)
+        if self.cache_shards_in_memory:
+            self._shard_cache[shard_number] = shard
 
         return shard
 
@@ -333,17 +352,21 @@ class OnDiskPlibData(PlibData[OutT], Generic[OutT]):
         start_shard_idx: int | None = None,
         end_shard_idx: int | None = None,
         shard_step_size: int = 1,
+        shard_indices: Sequence[int] | None = None,
     ) -> Iterator[pl.DataFrame]:
-        shard_numbers = np.arange(self._num_shards(), dtype=np.int_)
-        if seed is not None:
-            np.random.RandomState(seed).shuffle(shard_numbers)
+        if shard_indices is None:
+            shard_numbers = np.arange(self._num_shards(), dtype=np.int_)
+            if seed is not None:
+                np.random.RandomState(seed).shuffle(shard_numbers)
 
-        if start_shard_idx is None:
-            start_shard_idx = 0
-        if end_shard_idx is None:
-            end_shard_idx = self._num_shards()
+            if start_shard_idx is None:
+                start_shard_idx = 0
+            if end_shard_idx is None:
+                end_shard_idx = self._num_shards()
 
-        for shard_number in shard_numbers[start_shard_idx:end_shard_idx:shard_step_size]:
+            shard_indices = shard_numbers[start_shard_idx:end_shard_idx:shard_step_size]
+
+        for shard_number in shard_indices:
             yield self._load_shard(shard_number)
 
     def _num_shards(self) -> int:
@@ -371,6 +394,7 @@ class OnDiskPlibData(PlibData[OutT], Generic[OutT]):
 
         new_plibdata = copy.copy(self)
         new_plibdata._columns = columns
+        new_plibdata._shard_cache = {}
         return new_plibdata
 
     @property
@@ -379,7 +403,12 @@ class OnDiskPlibData(PlibData[OutT], Generic[OutT]):
         return dict(cast(dict, df.schema))
 
     def get_data_loader(
-        self, batch_size: int | None, num_workers: int = 0, pin_memory: bool = False, shuffle: bool = False
+        self,
+        batch_size: int | None,
+        num_workers: int = 0,
+        pin_memory: bool = False,
+        shuffle: bool = False,
+        preserve_order: bool = True,
     ) -> TorchDataLoader[OutT]:
         """Fetch a torch-style data loader for batch sampling.
 
@@ -388,11 +417,13 @@ class OnDiskPlibData(PlibData[OutT], Generic[OutT]):
             num_workers: Number of pytorch workers.
             pin_memory: If true, Copy Tensors into device pinned memory before returning them.
             shuffle: If false, samples will be sampled sequentially to form batches. If true, samples will be shuffled.
+            preserve_order: If false, non-shuffled batched loading may split shards across multiple workers/ranks.
+                This is faster but does not preserve global row order. It is appropriate for aggregate metrics.
 
         Returns:
             an instance of ``torch.utils.data.DataLoader``
         """
-        if shuffle is False and batch_size is not None and num_workers > 1:
+        if shuffle is False and batch_size is not None and num_workers > 1 and preserve_order:
             logger.warning(
                 "Using more than 1 worker with shuffle=False and a specified batch_size "
                 "is not supported. Setting num_workers=1."
@@ -400,6 +431,7 @@ class OnDiskPlibData(PlibData[OutT], Generic[OutT]):
             num_workers = 1
 
         batched_dataset = ShuffleBuffer(self, batch_size=batch_size, shuffle=shuffle, transforms=self._transforms)
+        batched_dataset._num_workers_for_len = num_workers
 
         return TorchDataLoader(
             dataset=batched_dataset,

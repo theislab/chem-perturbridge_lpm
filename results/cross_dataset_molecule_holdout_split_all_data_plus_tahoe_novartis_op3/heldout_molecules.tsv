@@ -1,0 +1,2027 @@
+dataset	split	molecule	samples_in_dataset	other_training_datasets
+CIGS MCE	test	10071196	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	10174505	2	tahoe100
+CIGS MCE	test	10275777	2	LINCS_phase2_level3
+CIGS MCE	test	10328286	2	CIGS TCM
+CIGS MCE	test	104974	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	10607	2	CIGS TCM,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	10621	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	test	10680	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	108001	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	108143	2	LINCS_phase2_level3
+CIGS MCE	test	11154476	2	CIGS TCM
+CIGS MCE	test	11175137	2	LINCS_phase2_level3,op3
+CIGS MCE	test	11210285	2	Ginkgo GDPx2
+CIGS MCE	test	1123	2	CIGS TCM
+CIGS MCE	test	11238147	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	11249248	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	11373846	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	11477833	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	11493598	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	11499198	2	CIGS TCM
+CIGS MCE	test	115175	2	LINCS_phase2_level3
+CIGS MCE	test	11676786	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	11754511	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3
+CIGS MCE	test	11771269	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	11827970	2	CIGS TCM
+CIGS MCE	test	119034	2	CIGS TCM
+CIGS MCE	test	11978813	1	LINCS_phase2_level3
+CIGS MCE	test	11982640	2	CIGS TCM
+CIGS MCE	test	119828	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	121396	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	121513876	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	122706002	2	CIGS TCM
+CIGS MCE	test	12300056	2	CIGS TCM
+CIGS MCE	test	124025	2	CIGS TCM
+CIGS MCE	test	124219	2	CIGS TCM
+CIGS MCE	test	124246	2	LINCS_phase2_level3
+CIGS MCE	test	125	2	CIGS TCM
+CIGS MCE	test	126941	2	op3,tahoe100
+CIGS MCE	test	127258928	2	CIGS TCM
+CIGS MCE	test	129052159	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	12912363	2	CIGS TCM
+CIGS MCE	test	129211	2	LINCS_phase2_level3
+CIGS MCE	test	130956	2	tahoe100
+CIGS MCE	test	131682	2	LINCS_phase2_level3
+CIGS MCE	test	135191	2	CIGS TCM
+CIGS MCE	test	135414245	2	CIGS TCM
+CIGS MCE	test	135423438	2	srivatsan20_sciplex3
+CIGS MCE	test	135526609	2	tahoe100
+CIGS MCE	test	135564749	2	op3
+CIGS MCE	test	135565181	2	LINCS_phase2_level3
+CIGS MCE	test	138611145	2	tahoe100
+CIGS MCE	test	1427628	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	15376	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	test	154059	2	LINCS_phase2_level3
+CIGS MCE	test	1548942	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	1548943	2	CIGS TCM,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	1550607	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	test	155074	2	tahoe100
+CIGS MCE	test	15548	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	155692	2	CIGS TCM
+CIGS MCE	test	157692	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	159603	1	LINCS_phase2_level3
+CIGS MCE	test	1598	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	160254	2	CIGS TCM
+CIGS MCE	test	16126651	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	16193817	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	162823	2	CIGS TCM
+CIGS MCE	test	168928	2	CIGS TCM
+CIGS MCE	test	176167	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,srivatsan20_sciplex3
+CIGS MCE	test	176871	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	177014	2	CIGS TCM
+CIGS MCE	test	183466	2	CIGS TCM
+CIGS MCE	test	194000	2	CIGS TCM
+CIGS MCE	test	20279	2	LINCS_phase2_level3
+CIGS MCE	test	20469	2	Ginkgo GDPx2
+CIGS MCE	test	20832634	2	CIGS TCM
+CIGS MCE	test	214347	2	LINCS_phase2_level3
+CIGS MCE	test	21599925	2	CIGS TCM
+CIGS MCE	test	216237	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	216239	2	srivatsan20_sciplex3
+CIGS MCE	test	21633072	2	CIGS TCM
+CIGS MCE	test	21648	2	CIGS TCM
+CIGS MCE	test	23633604	2	LINCS_phase2_level3
+CIGS MCE	test	23663992	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	23681059	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	23687511	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	23757181	2	CIGS TCM
+CIGS MCE	test	24096391	2	CIGS TCM
+CIGS MCE	test	24180719	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	2448	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	247839	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	24794418	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	24812758	2	LINCS_phase2_level3,tahoe100
+CIGS MCE	test	2482	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	24856225	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	24864821	2	LINCS_phase2_level3
+CIGS MCE	test	25021165	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	25022668	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	25108829	2	srivatsan20_sciplex3
+CIGS MCE	test	25109292	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	25150857	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	25246343	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	25257557	2	LINCS_phase2_level3
+CIGS MCE	test	2554	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train,tahoe100
+CIGS MCE	test	2581	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	259803	2	CIGS TCM
+CIGS MCE	test	26248	2	CIGS TCM,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	2688	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	2724354	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	2746822	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	275182	2	tahoe100
+CIGS MCE	test	2763	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	2787	2	LINCS_phase2_level3
+CIGS MCE	test	2796	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	2797	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	2898	2	dilimap_train
+CIGS MCE	test	3001497	2	CIGS TCM
+CIGS MCE	test	3001664	2	CIGS TCM
+CIGS MCE	test	3019	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	3025944	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	3033	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	3035850	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	3038	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	3052776	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	30751	1	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	310557	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	311434	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	3272524	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	3332	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	3333	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	3335	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	3373	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	3392731	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	3396	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	34359	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	3549	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	3559	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train
+CIGS MCE	test	3610	2	tahoe100
+CIGS MCE	test	3611	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	test	36462	1	Ginkgo GDPx2,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	3671	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	369976	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	3707	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	3715	2	Ginkgo GDPx2,Novartis MoABox DRUG-seq,dilimap_train
+CIGS MCE	test	3718	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	3721046	2	LINCS_phase2_level3
+CIGS MCE	test	37392	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	3806	2	CIGS TCM
+CIGS MCE	test	382975	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	3830	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	3854666	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	3883	2	Novartis MoABox DRUG-seq,dilimap_train
+CIGS MCE	test	3922	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	3994	1	Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+CIGS MCE	test	405012	2	LINCS_phase2_level3
+CIGS MCE	test	40632	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	40634	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	4077460	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	40854	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	42623900	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	42642648	2	LINCS_phase2_level3
+CIGS MCE	test	439533	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	test	441243	2	LINCS_phase1_level3_epsilon,tahoe100
+CIGS MCE	test	441328	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	441336	2	LINCS_phase1_level3_epsilon,op3
+CIGS MCE	test	441678	2	CIGS TCM
+CIGS MCE	test	442042	2	CIGS TCM
+CIGS MCE	test	442514	2	CIGS TCM
+CIGS MCE	test	44259	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	442972	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	444795	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,tahoe100
+CIGS MCE	test	44582816	2	tahoe100
+CIGS MCE	test	44603531	2	LINCS_phase2_level3
+CIGS MCE	test	446541	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	446596	1	LINCS_phase1_level3_epsilon
+CIGS MCE	test	4477	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	448537	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	448991	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	449215	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	449459	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	4507	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	454216	2	LINCS_phase2_level3
+CIGS MCE	test	456199	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	4614	2	LINCS_phase1_level3_epsilon,tahoe100
+CIGS MCE	test	46191454	1	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	4634	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	4674	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	46837042	2	CIGS TCM
+CIGS MCE	test	46893585	2	op3
+CIGS MCE	test	46911228	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	46912230	1	op3
+CIGS MCE	test	4707	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	4712	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	47318	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	4760	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	4806	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	4883	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	4891	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	49766530	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,op3
+CIGS MCE	test	49857340	1	Novartis MoABox DRUG-seq
+CIGS MCE	test	4988454	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	5092	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	51003603	2	tahoe100
+CIGS MCE	test	5166	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	525	2	CIGS TCM
+CIGS MCE	test	5277135	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	5280343	2	Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+CIGS MCE	test	5280489	2	CIGS TCM
+CIGS MCE	test	5281437	2	CIGS TCM,srivatsan20_sciplex3
+CIGS MCE	test	5281613	2	CIGS TCM,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	5281691	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	5281703	2	CIGS TCM
+CIGS MCE	test	5281771	2	CIGS TCM
+CIGS MCE	test	5281788	2	CIGS TCM
+CIGS MCE	test	5281806	2	CIGS TCM
+CIGS MCE	test	5282150	2	CIGS TCM
+CIGS MCE	test	5282164	2	CIGS TCM,tahoe100
+CIGS MCE	test	5282337	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	5288320	2	LINCS_phase2_level3
+CIGS MCE	test	53025	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	5311	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train
+CIGS MCE	test	5311037	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	5312126	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	5315	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	5315892	2	CIGS TCM
+CIGS MCE	test	5320954	2	CIGS TCM
+CIGS MCE	test	53235510	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,tahoe100
+CIGS MCE	test	5328768	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	5328770	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	5329099	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	5329102	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3,tahoe100
+CIGS MCE	test	53315878	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	53315882	2	LINCS_phase2_level3
+CIGS MCE	test	53354074	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	5351344	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	5354284	2	CIGS TCM
+CIGS MCE	test	5362422	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	5464170	2	CIGS TCM
+CIGS MCE	test	54840	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	5484727	2	dilimap_train
+CIGS MCE	test	5490064	2	CIGS TCM
+CIGS MCE	test	54911	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	5526	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	568416	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+CIGS MCE	test	56959	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,dilimap_train,tahoe100
+CIGS MCE	test	5708351	2	CIGS TCM
+CIGS MCE	test	57363	2	Novartis MoABox DRUG-seq,tahoe100
+CIGS MCE	test	5738263	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	5757	2	LINCS_phase1_level3_epsilon,dilimap_train
+CIGS MCE	test	5770	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	589075	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	5950	2	CIGS TCM
+CIGS MCE	test	5951	2	CIGS TCM
+CIGS MCE	test	60149	1	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	60164	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	6035	2	LINCS_phase2_level3
+CIGS MCE	test	60750	2	Novartis MoABox DRUG-seq,tahoe100
+CIGS MCE	test	60871	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	610479	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	6131	2	CIGS TCM
+CIGS MCE	test	6215	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	6249	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	6291	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	62959	2	LINCS_phase2_level3,dilimap_train
+CIGS MCE	test	6305	2	CIGS TCM
+CIGS MCE	test	6314	2	tahoe100
+CIGS MCE	test	6321405	2	CIGS TCM
+CIGS MCE	test	641785	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	test	6435415	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	6438572	2	CIGS TCM
+CIGS MCE	test	644213	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	64982	2	CIGS TCM,tahoe100
+CIGS MCE	test	65090	2	CIGS TCM
+CIGS MCE	test	65094	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	65981	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train
+CIGS MCE	test	65999	2	LINCS_phase2_level3
+CIGS MCE	test	6603931	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	6605258	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	6634	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	6675804	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	667639	1	CIGS TCM
+CIGS MCE	test	6758	2	Ginkgo GDPx2,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	test	68085	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	test	68488178	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	6878030	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	68827	2	CIGS TCM
+CIGS MCE	test	68911	2	LINCS_phase1_level3_epsilon,tahoe100
+CIGS MCE	test	6915744	2	CIGS TCM
+CIGS MCE	test	6915944	1	LINCS_phase2_level3
+CIGS MCE	test	6918140	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	6918403	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	6918554	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	6918840	2	CIGS TCM
+CIGS MCE	test	69550	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	71291068	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	71456946	2	CIGS TCM
+CIGS MCE	test	71533728	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	71602803	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	71616	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train,tahoe100
+CIGS MCE	test	71731823	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	71766360	2	tahoe100
+CIGS MCE	test	72	2	CIGS TCM
+CIGS MCE	test	72199293	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	73057	2	CIGS TCM
+CIGS MCE	test	73193	2	CIGS TCM
+CIGS MCE	test	76336194	2	CIGS TCM
+CIGS MCE	test	766949	2	LINCS_phase2_level3
+CIGS MCE	test	76959646	2	CIGS TCM
+CIGS MCE	test	8228	2	dilimap_train
+CIGS MCE	test	824710	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	8362	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	84029	2	dilimap_train
+CIGS MCE	test	8742	2	CIGS TCM
+CIGS MCE	test	8768	2	CIGS TCM
+CIGS MCE	test	9082	2	tahoe100
+CIGS MCE	test	91610	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	test	91668	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	92136227	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	936	2	LINCS_phase2_level3
+CIGS MCE	test	9363	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	9560989	2	tahoe100
+CIGS MCE	test	9651	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	9796590	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	9811704	2	CIGS TCM
+CIGS MCE	test	9817686	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	9818903	2	LINCS_phase2_level3
+CIGS MCE	test	9823820	2	LINCS_phase2_level3
+CIGS MCE	test	9826528	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	test	9865515	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+CIGS MCE	test	9868580	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	9869929	2	LINCS_phase2_level3
+CIGS MCE	test	9909368	2	CIGS TCM
+CIGS MCE	test	9911630	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	9911830	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3
+CIGS MCE	test	9918559	2	LINCS_phase2_level3
+CIGS MCE	test	9935249	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	9939609	2	Novartis MoABox DRUG-seq
+CIGS MCE	test	9943465	2	LINCS_phase1_level3_epsilon
+CIGS MCE	test	9949641	1	LINCS_phase1_level3_epsilon
+CIGS MCE	test	9966051	1	LINCS_phase2_level3,tahoe100
+CIGS MCE	val	10084135	2	CIGS TCM
+CIGS MCE	val	10138980	2	tahoe100
+CIGS MCE	val	10143	2	CIGS TCM,tahoe100
+CIGS MCE	val	101612	2	CIGS TCM
+CIGS MCE	val	10172275	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	10206	2	LINCS_phase2_level3,tahoe100
+CIGS MCE	val	10207	2	CIGS TCM
+CIGS MCE	val	10218765	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	10222761	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	10302451	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,op3
+CIGS MCE	val	10341154	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	val	104769	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,tahoe100
+CIGS MCE	val	10494	2	CIGS TCM,Novartis MoABox DRUG-seq
+CIGS MCE	val	10660	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	10676408	2	CIGS TCM
+CIGS MCE	val	107982	2	CIGS TCM
+CIGS MCE	val	1088438	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	10922465	2	CIGS TCM
+CIGS MCE	val	10975657	2	CIGS TCM
+CIGS MCE	val	10988340	2	CIGS TCM
+CIGS MCE	val	1102	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	1102771	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	11102	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	11167602	2	LINCS_phase2_level3,srivatsan20_sciplex3,tahoe100
+CIGS MCE	val	11234052	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	11256664	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	11269353	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	11327430	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	11387409	2	LINCS_phase2_level3
+CIGS MCE	val	11427553	2	LINCS_phase2_level3
+CIGS MCE	val	11462174	1	Novartis MoABox DRUG-seq
+CIGS MCE	val	115012	2	CIGS TCM
+CIGS MCE	val	11561383	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	11615393	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	11622076	1	CIGS TCM
+CIGS MCE	val	11673921	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	11691726	2	LINCS_phase2_level3
+CIGS MCE	val	11713159	2	LINCS_phase2_level3
+CIGS MCE	val	1174	2	CIGS TCM
+CIGS MCE	val	11914	2	CIGS TCM
+CIGS MCE	val	119192	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	119373	2	LINCS_phase2_level3
+CIGS MCE	val	11957575	2	CIGS TCM
+CIGS MCE	val	11973122	2	CIGS TCM
+CIGS MCE	val	12000240	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	121457027	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	121879	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	122044	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	12492	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	125286314	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	129791	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	132281917	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	13266	2	LINCS_phase2_level3
+CIGS MCE	val	1345	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	135398495	2	srivatsan20_sciplex3
+CIGS MCE	val	135418940	2	srivatsan20_sciplex3
+CIGS MCE	val	135421442	2	srivatsan20_sciplex3
+CIGS MCE	val	135539077	2	srivatsan20_sciplex3
+CIGS MCE	val	138911318	2	tahoe100
+CIGS MCE	val	13916054	2	CIGS TCM
+CIGS MCE	val	13943286	2	CIGS TCM
+CIGS MCE	val	13982876	2	tahoe100
+CIGS MCE	val	1401	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,srivatsan20_sciplex3
+CIGS MCE	val	14580381	1	LINCS_phase1_level3_epsilon
+CIGS MCE	val	148673	2	Ginkgo GDPx2
+CIGS MCE	val	150311	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,dilimap_train
+CIGS MCE	val	15559043	2	CIGS TCM
+CIGS MCE	val	1574	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	157921	2	tahoe100
+CIGS MCE	val	158781	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	16007391	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	16038368	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	16048568	2	tahoe100
+CIGS MCE	val	162350	2	CIGS TCM
+CIGS MCE	val	16362	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,tahoe100
+CIGS MCE	val	165549	2	CIGS TCM
+CIGS MCE	val	16722836	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+CIGS MCE	val	16725726	1	Novartis MoABox DRUG-seq
+CIGS MCE	val	16736529	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	16747388	2	LINCS_phase2_level3,tahoe100
+CIGS MCE	val	16747776	1	LINCS_phase1_level3_epsilon
+CIGS MCE	val	16760075	2	CIGS TCM
+CIGS MCE	val	16760588	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	169020	2	CIGS TCM
+CIGS MCE	val	169371	2	Ginkgo GDPx2
+CIGS MCE	val	175804	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	176873	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	1775	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	17755052	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	1880	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	190	2	tahoe100
+CIGS MCE	val	1901244	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	19090	2	tahoe100
+CIGS MCE	val	1936439	2	tahoe100
+CIGS MCE	val	1986	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,tahoe100
+CIGS MCE	val	204	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	val	2046	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	2049	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	208908	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3,srivatsan20_sciplex3
+CIGS MCE	val	210332	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	2120	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	2123	2	LINCS_phase1_level3_epsilon,srivatsan20_sciplex3,tahoe100
+CIGS MCE	val	2132	2	LINCS_phase2_level3
+CIGS MCE	val	2148	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	2187	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train,tahoe100
+CIGS MCE	val	222528	2	CIGS TCM
+CIGS MCE	val	2249	2	LINCS_phase2_level3,dilimap_train
+CIGS MCE	val	2303	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	23663407	2	LINCS_phase2_level3
+CIGS MCE	val	23663996	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	23666711	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	23729157	1	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	24748204	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,srivatsan20_sciplex3
+CIGS MCE	val	24770514	2	LINCS_phase2_level3
+CIGS MCE	val	24826799	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,tahoe100
+CIGS MCE	val	24901704	1	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	24906275	2	srivatsan20_sciplex3
+CIGS MCE	val	25033539	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3
+CIGS MCE	val	25102847	2	LINCS_phase2_level3
+CIGS MCE	val	25105689	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	25193530	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	25262792	1	LINCS_phase2_level3
+CIGS MCE	val	2541	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train
+CIGS MCE	val	2690	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	val	2722	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	2733526	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train
+CIGS MCE	val	2746	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	val	2764	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,dilimap_train
+CIGS MCE	val	27661	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	27924	2	CIGS TCM,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	2828334	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	28417	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	28767	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	3012	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	3081361	2	LINCS_phase2_level3,op3,srivatsan20_sciplex3,tahoe100
+CIGS MCE	val	3083928	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	3108	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	3241	2	LINCS_phase2_level3
+CIGS MCE	val	3295	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	33630	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,tahoe100
+CIGS MCE	val	3426979	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	3516032	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	3676	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	3697969	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	3744	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	37907	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	3845	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	3899541	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	3965	2	Ginkgo GDPx2
+CIGS MCE	val	4055	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,tahoe100
+CIGS MCE	val	4100	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train
+CIGS MCE	val	4174	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	val	41781	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	4201	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	4237	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	4261	2	LINCS_phase2_level3,srivatsan20_sciplex3
+CIGS MCE	val	4369524	1	LINCS_phase2_level3
+CIGS MCE	val	439246	2	CIGS TCM,LINCS_phase2_level3
+CIGS MCE	val	4410	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	441314	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	44143209	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	44187	2	LINCS_phase2_level3
+CIGS MCE	val	44187362	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	442424	2	CIGS TCM,Novartis MoABox DRUG-seq
+CIGS MCE	val	442428	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	val	44246499	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	443955	1	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	444020	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	444025	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	44607360	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	4485	2	Novartis MoABox DRUG-seq,dilimap_train
+CIGS MCE	val	4513	2	dilimap_train
+CIGS MCE	val	45281794	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	457928	2	LINCS_phase2_level3
+CIGS MCE	val	4583	2	LINCS_phase2_level3,dilimap_train,srivatsan20_sciplex3
+CIGS MCE	val	4595	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	460747	1	LINCS_phase1_level3_epsilon
+CIGS MCE	val	46216378	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	46240292	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	4628	1	LINCS_phase1_level3_epsilon
+CIGS MCE	val	4632	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,op3
+CIGS MCE	val	46843906	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	46883536	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+CIGS MCE	val	46887680	2	CIGS TCM
+CIGS MCE	val	46911863	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	4713	2	LINCS_phase1_level3_epsilon,srivatsan20_sciplex3
+CIGS MCE	val	4839	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	4943	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	4970	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	val	49830252	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	49846579	1	LINCS_phase2_level3,op3,tahoe100
+CIGS MCE	val	49848070	2	LINCS_phase2_level3
+CIGS MCE	val	49850262	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	val	49855250	1	srivatsan20_sciplex3
+CIGS MCE	val	49867926	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	503737	2	CIGS TCM
+CIGS MCE	val	5042	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	5070	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train
+CIGS MCE	val	5173	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5269	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	5271805	2	CIGS TCM,LINCS_phase2_level3
+CIGS MCE	val	5273755	2	CIGS TCM
+CIGS MCE	val	5280544	2	CIGS TCM
+CIGS MCE	val	5280704	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	val	5280804	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	val	5280933	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5281575	2	CIGS TCM
+CIGS MCE	val	5281600	2	CIGS TCM
+CIGS MCE	val	5281612	2	CIGS TCM
+CIGS MCE	val	5281617	2	CIGS TCM
+CIGS MCE	val	5281643	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	val	5281675	2	CIGS TCM
+CIGS MCE	val	5281718	2	CIGS TCM,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	val	5281727	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5281813	1	CIGS TCM
+CIGS MCE	val	5282071	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5289501	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5317284	2	CIGS TCM
+CIGS MCE	val	5318597	2	CIGS TCM
+CIGS MCE	val	5319	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5320861	2	CIGS TCM
+CIGS MCE	val	53232	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	val	5328127	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	53387035	2	LINCS_phase2_level3
+CIGS MCE	val	5351307	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	5355	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5362065	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5417	2	CIGS TCM,Novartis MoABox DRUG-seq
+CIGS MCE	val	5453	2	Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+CIGS MCE	val	5459840	2	CIGS TCM
+CIGS MCE	val	54670067	2	CIGS TCM
+CIGS MCE	val	54676905	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	54677971	1	dilimap_train
+CIGS MCE	val	54685215	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+CIGS MCE	val	5469318	2	LINCS_phase2_level3
+CIGS MCE	val	5576	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5663	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	56846693	2	LINCS_phase2_level3
+CIGS MCE	val	5702253	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	5712	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	val	5717	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	57379345	2	op3
+CIGS MCE	val	5748393	2	CIGS TCM
+CIGS MCE	val	5748394	2	CIGS TCM
+CIGS MCE	val	5832	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5905	2	LINCS_phase1_level3_epsilon,tahoe100
+CIGS MCE	val	5920	2	Novartis MoABox DRUG-seq,dilimap_train
+CIGS MCE	val	5923	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5926218	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	5961	2	CIGS TCM
+CIGS MCE	val	60063	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	60148655	2	CIGS TCM
+CIGS MCE	val	60855	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	6230	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	6321424	2	tahoe100
+CIGS MCE	val	636362	1	tahoe100
+CIGS MCE	val	637234	2	CIGS TCM
+CIGS MCE	val	637563	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	638278	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	val	6420138	2	srivatsan20_sciplex3
+CIGS MCE	val	6436278	2	CIGS TCM
+CIGS MCE	val	6436348	2	CIGS TCM
+CIGS MCE	val	644076	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	6440892	2	CIGS TCM
+CIGS MCE	val	6451164	2	LINCS_phase2_level3
+CIGS MCE	val	6474309	2	CIGS TCM
+CIGS MCE	val	6474640	2	CIGS TCM
+CIGS MCE	val	6477182	2	CIGS TCM
+CIGS MCE	val	65015	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	val	65085	2	CIGS TCM
+CIGS MCE	val	6509979	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	65944	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	6674	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	667476	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	67377767	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3
+CIGS MCE	val	67448836	2	tahoe100
+CIGS MCE	val	6755	2	CIGS TCM
+CIGS MCE	val	6769	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	68081	2	CIGS TCM
+CIGS MCE	val	68546	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS MCE	val	68591	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	6862	2	CIGS TCM
+CIGS MCE	val	68844	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	6918132	2	tahoe100
+CIGS MCE	val	6918178	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	6918508	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train
+CIGS MCE	val	6918616	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	69217	2	CIGS TCM
+CIGS MCE	val	704473	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	70697712	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	71077	2	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	71157	2	LINCS_phase2_level3
+CIGS MCE	val	71312557	2	CIGS TCM
+CIGS MCE	val	71699712	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	72193870	1	LINCS_phase1_level3_epsilon,srivatsan20_sciplex3
+CIGS MCE	val	72276	2	CIGS TCM
+CIGS MCE	val	72311	1	CIGS TCM
+CIGS MCE	val	72344	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	val	72390	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	72724	2	CIGS TCM
+CIGS MCE	val	72936	2	CIGS TCM
+CIGS MCE	val	73010930	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	73053710	2	tahoe100
+CIGS MCE	val	73309	2	CIGS TCM
+CIGS MCE	val	73466	2	CIGS TCM
+CIGS MCE	val	73599	2	CIGS TCM
+CIGS MCE	val	73657193	2	CIGS TCM
+CIGS MCE	val	7431	2	CIGS TCM
+CIGS MCE	val	7456	2	CIGS TCM
+CIGS MCE	val	74787691	2	CIGS TCM
+CIGS MCE	val	755673	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	78243739	2	Ginkgo GDPx2
+CIGS MCE	val	78357816	1	LINCS_phase2_level3
+CIGS MCE	val	802	2	CIGS TCM
+CIGS MCE	val	82755	2	CIGS TCM,LINCS_phase1_level3_epsilon
+CIGS MCE	val	8417	2	CIGS TCM
+CIGS MCE	val	847007	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	8550	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	8567	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	90241673	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	90408826	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	91457	2	CIGS TCM
+CIGS MCE	val	91663289	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	91826512	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	91973803	2	CIGS TCM
+CIGS MCE	val	9373	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	94990	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	9642	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	9794588	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	9811611	2	Novartis MoABox DRUG-seq
+CIGS MCE	val	9824562	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,srivatsan20_sciplex3
+CIGS MCE	val	9827599	2	tahoe100
+CIGS MCE	val	9829523	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS MCE	val	9840076	2	srivatsan20_sciplex3
+CIGS MCE	val	9840324	2	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS MCE	val	9875401	2	LINCS_phase1_level3_epsilon
+CIGS MCE	val	9887537	2	LINCS_phase2_level3
+CIGS MCE	val	9917980	2	CIGS TCM
+CIGS MCE	val	9934	2	LINCS_phase2_level3
+CIGS MCE	val	9949093	2	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS TCM	test	101920412	4	CIGS MCE
+CIGS TCM	test	10569	4	CIGS MCE,Novartis MoABox DRUG-seq
+CIGS TCM	test	10748	4	CIGS MCE
+CIGS TCM	test	10955174	4	CIGS MCE
+CIGS TCM	test	11213350	4	CIGS MCE
+CIGS TCM	test	11425923	2	CIGS MCE
+CIGS TCM	test	11657924	4	CIGS MCE
+CIGS TCM	test	1183	4	CIGS MCE,Novartis MoABox DRUG-seq
+CIGS TCM	test	119307	4	CIGS MCE
+CIGS TCM	test	11982641	4	CIGS MCE
+CIGS TCM	test	12305198	2	CIGS MCE,Novartis MoABox DRUG-seq
+CIGS TCM	test	123132012	4	CIGS MCE
+CIGS TCM	test	12313704	4	CIGS MCE
+CIGS TCM	test	1254	4	CIGS MCE
+CIGS TCM	test	12855889	4	CIGS MCE
+CIGS TCM	test	14564503	4	CIGS MCE
+CIGS TCM	test	145742	4	CIGS MCE
+CIGS TCM	test	14989	4	CIGS MCE
+CIGS TCM	test	15608605	4	CIGS MCE
+CIGS TCM	test	156709	4	CIGS MCE
+CIGS TCM	test	161271	4	CIGS MCE
+CIGS TCM	test	16129719	4	CIGS MCE
+CIGS TCM	test	162859	3	CIGS MCE
+CIGS TCM	test	167812	4	CIGS MCE
+CIGS TCM	test	169853	4	CIGS MCE
+CIGS TCM	test	170569	4	CIGS MCE
+CIGS TCM	test	187808	3	CIGS MCE
+CIGS TCM	test	188289	4	CIGS MCE
+CIGS TCM	test	190	4	tahoe100
+CIGS TCM	test	20054813	4	CIGS MCE
+CIGS TCM	test	21599924	4	CIGS MCE
+CIGS TCM	test	221493	4	CIGS MCE,Novartis MoABox DRUG-seq
+CIGS TCM	test	239	4	CIGS MCE
+CIGS TCM	test	24825675	4	CIGS MCE
+CIGS TCM	test	24864132	4	CIGS MCE
+CIGS TCM	test	2723872	4	CIGS MCE
+CIGS TCM	test	28523	1	CIGS MCE
+CIGS TCM	test	3034034	4	CIGS MCE,Novartis MoABox DRUG-seq
+CIGS TCM	test	3081405	4	CIGS MCE
+CIGS TCM	test	3083726	4	CIGS MCE
+CIGS TCM	test	3084995	4	CIGS MCE
+CIGS TCM	test	311	4	CIGS MCE
+CIGS TCM	test	31401	4	CIGS MCE,Novartis MoABox DRUG-seq
+CIGS TCM	test	3218	4	CIGS MCE
+CIGS TCM	test	36314	3	CIGS MCE,Novartis MoABox DRUG-seq,tahoe100
+CIGS TCM	test	371256	4	CIGS MCE
+CIGS TCM	test	4055	1	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,tahoe100
+CIGS TCM	test	439378	4	CIGS MCE
+CIGS TCM	test	439514	4	CIGS MCE
+CIGS TCM	test	441891	2	CIGS MCE
+CIGS TCM	test	441921	4	CIGS MCE
+CIGS TCM	test	442435	4	CIGS MCE
+CIGS TCM	test	442439	4	CIGS MCE
+CIGS TCM	test	479501	4	CIGS MCE
+CIGS TCM	test	5280460	4	CIGS MCE,Novartis MoABox DRUG-seq
+CIGS TCM	test	5280805	4	CIGS MCE,LINCS_phase1_level3_epsilon
+CIGS TCM	test	5280863	4	CIGS MCE
+CIGS TCM	test	5281255	4	CIGS MCE
+CIGS TCM	test	5281727	4	LINCS_phase1_level3_epsilon
+CIGS TCM	test	5281764	4	CIGS MCE
+CIGS TCM	test	5281915	4	Novartis MoABox DRUG-seq
+CIGS TCM	test	5281954	4	CIGS MCE
+CIGS TCM	test	5318980	4	CIGS MCE
+CIGS TCM	test	5320227	4	CIGS MCE
+CIGS TCM	test	5320315	4	CIGS MCE
+CIGS TCM	test	5356121	4	LINCS_phase1_level3_epsilon
+CIGS TCM	test	5459308	4	CIGS MCE
+CIGS TCM	test	5461026	4	CIGS MCE
+CIGS TCM	test	5481663	4	CIGS MCE
+CIGS TCM	test	5770	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS TCM	test	5962587	4	CIGS MCE,LINCS_phase1_level3_epsilon
+CIGS TCM	test	6106	4	CIGS MCE
+CIGS TCM	test	6137	4	CIGS MCE
+CIGS TCM	test	6169	4	CIGS MCE
+CIGS TCM	test	62074	4	CIGS MCE
+CIGS TCM	test	6436246	4	CIGS MCE
+CIGS TCM	test	643915	4	CIGS MCE
+CIGS TCM	test	6440999	4	CIGS MCE
+CIGS TCM	test	6441913	4	CIGS MCE
+CIGS TCM	test	6442675	4	CIGS MCE
+CIGS TCM	test	6683	4	CIGS MCE
+CIGS TCM	test	6918774	2	CIGS MCE
+CIGS TCM	test	70698266	4	CIGS MCE
+CIGS TCM	test	72301	4	CIGS MCE,LINCS_phase2_level3
+CIGS TCM	test	73467	4	CIGS MCE
+CIGS TCM	test	7427	4	CIGS MCE,LINCS_phase1_level3_epsilon
+CIGS TCM	test	75412560	4	CIGS MCE
+CIGS TCM	test	8215	4	CIGS MCE
+CIGS TCM	test	84298	4	CIGS MCE
+CIGS TCM	test	892	4	CIGS MCE,LINCS_phase2_level3
+CIGS TCM	test	90479327	4	CIGS MCE
+CIGS TCM	test	91440	4	CIGS MCE
+CIGS TCM	test	91520	4	CIGS MCE
+CIGS TCM	test	92095	4	CIGS MCE,LINCS_phase2_level3
+CIGS TCM	test	92158	4	CIGS MCE
+CIGS TCM	test	97214	4	CIGS MCE
+CIGS TCM	test	9798666	4	CIGS MCE
+CIGS TCM	test	9852086	4	CIGS MCE
+CIGS TCM	test	9882981	4	CIGS MCE
+CIGS TCM	val	10077207	4	CIGS MCE
+CIGS TCM	val	10205	1	CIGS MCE,LINCS_phase1_level3_epsilon
+CIGS TCM	val	10208	4	CIGS MCE
+CIGS TCM	val	10235	4	CIGS MCE
+CIGS TCM	val	102594495	4	CIGS MCE
+CIGS TCM	val	10337211	4	CIGS MCE
+CIGS TCM	val	10417462	4	CIGS MCE
+CIGS TCM	val	10436	4	CIGS MCE
+CIGS TCM	val	104938	4	CIGS MCE
+CIGS TCM	val	11005	4	CIGS MCE
+CIGS TCM	val	114776	4	CIGS MCE
+CIGS TCM	val	115269	4	CIGS MCE
+CIGS TCM	val	11850	4	CIGS MCE
+CIGS TCM	val	119247	4	CIGS MCE
+CIGS TCM	val	12315350	4	CIGS MCE
+CIGS TCM	val	124039	4	CIGS MCE
+CIGS TCM	val	12442765	4	CIGS MCE
+CIGS TCM	val	131348	4	CIGS MCE
+CIGS TCM	val	13846689	4	CIGS MCE
+CIGS TCM	val	14236566	4	CIGS MCE
+CIGS TCM	val	14448070	4	CIGS MCE
+CIGS TCM	val	151529	4	CIGS MCE
+CIGS TCM	val	155011	4	CIGS MCE
+CIGS TCM	val	159278	4	CIGS MCE
+CIGS TCM	val	159654	4	CIGS MCE
+CIGS TCM	val	160481	4	CIGS MCE
+CIGS TCM	val	161658	4	CIGS MCE
+CIGS TCM	val	16848	4	CIGS MCE
+CIGS TCM	val	169167	4	CIGS MCE
+CIGS TCM	val	176233	1	CIGS MCE
+CIGS TCM	val	185617	4	CIGS MCE
+CIGS TCM	val	190453	4	CIGS MCE
+CIGS TCM	val	21626477	4	CIGS MCE
+CIGS TCM	val	21631105	4	CIGS MCE
+CIGS TCM	val	21637110	4	CIGS MCE
+CIGS TCM	val	2236	4	CIGS MCE
+CIGS TCM	val	24721373	4	CIGS MCE
+CIGS TCM	val	2519	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS TCM	val	3000518	4	CIGS MCE,tahoe100
+CIGS TCM	val	31553	4	CIGS MCE
+CIGS TCM	val	34458	4	CIGS MCE
+CIGS TCM	val	34781	4	CIGS MCE
+CIGS TCM	val	441788	4	CIGS MCE
+CIGS TCM	val	442169	4	CIGS MCE
+CIGS TCM	val	442664	4	CIGS MCE
+CIGS TCM	val	444679	4	CIGS MCE
+CIGS TCM	val	445154	4	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,srivatsan20_sciplex3,tahoe100
+CIGS TCM	val	44584555	4	CIGS MCE
+CIGS TCM	val	445858	4	CIGS MCE
+CIGS TCM	val	446925	4	Novartis MoABox DRUG-seq
+CIGS TCM	val	471002	4	CIGS MCE
+CIGS TCM	val	4970	4	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+CIGS TCM	val	5208	2	Novartis MoABox DRUG-seq
+CIGS TCM	val	5280343	4	Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+CIGS TCM	val	5280961	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+CIGS TCM	val	5281	4	CIGS MCE
+CIGS TCM	val	5281408	4	CIGS MCE
+CIGS TCM	val	5281542	4	CIGS MCE,LINCS_phase1_level3_epsilon
+CIGS TCM	val	5281608	4	CIGS MCE
+CIGS TCM	val	5281628	4	CIGS MCE
+CIGS TCM	val	5281673	4	CIGS MCE
+CIGS TCM	val	5281717	4	CIGS MCE
+CIGS TCM	val	5281773	4	CIGS MCE
+CIGS TCM	val	5282166	4	CIGS MCE
+CIGS TCM	val	5284419	4	CIGS MCE
+CIGS TCM	val	5318569	4	CIGS MCE
+CIGS TCM	val	5318650	4	CIGS MCE
+CIGS TCM	val	5318999	4	CIGS MCE
+CIGS TCM	val	5321398	4	CIGS MCE
+CIGS TCM	val	5469634	4	CIGS MCE
+CIGS TCM	val	5742590	4	CIGS MCE
+CIGS TCM	val	5789	4	CIGS MCE,Novartis MoABox DRUG-seq
+CIGS TCM	val	5962	4	CIGS MCE
+CIGS TCM	val	5997	4	CIGS MCE
+CIGS TCM	val	6274	4	CIGS MCE
+CIGS TCM	val	6288	4	CIGS MCE
+CIGS TCM	val	6293081	4	CIGS MCE
+CIGS TCM	val	6306	4	CIGS MCE
+CIGS TCM	val	639665	4	CIGS MCE,LINCS_phase1_level3_epsilon
+CIGS TCM	val	6443046	4	CIGS MCE
+CIGS TCM	val	6508	4	CIGS MCE
+CIGS TCM	val	6917976	4	CIGS MCE
+CIGS TCM	val	70698035	4	CIGS MCE
+CIGS TCM	val	7175	4	CIGS MCE
+CIGS TCM	val	72300	4	CIGS MCE
+CIGS TCM	val	72307	2	CIGS MCE
+CIGS TCM	val	72310	4	CIGS MCE
+CIGS TCM	val	72703	4	CIGS MCE
+CIGS TCM	val	73078	3	CIGS MCE
+CIGS TCM	val	73201	4	CIGS MCE
+CIGS TCM	val	896	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+CIGS TCM	val	91466	4	CIGS MCE
+CIGS TCM	val	92043273	4	CIGS MCE
+CIGS TCM	val	929262	4	CIGS MCE
+CIGS TCM	val	938	4	CIGS MCE,LINCS_phase1_level3_epsilon
+CIGS TCM	val	969516	4	CIGS MCE,srivatsan20_sciplex3
+CIGS TCM	val	9809542	4	CIGS MCE
+CIGS TCM	val	9867869	4	CIGS MCE
+CIGS TCM	val	99474	4	CIGS MCE
+Ginkgo GDPx2	test	11655119	24	CIGS MCE
+Ginkgo GDPx2	test	11957547	24	CIGS MCE
+Ginkgo GDPx2	test	24360	24	CIGS MCE,CIGS TCM,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+Ginkgo GDPx2	test	5282337	24	Novartis MoABox DRUG-seq
+Ginkgo GDPx2	test	56649450	24	CIGS MCE,LINCS_phase2_level3
+Ginkgo GDPx2	test	6442177	24	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,tahoe100
+Ginkgo GDPx2	test	9782	24	CIGS MCE,LINCS_phase1_level3_epsilon
+Ginkgo GDPx2	val	10607	24	CIGS TCM,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+Ginkgo GDPx2	val	25104564	24	CIGS MCE
+Ginkgo GDPx2	val	27924	24	CIGS TCM,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+Ginkgo GDPx2	val	387447	24	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,tahoe100
+Ginkgo GDPx2	val	44462760	24	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Ginkgo GDPx2	val	6252	24	CIGS MCE,tahoe100
+Ginkgo GDPx2	val	65663	24	CIGS MCE
+Ginkgo VCPI vcpi-0001 (tvc-bhr-009)	test	14985	6	CIGS MCE
+Ginkgo VCPI vcpi-0001 (tvc-bhr-009)	test	63009	6	CIGS MCE
+Ginkgo VCPI vcpi-0001 (tvc-bhr-009)	val	129909862	6	CIGS MCE
+Ginkgo VCPI vcpi-0001 (tvc-bhr-009)	val	176871	6	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Ginkgo VCPI vcpi-0001 (tvc-bhr-009)	val	6433119	6	LINCS_phase2_level3
+Ginkgo VCPI vcpi-0002 (tvc-kdl-010)	val	3902	6	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	10172943	57	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	10184653	16	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	10228	19	CIGS MCE,CIGS TCM,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	102614	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	10631	13	CIGS MCE
+LINCS_phase1_level3_epsilon	test	10783	19	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	107896	15	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	107930	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	107985	9	CIGS MCE
+LINCS_phase1_level3_epsilon	test	108092	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	11175137	48	LINCS_phase2_level3,op3
+LINCS_phase1_level3_epsilon	test	11210285	6	Ginkgo GDPx2
+LINCS_phase1_level3_epsilon	test	114811	4	CIGS MCE
+LINCS_phase1_level3_epsilon	test	114869	11	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	11713159	61	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	119607	69	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase1_level3_epsilon	test	12035	54	CIGS MCE
+LINCS_phase1_level3_epsilon	test	1206243	18	CIGS MCE
+LINCS_phase1_level3_epsilon	test	122077	19	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	122162	24	CIGS MCE
+LINCS_phase1_level3_epsilon	test	124846	16	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	124887	31	CIGS MCE
+LINCS_phase1_level3_epsilon	test	13266	21	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	14709	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	14973220	15	CIGS MCE
+LINCS_phase1_level3_epsilon	test	15443	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	156414	64	CIGS MCE,op3
+LINCS_phase1_level3_epsilon	test	15983966	62	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	16220015	95	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	16654980	48	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	1694	19	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	17755052	64	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	1794	18	CIGS MCE
+LINCS_phase1_level3_epsilon	test	1863	22	CIGS MCE
+LINCS_phase1_level3_epsilon	test	1893730	18	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	20279	13	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	210332	18	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	2132	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	221493	22	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	222786	22	CIGS MCE
+LINCS_phase1_level3_epsilon	test	2360837	13	CIGS MCE
+LINCS_phase1_level3_epsilon	test	23663407	11	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	2381	19	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	24066	11	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	24775005	59	CIGS MCE,tahoe100
+LINCS_phase1_level3_epsilon	test	2480	4	CIGS MCE
+LINCS_phase1_level3_epsilon	test	25062766	48	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	test	25183872	68	CIGS MCE,LINCS_phase2_level3,tahoe100
+LINCS_phase1_level3_epsilon	test	2549	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	26987	19	dilimap_train
+LINCS_phase1_level3_epsilon	test	2708	21	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	2719	99	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	2724350	13	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	2724387	3	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	2726	25	LINCS_phase2_level3,dilimap_train
+LINCS_phase1_level3_epsilon	test	2726824	97	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	27447	11	CIGS MCE
+LINCS_phase1_level3_epsilon	test	2754	19	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,tahoe100
+LINCS_phase1_level3_epsilon	test	2796	19	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	2850562	59	CIGS MCE
+LINCS_phase1_level3_epsilon	test	3016	14	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	3038	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	3055	19	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	3085107	49	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	3151	19	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	3157	11	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	3238389	13	CIGS MCE
+LINCS_phase1_level3_epsilon	test	3365	19	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	34312	11	CIGS MCE,dilimap_train
+LINCS_phase1_level3_epsilon	test	35370	11	CIGS MCE,Ginkgo GDPx2,dilimap_train
+LINCS_phase1_level3_epsilon	test	3647	26	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	3651377	11	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	370	6	CIGS MCE,CIGS TCM,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	37542	4	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	3796	64	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	387447	66	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,tahoe100
+LINCS_phase1_level3_epsilon	test	3878	19	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	3894	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	3899541	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	3938007	19	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	39562	59	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	3994	6	Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	test	39981	59	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	4021	11	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	4106	3	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	4167	15	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	4170	19	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	4178	19	dilimap_train
+LINCS_phase1_level3_epsilon	test	41781	15	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	42623900	65	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	42642645	48	CIGS MCE,LINCS_phase2_level3,op3
+LINCS_phase1_level3_epsilon	test	4302963	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	442894	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	445070	22	CIGS MCE
+LINCS_phase1_level3_epsilon	test	445643	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	446284	21	CIGS MCE
+LINCS_phase1_level3_epsilon	test	448055	6	CIGS MCE
+LINCS_phase1_level3_epsilon	test	449241	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	4493	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	451668	21	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	test	4521392	23	CIGS MCE,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	test	4583	11	LINCS_phase2_level3,dilimap_train,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	test	4592	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	4622	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	462382	69	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	4679	19	LINCS_phase2_level3,dilimap_train
+LINCS_phase1_level3_epsilon	test	46844147	64	CIGS MCE
+LINCS_phase1_level3_epsilon	test	4764	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	4788	95	CIGS MCE,CIGS TCM,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	4831	4	CIGS MCE
+LINCS_phase1_level3_epsilon	test	4911	19	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	4930	4	CIGS MCE
+LINCS_phase1_level3_epsilon	test	49836027	70	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	4996	17	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5035	62	LINCS_phase2_level3,op3
+LINCS_phase1_level3_epsilon	test	5039	19	dilimap_train
+LINCS_phase1_level3_epsilon	test	5090	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5095	19	LINCS_phase2_level3,dilimap_train
+LINCS_phase1_level3_epsilon	test	51173	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5152	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5186	56	CIGS MCE,op3
+LINCS_phase1_level3_epsilon	test	5191	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	5269	21	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	5273569	19	CIGS MCE,CIGS TCM
+LINCS_phase1_level3_epsilon	test	5278396	64	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	5281037	11	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5281070	13	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5281672	31	CIGS MCE,CIGS TCM,Ginkgo GDPx2,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	5281847	84	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	5311	396	LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase1_level3_epsilon	test	5311067	13	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5311217	11	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	5311221	11	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5318997	19	CIGS MCE,CIGS TCM
+LINCS_phase1_level3_epsilon	test	5329098	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	53302361	48	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	5359476	11	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	5362129	12	CIGS MCE,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase1_level3_epsilon	test	5374464	156	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	5387	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	5405	19	CIGS MCE,tahoe100
+LINCS_phase1_level3_epsilon	test	5453	19	Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	test	5478883	15	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5493444	19	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	5578	3	CIGS MCE,CIGS TCM,LINCS_phase2_level3,dilimap_train
+LINCS_phase1_level3_epsilon	test	5614	28	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5641	2	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5702042	18	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	5702058	15	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	5702098	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5730	59	CIGS MCE
+LINCS_phase1_level3_epsilon	test	57363	19	Novartis MoABox DRUG-seq,tahoe100
+LINCS_phase1_level3_epsilon	test	5743	22	CIGS MCE,Novartis MoABox DRUG-seq,tahoe100
+LINCS_phase1_level3_epsilon	test	5745	11	CIGS MCE
+LINCS_phase1_level3_epsilon	test	5754	11	CIGS MCE,CIGS TCM,Ginkgo GDPx2
+LINCS_phase1_level3_epsilon	test	5795	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	5853	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	60198	11	CIGS MCE
+LINCS_phase1_level3_epsilon	test	6037	4	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	60825	13	CIGS MCE,Novartis MoABox DRUG-seq,dilimap_train,op3
+LINCS_phase1_level3_epsilon	test	60923	59	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	6253	11	CIGS MCE,CIGS TCM,LINCS_phase2_level3,tahoe100
+LINCS_phase1_level3_epsilon	test	6256	10	CIGS MCE,tahoe100
+LINCS_phase1_level3_epsilon	test	6279	11	CIGS MCE,tahoe100
+LINCS_phase1_level3_epsilon	test	6426773	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	64945	70	CIGS MCE,CIGS TCM
+LINCS_phase1_level3_epsilon	test	65057	11	CIGS MCE
+LINCS_phase1_level3_epsilon	test	65064	21	CIGS MCE,CIGS TCM,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	653	4	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	65637	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	656664	11	CIGS MCE
+LINCS_phase1_level3_epsilon	test	65999	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	6623	2	CIGS MCE
+LINCS_phase1_level3_epsilon	test	66448	11	CIGS MCE
+LINCS_phase1_level3_epsilon	test	667453	6	CIGS MCE
+LINCS_phase1_level3_epsilon	test	6710662	15	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	6736	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	68186	30	CIGS MCE
+LINCS_phase1_level3_epsilon	test	6914273	19	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	6914657	65	CIGS MCE,Ginkgo GDPx2,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	6918878	68	CIGS MCE
+LINCS_phase1_level3_epsilon	test	7029	3	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	7046	6	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	71360	18	CIGS MCE
+LINCS_phase1_level3_epsilon	test	7333	19	CIGS MCE
+LINCS_phase1_level3_epsilon	test	73707533	48	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	81131	13	CIGS MCE
+LINCS_phase1_level3_epsilon	test	84029	11	dilimap_train
+LINCS_phase1_level3_epsilon	test	8955	22	CIGS MCE,CIGS TCM
+LINCS_phase1_level3_epsilon	test	9803963	18	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	test	9840076	106	srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	test	9904	11	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	test	9911830	105	LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3
+LINCS_phase1_level3_epsilon	test	9934458	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	101615	11	CIGS MCE
+LINCS_phase1_level3_epsilon	val	10291556	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	10302	4	CIGS MCE
+LINCS_phase1_level3_epsilon	val	10370504	59	CIGS MCE
+LINCS_phase1_level3_epsilon	val	1046	11	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	10461815	65	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	105008	21	CIGS MCE
+LINCS_phase1_level3_epsilon	val	10748	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	107807	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	107982	6	CIGS TCM
+LINCS_phase1_level3_epsilon	val	108137	15	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	108143	24	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	11238147	59	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	11368	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	11382492	15	CIGS MCE
+LINCS_phase1_level3_epsilon	val	115000	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	11625818	6	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3
+LINCS_phase1_level3_epsilon	val	11977753	101	LINCS_phase2_level3,op3
+LINCS_phase1_level3_epsilon	val	121926	29	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	1236	23	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	123619	4	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	12387471	101	CIGS MCE
+LINCS_phase1_level3_epsilon	val	12598376	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	128563	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	1285940	59	op3
+LINCS_phase1_level3_epsilon	val	134018	19	CIGS MCE,LINCS_phase2_level3,dilimap_train
+LINCS_phase1_level3_epsilon	val	1345	77	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	145659	19	CIGS MCE,CIGS TCM
+LINCS_phase1_level3_epsilon	val	148198	59	CIGS MCE
+LINCS_phase1_level3_epsilon	val	149096	11	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	15165	11	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	15723	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	15951529	65	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	16043	149	CIGS MCE
+LINCS_phase1_level3_epsilon	val	16048642	48	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	16490	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	16666708	48	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	16720766	69	CIGS MCE,Ginkgo GDPx2,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	16747683	48	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	17754438	141	CIGS MCE
+LINCS_phase1_level3_epsilon	val	17757146	74	CIGS MCE
+LINCS_phase1_level3_epsilon	val	180933	4	CIGS MCE
+LINCS_phase1_level3_epsilon	val	1894361	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	20393	2	CIGS MCE
+LINCS_phase1_level3_epsilon	val	2063	63	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	2151	3	CIGS MCE
+LINCS_phase1_level3_epsilon	val	2155128	6	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	2159	15	CIGS MCE
+LINCS_phase1_level3_epsilon	val	216345	59	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	2165	18	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	2229	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	2236	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	2249	11	LINCS_phase2_level3,dilimap_train
+LINCS_phase1_level3_epsilon	val	2265	17	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	23582824	11	CIGS MCE,Novartis MoABox DRUG-seq,tahoe100
+LINCS_phase1_level3_epsilon	val	23662354	11	CIGS MCE,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	val	23667300	11	CIGS MCE
+LINCS_phase1_level3_epsilon	val	24880028	63	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	24951314	65	CIGS MCE
+LINCS_phase1_level3_epsilon	val	24995524	17	srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	val	25154867	59	CIGS MCE,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	val	253078	59	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	2540	19	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	2729027	91	CIGS MCE
+LINCS_phase1_level3_epsilon	val	2747117	18	CIGS MCE,tahoe100
+LINCS_phase1_level3_epsilon	val	2765	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	2812	11	CIGS MCE,LINCS_phase2_level3,dilimap_train,op3,tahoe100
+LINCS_phase1_level3_epsilon	val	2950007	15	CIGS MCE
+LINCS_phase1_level3_epsilon	val	2984	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	2995	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	3033332	19	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	3035026	22	CIGS MCE
+LINCS_phase1_level3_epsilon	val	3052	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	323	19	CIGS MCE,CIGS TCM
+LINCS_phase1_level3_epsilon	val	3277	15	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	3278	15	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	3291	3	CIGS MCE
+LINCS_phase1_level3_epsilon	val	3372	37	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	3396	83	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	34633	15	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	3478	19	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase1_level3_epsilon	val	3544	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	3547	19	LINCS_phase2_level3,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	val	3610	15	tahoe100
+LINCS_phase1_level3_epsilon	val	369976	6	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	3715	15	Ginkgo GDPx2,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase1_level3_epsilon	val	37175	4	CIGS MCE
+LINCS_phase1_level3_epsilon	val	3721046	15	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	3765615	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	3767	2	CIGS MCE,LINCS_phase2_level3,dilimap_train
+LINCS_phase1_level3_epsilon	val	3827	29	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	3883	17	Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase1_level3_epsilon	val	3921152	39	CIGS MCE
+LINCS_phase1_level3_epsilon	val	3969	21	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	4173	11	CIGS MCE,CIGS TCM,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	4205	19	CIGS MCE,LINCS_phase2_level3,dilimap_train
+LINCS_phase1_level3_epsilon	val	421610	17	CIGS MCE
+LINCS_phase1_level3_epsilon	val	4261	105	LINCS_phase2_level3,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	val	42628507	43	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	42628535	48	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	4331799	19	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	43345	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	4369491	25	CIGS MCE
+LINCS_phase1_level3_epsilon	val	44219749	18	CIGS MCE
+LINCS_phase1_level3_epsilon	val	442872	28	CIGS MCE
+LINCS_phase1_level3_epsilon	val	442972	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	443867	4	CIGS MCE
+LINCS_phase1_level3_epsilon	val	444031	4	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	445154	131	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,srivatsan20_sciplex3,tahoe100
+LINCS_phase1_level3_epsilon	val	446157	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	44632017	70	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	448013	17	CIGS MCE,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	val	4485	63	Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase1_level3_epsilon	val	4487	3	CIGS MCE
+LINCS_phase1_level3_epsilon	val	4636	19	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	464205	16	CIGS MCE
+LINCS_phase1_level3_epsilon	val	4737	15	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	47528	11	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	47965	4	CIGS MCE
+LINCS_phase1_level3_epsilon	val	4817	78	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	5024764	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	5029	11	dilimap_train
+LINCS_phase1_level3_epsilon	val	5081	19	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	5092	63	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	5253	15	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	5280335	18	CIGS MCE
+LINCS_phase1_level3_epsilon	val	5280647	20	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	5280863	6	CIGS MCE
+LINCS_phase1_level3_epsilon	val	5284439	89	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	5311281	59	CIGS MCE
+LINCS_phase1_level3_epsilon	val	5323	4	CIGS MCE
+LINCS_phase1_level3_epsilon	val	5328771	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	5330790	16	CIGS MCE,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	val	5350	227	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	5388964	65	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	5417	19	CIGS TCM,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	5426	68	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train,srivatsan20_sciplex3
+LINCS_phase1_level3_epsilon	val	5468	15	CIGS MCE
+LINCS_phase1_level3_epsilon	val	5494449	214	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	5505	19	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	5591	106	CIGS MCE,LINCS_phase2_level3,dilimap_train
+LINCS_phase1_level3_epsilon	val	5639	11	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	56965963	64	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	5702210	8	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	5732	12	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	5756	62	CIGS MCE
+LINCS_phase1_level3_epsilon	val	57946	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	5823908	6	CIGS MCE,tahoe100
+LINCS_phase1_level3_epsilon	val	5920	15	Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase1_level3_epsilon	val	5959	3	CIGS TCM,dilimap_train
+LINCS_phase1_level3_epsilon	val	5961	53	CIGS TCM
+LINCS_phase1_level3_epsilon	val	60703	15	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	60835	19	LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase1_level3_epsilon	val	60910	15	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	6091659	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	62969	68	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	636362	10	tahoe100
+LINCS_phase1_level3_epsilon	val	6419753	24	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	644215	60	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	644354	65	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	65492	4	CIGS MCE
+LINCS_phase1_level3_epsilon	val	66007	4	CIGS MCE
+LINCS_phase1_level3_epsilon	val	6604009	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	6604926	19	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	66264	4	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	67077825	62	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	6834	25	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	6839	15	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	6842999	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	6918303	13	CIGS MCE,LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	70684	59	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	7108	59	CIGS MCE
+LINCS_phase1_level3_epsilon	val	71317558	59	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	71384	18	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	7184	19	CIGS MCE,CIGS TCM
+LINCS_phase1_level3_epsilon	val	72172	19	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	73265211	48	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	8246	4	CIGS MCE
+LINCS_phase1_level3_epsilon	val	8369	13	CIGS MCE
+LINCS_phase1_level3_epsilon	val	8478	4	CIGS MCE
+LINCS_phase1_level3_epsilon	val	8569	19	CIGS MCE
+LINCS_phase1_level3_epsilon	val	8969	15	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	8980	11	CIGS MCE
+LINCS_phase1_level3_epsilon	val	90010	13	CIGS MCE
+LINCS_phase1_level3_epsilon	val	92727	18	CIGS MCE,LINCS_phase2_level3,tahoe100
+LINCS_phase1_level3_epsilon	val	936	19	LINCS_phase2_level3
+LINCS_phase1_level3_epsilon	val	9543540	6	CIGS MCE
+LINCS_phase1_level3_epsilon	val	9549298	17	CIGS MCE
+LINCS_phase1_level3_epsilon	val	9600409	21	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	97226	11	CIGS MCE,CIGS TCM
+LINCS_phase1_level3_epsilon	val	9826528	64	LINCS_phase2_level3,Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	9830392	19	Novartis MoABox DRUG-seq
+LINCS_phase1_level3_epsilon	val	9885087	15	CIGS MCE
+LINCS_phase1_level3_epsilon	val	9931891	28	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	10096344	42	CIGS MCE
+LINCS_phase2_level3	test	10186367	42	CIGS MCE
+LINCS_phase2_level3	test	10294813	39	CIGS MCE
+LINCS_phase2_level3	test	10302451	231	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,op3
+LINCS_phase2_level3	test	10377751	175	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	10427712	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	10448938	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	107967	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	108046	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	11192346	42	CIGS MCE
+LINCS_phase2_level3	test	11256587	42	op3
+LINCS_phase2_level3	test	114750	42	CIGS MCE
+LINCS_phase2_level3	test	11570626	42	CIGS MCE
+LINCS_phase2_level3	test	11612883	114	CIGS MCE,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+LINCS_phase2_level3	test	11620908	42	CIGS MCE
+LINCS_phase2_level3	test	11646777	42	CIGS MCE
+LINCS_phase2_level3	test	11719003	42	CIGS MCE
+LINCS_phase2_level3	test	11950170	42	CIGS MCE,tahoe100
+LINCS_phase2_level3	test	11950726	42	CIGS MCE
+LINCS_phase2_level3	test	11955716	42	CIGS MCE,op3
+LINCS_phase2_level3	test	11973736	42	CIGS MCE
+LINCS_phase2_level3	test	121878	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	123831	42	CIGS MCE
+LINCS_phase2_level3	test	13017911	138	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	135398737	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase2_level3	test	16122663	42	CIGS MCE
+LINCS_phase2_level3	test	16123056	42	CIGS MCE
+LINCS_phase2_level3	test	16212154	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	16760039	5	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	176873	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	17754438	169	CIGS MCE
+LINCS_phase2_level3	test	177992	42	CIGS MCE
+LINCS_phase2_level3	test	178024	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	193962	42	CIGS MCE
+LINCS_phase2_level3	test	2005	42	CIGS MCE
+LINCS_phase2_level3	test	2040	42	CIGS MCE
+LINCS_phase2_level3	test	208901	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	208953	42	CIGS MCE
+LINCS_phase2_level3	test	2214	42	CIGS MCE,CIGS TCM,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	2244	42	CIGS MCE,CIGS TCM,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase2_level3	test	2375	42	CIGS MCE,LINCS_phase1_level3_epsilon,tahoe100
+LINCS_phase2_level3	test	2378	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	24748573	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	24798764	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	24800541	42	CIGS MCE
+LINCS_phase2_level3	test	24871506	37	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	24996872	42	CIGS MCE
+LINCS_phase2_level3	test	25150857	118	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	25151504	42	CIGS MCE
+LINCS_phase2_level3	test	2536	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	2703	108	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	2717	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	2725	42	LINCS_phase1_level3_epsilon,dilimap_train,op3
+LINCS_phase2_level3	test	2788	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	285033	38	CIGS MCE,CIGS TCM,LINCS_phase1_level3_epsilon,tahoe100
+LINCS_phase2_level3	test	2993	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	3002120	42	CIGS MCE
+LINCS_phase2_level3	test	3003	5	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	3276	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	3324	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	3342298	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	34040	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	3472	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	3510	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	3677	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	3715	42	Ginkgo GDPx2,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase2_level3	test	3718	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	3936	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	4011	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	4032	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	406563	175	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	4091	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	41049	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	42611257	153	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,tahoe100
+LINCS_phase2_level3	test	42636535	132	CIGS MCE
+LINCS_phase2_level3	test	441307	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	44137946	42	CIGS MCE
+LINCS_phase2_level3	test	445354	5	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	4539	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	4594	42	CIGS MCE,LINCS_phase1_level3_epsilon,dilimap_train,tahoe100
+LINCS_phase2_level3	test	46843057	44	CIGS MCE
+LINCS_phase2_level3	test	4740	42	CIGS MCE,LINCS_phase1_level3_epsilon,tahoe100
+LINCS_phase2_level3	test	47641	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	4814	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	4932	42	LINCS_phase1_level3_epsilon,dilimap_train
+LINCS_phase2_level3	test	49855250	151	srivatsan20_sciplex3
+LINCS_phase2_level3	test	5025739	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	5059	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	51346455	42	CIGS MCE
+LINCS_phase2_level3	test	51576	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	5284550	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	5311380	138	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	5317221	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	5320716	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	5344	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,tahoe100
+LINCS_phase2_level3	test	5353646	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	5355	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	5362129	42	CIGS MCE,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase2_level3	test	5429	42	CIGS TCM,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	54676537	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	5497	42	CIGS MCE
+LINCS_phase2_level3	test	55283	42	CIGS MCE
+LINCS_phase2_level3	test	5702003	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	5819	42	CIGS MCE,LINCS_phase1_level3_epsilon,dilimap_train
+LINCS_phase2_level3	test	5904	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	59174488	42	CIGS MCE,op3
+LINCS_phase2_level3	test	60167550	114	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	60823	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	60825	42	CIGS MCE,Novartis MoABox DRUG-seq,dilimap_train,op3
+LINCS_phase2_level3	test	60910	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	60943	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	6167	42	CIGS MCE,CIGS TCM,Ginkgo GDPx2,LINCS_phase1_level3_epsilon,op3
+LINCS_phase2_level3	test	637568	42	CIGS MCE
+LINCS_phase2_level3	test	6420013	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	6420039	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	6445562	151	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	65340	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	65781	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	65889	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	65906	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	6602447	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	67505836	42	CIGS MCE
+LINCS_phase2_level3	test	6918324	42	CIGS MCE
+LINCS_phase2_level3	test	702558	114	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	71203	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	71234	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	71729975	119	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	73265276	132	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	73707402	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	73707529	114	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	774	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	test	8246	42	CIGS MCE
+LINCS_phase2_level3	test	938	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	9828911	42	CIGS MCE
+LINCS_phase2_level3	test	9863367	42	CIGS MCE
+LINCS_phase2_level3	test	9865515	114	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+LINCS_phase2_level3	test	9884685	175	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	9886808	114	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	9910486	42	CIGS MCE
+LINCS_phase2_level3	test	9915743	151	CIGS MCE,LINCS_phase1_level3_epsilon,tahoe100
+LINCS_phase2_level3	test	9926449	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	test	9939609	40	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	10077147	114	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	10126189	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	10152654	42	CIGS MCE
+LINCS_phase2_level3	val	10521421	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	10531	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	107751	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	110635	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	11226090	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	11234049	42	CIGS MCE
+LINCS_phase2_level3	val	11234052	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	11249248	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	11304743	42	CIGS MCE,Novartis MoABox DRUG-seq,op3
+LINCS_phase2_level3	val	11561383	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	11647372	138	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	11707110	113	CIGS MCE,LINCS_phase1_level3_epsilon,op3,tahoe100
+LINCS_phase2_level3	val	11715767	128	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	1176	42	CIGS MCE
+LINCS_phase2_level3	val	122327	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	1285940	119	op3
+LINCS_phase2_level3	val	128878	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	134778	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	135413511	42	CIGS MCE
+LINCS_phase2_level3	val	148184	42	CIGS MCE
+LINCS_phase2_level3	val	154575	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	1548955	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	156414	175	CIGS MCE,op3
+LINCS_phase2_level3	val	16038120	138	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	16126651	132	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	162834	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	16718576	42	CIGS MCE
+LINCS_phase2_level3	val	1986	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,tahoe100
+LINCS_phase2_level3	val	2123	42	LINCS_phase1_level3_epsilon,srivatsan20_sciplex3,tahoe100
+LINCS_phase2_level3	val	2153	42	CIGS MCE,CIGS TCM,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	2162	42	CIGS MCE,LINCS_phase1_level3_epsilon,dilimap_train
+LINCS_phase2_level3	val	216327	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	2179	42	CIGS MCE,tahoe100
+LINCS_phase2_level3	val	2182	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	221493	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	2343	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	23635314	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	23681059	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	23681233	41	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	24872560	42	CIGS MCE,tahoe100
+LINCS_phase2_level3	val	25025505	42	CIGS MCE
+LINCS_phase2_level3	val	2746	47	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	2756	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	2764	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase2_level3	val	27661	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	2797	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	2803	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	2946601	114	CIGS MCE
+LINCS_phase2_level3	val	300471	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	3033825	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	3036703	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	3114	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	3117	42	LINCS_phase1_level3_epsilon,dilimap_train,op3
+LINCS_phase2_level3	val	3194	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	3348	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase2_level3	val	33625	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	3474	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	3671	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	3676	38	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	3899	42	CIGS MCE,LINCS_phase1_level3_epsilon,dilimap_train
+LINCS_phase2_level3	val	392622	42	CIGS MCE,LINCS_phase1_level3_epsilon,tahoe100
+LINCS_phase2_level3	val	40854	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	4114	42	CIGS MCE,CIGS TCM,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	4197	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	4212	187	Ginkgo GDPx2,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	4417	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	44607530	130	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	448014	2	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	45138674	42	CIGS MCE
+LINCS_phase2_level3	val	4534	42	CIGS MCE
+LINCS_phase2_level3	val	4578	42	CIGS MCE,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	4585	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	4593	42	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	4614	42	LINCS_phase1_level3_epsilon,tahoe100
+LINCS_phase2_level3	val	46199646	42	CIGS MCE
+LINCS_phase2_level3	val	46244454	114	CIGS MCE
+LINCS_phase2_level3	val	4659569	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,tahoe100
+LINCS_phase2_level3	val	46843906	138	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	46844147	132	CIGS MCE
+LINCS_phase2_level3	val	46861588	114	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	46885626	151	CIGS MCE,LINCS_phase1_level3_epsilon,op3,srivatsan20_sciplex3
+LINCS_phase2_level3	val	46893585	42	op3
+LINCS_phase2_level3	val	46907787	119	CIGS MCE,srivatsan20_sciplex3
+LINCS_phase2_level3	val	46943432	156	CIGS MCE
+LINCS_phase2_level3	val	46944259	42	CIGS MCE
+LINCS_phase2_level3	val	4828	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	4829	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	4889	2	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	4912	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	4913	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	49836020	42	CIGS MCE
+LINCS_phase2_level3	val	5029	42	dilimap_train
+LINCS_phase2_level3	val	50312	42	CIGS MCE
+LINCS_phase2_level3	val	5073	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	51001932	42	CIGS MCE
+LINCS_phase2_level3	val	5281969	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	5282481	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	5284627	42	CIGS MCE,LINCS_phase1_level3_epsilon,dilimap_train
+LINCS_phase2_level3	val	5289501	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	5311221	42	CIGS MCE
+LINCS_phase2_level3	val	5317223	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	5328940	169	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,op3
+LINCS_phase2_level3	val	5330286	177	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,op3,tahoe100
+LINCS_phase2_level3	val	54746	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,dilimap_train
+LINCS_phase2_level3	val	54892	42	LINCS_phase1_level3_epsilon,dilimap_train
+LINCS_phase2_level3	val	5522	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	56959	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,dilimap_train,tahoe100
+LINCS_phase2_level3	val	5702114	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	5702214	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	5702274	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	59227	42	CIGS MCE
+LINCS_phase2_level3	val	60164	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	60749	42	CIGS MCE,Ginkgo GDPx2,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	60795	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	6433118	42	CIGS MCE
+LINCS_phase2_level3	val	6539732	132	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	65863	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	6610243	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	66550890	2	Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	68602	42	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	6918454	151	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	707029	119	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	71271629	114	CIGS MCE,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+LINCS_phase2_level3	val	71815	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	73265214	114	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	7427	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	82148	42	CIGS MCE
+LINCS_phase2_level3	val	8215	42	CIGS MCE
+LINCS_phase2_level3	val	91469	42	CIGS MCE
+LINCS_phase2_level3	val	91505	42	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	91536	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	941650	42	LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	9811834	42	CIGS MCE
+LINCS_phase2_level3	val	9826308	138	CIGS MCE,LINCS_phase1_level3_epsilon
+LINCS_phase2_level3	val	9840324	42	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+LINCS_phase2_level3	val	9882972	42	CIGS MCE
+LINCS_phase2_level3	val	9903786	132	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,op3
+LINCS_phase2_level3	val	9907093	114	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+LINCS_phase2_level3	val	9964861	42	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	10110895	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	10114	4	CIGS MCE,CIGS TCM,tahoe100
+Novartis MoABox DRUG-seq	test	102175	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	10235	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	1029232	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	10367662	4	CIGS MCE,LINCS_phase1_level3_epsilon,srivatsan20_sciplex3
+Novartis MoABox DRUG-seq	test	10372836	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	10437018	4	LINCS_phase2_level3,srivatsan20_sciplex3
+Novartis MoABox DRUG-seq	test	108029	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	112499966	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	11313622	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	11581936	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	11595431	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	11609586	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	11626927	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	11960895	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	1213452	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	122162	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	122272	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	1235170	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	124106089	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	12560	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train,tahoe100
+Novartis MoABox DRUG-seq	test	126599606	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	129211	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	1297	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	131953885	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	137003167	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	137640621	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	139600315	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	1456	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	1464	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	14982	4	CIGS MCE,CIGS TCM,tahoe100
+Novartis MoABox DRUG-seq	test	151166	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	156419	4	CIGS MCE,tahoe100
+Novartis MoABox DRUG-seq	test	156422	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	15953802	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	16126651	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	176167	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,srivatsan20_sciplex3
+Novartis MoABox DRUG-seq	test	18343	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	1967	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	197033	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	207893	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	2120	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	2145	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,srivatsan20_sciplex3
+Novartis MoABox DRUG-seq	test	2162	4	CIGS MCE,LINCS_phase1_level3_epsilon,dilimap_train
+Novartis MoABox DRUG-seq	test	24753719	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	24858111	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	24961094	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	2577	4	CIGS MCE,LINCS_phase1_level3_epsilon,srivatsan20_sciplex3
+Novartis MoABox DRUG-seq	test	2812	4	CIGS MCE,LINCS_phase2_level3,dilimap_train,op3,tahoe100
+Novartis MoABox DRUG-seq	test	3052762	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	3152	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train
+Novartis MoABox DRUG-seq	test	3157	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	33036	4	dilimap_train
+Novartis MoABox DRUG-seq	test	3376937	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	34312	4	CIGS MCE,dilimap_train
+Novartis MoABox DRUG-seq	test	3572750	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	3693566	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	374536	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	378811	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	3854666	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	39186	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	393595	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	400769	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	4205	4	CIGS MCE,LINCS_phase2_level3,dilimap_train
+Novartis MoABox DRUG-seq	test	42052020	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	439246	4	CIGS TCM,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	44129660	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	44249042	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	443389	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	44525934	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	44556162	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	445580	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	445643	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	448281	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	4515	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	456390	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	457193	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	4671	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	4740	4	CIGS MCE,LINCS_phase1_level3_epsilon,tahoe100
+Novartis MoABox DRUG-seq	test	4850	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	4878	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	49853637	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	5029	4	dilimap_train
+Novartis MoABox DRUG-seq	test	50905713	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	51051074	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	51346826	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	5154691	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	5280373	4	CIGS MCE,CIGS TCM
+Novartis MoABox DRUG-seq	test	5280544	4	CIGS TCM
+Novartis MoABox DRUG-seq	test	5281792	4	CIGS MCE,CIGS TCM,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	5282071	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	5282367	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	5282443	4	LINCS_phase1_level3_epsilon,dilimap_train
+Novartis MoABox DRUG-seq	test	5289501	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	5311221	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	5311340	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	5328779	4	CIGS MCE,LINCS_phase1_level3_epsilon,srivatsan20_sciplex3
+Novartis MoABox DRUG-seq	test	53340666	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	53465279	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	5452	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	54682876	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	5472	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train
+Novartis MoABox DRUG-seq	test	5591	4	CIGS MCE,LINCS_phase2_level3,dilimap_train
+Novartis MoABox DRUG-seq	test	56962337	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	5717	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	58423153	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	586	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	5991	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	60803	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	60947	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	610479	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	6140	4	CIGS MCE,CIGS TCM
+Novartis MoABox DRUG-seq	test	6167	4	CIGS MCE,CIGS TCM,Ginkgo GDPx2,LINCS_phase1_level3_epsilon,op3
+Novartis MoABox DRUG-seq	test	638877	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	6490494	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	65637	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	65854	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	65889	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	6604933	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	68112	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	689043	4	CIGS MCE,CIGS TCM,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	6914666	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	6918140	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	6918638	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,op3,srivatsan20_sciplex3,tahoe100
+Novartis MoABox DRUG-seq	test	71113	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	71329	4	CIGS MCE,LINCS_phase1_level3_epsilon,dilimap_train
+Novartis MoABox DRUG-seq	test	71398	4	Ginkgo GDPx2
+Novartis MoABox DRUG-seq	test	72	4	CIGS TCM
+Novartis MoABox DRUG-seq	test	72706115	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	73051434	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	73777063	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	73777259	4	CIGS MCE,Ginkgo GDPx2
+Novartis MoABox DRUG-seq	test	82148	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	91623361	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	91667931	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	91827373	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	92409	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	92974	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	9796290	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	test	9821250	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	9821849	4	CIGS MCE,tahoe100
+Novartis MoABox DRUG-seq	test	9839500	4	CIGS MCE
+Novartis MoABox DRUG-seq	test	9884685	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	test	9941444	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	10126189	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	10201696	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	10219	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	104758	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	105008	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	105078	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	10688007	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	107751	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	107867	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	11152667	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	11188409	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	11256587	4	op3
+Novartis MoABox DRUG-seq	val	11326715	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	11360391	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	11409972	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	1150	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	11502243	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	115175	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	11524144	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	11524901	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	1153	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	117072549	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	11983303	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	121232405	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	121487936	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	123619	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	126565	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	130021	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	131954513	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	132010322	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	135398499	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	13789	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	13791	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	145704695	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	148184	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	1548942	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	159269	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	159325	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	159603	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	16016585	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	16122583	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	162834	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	1645	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	164509	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	1794	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	199472	4	CIGS MCE,CIGS TCM,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	2132	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	2165	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	2182	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	219104	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	2197	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	2249	4	LINCS_phase2_level3,dilimap_train
+Novartis MoABox DRUG-seq	val	2355	4	CIGS MCE,CIGS TCM
+Novartis MoABox DRUG-seq	val	23652731	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	2375	4	CIGS MCE,LINCS_phase1_level3_epsilon,tahoe100
+Novartis MoABox DRUG-seq	val	2438	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	2471	4	CIGS MCE,Ginkgo GDPx2,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	24864553	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	25151352	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	2519	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	2548547	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	2772368	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	2806	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	2830389	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	2950007	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	3000706	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	3002119	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	3025986	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	3038525	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	3156	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	3446	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	3448	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	3475	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	3598	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	3702	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	3822	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	3878	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	4168	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train
+Novartis MoABox DRUG-seq	val	4302962	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	4336830	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	439693	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	441074	4	CIGS MCE,Ginkgo GDPx2,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train,tahoe100
+Novartis MoABox DRUG-seq	val	441314	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	4418	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	44240850	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	443955	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	449171	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	46199207	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	46224516	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	46848915	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	46911863	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	46943432	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	4713	4	LINCS_phase1_level3_epsilon,srivatsan20_sciplex3
+Novartis MoABox DRUG-seq	val	4846	4	LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	4911	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	4912	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	4922	4	CIGS MCE,tahoe100
+Novartis MoABox DRUG-seq	val	4996	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	5035	4	LINCS_phase2_level3,op3
+Novartis MoABox DRUG-seq	val	5090	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	50922675	4	CIGS MCE,tahoe100
+Novartis MoABox DRUG-seq	val	51003603	4	tahoe100
+Novartis MoABox DRUG-seq	val	51031028	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	51039095	4	CIGS MCE,LINCS_phase2_level3,op3
+Novartis MoABox DRUG-seq	val	51634	4	LINCS_phase2_level3,dilimap_train
+Novartis MoABox DRUG-seq	val	5278	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	5282136	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	5284627	4	CIGS MCE,LINCS_phase1_level3_epsilon,dilimap_train
+Novartis MoABox DRUG-seq	val	5287620	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	5291	4	CIGS MCE,dilimap_train,op3
+Novartis MoABox DRUG-seq	val	5312114	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	5326713	4	CIGS MCE,LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	53320361	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	5355	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	54576693	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	54678486	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train
+Novartis MoABox DRUG-seq	val	5519	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	5720	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	5757	4	LINCS_phase1_level3_epsilon,dilimap_train
+Novartis MoABox DRUG-seq	val	6253	4	CIGS MCE,CIGS TCM,LINCS_phase2_level3,tahoe100
+Novartis MoABox DRUG-seq	val	6306	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	637568	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	64961	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	65490	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	655457	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	656954	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	65909	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	6597	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	68870	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	6914657	4	CIGS MCE,Ginkgo GDPx2,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	70679311	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	71043	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	71268957	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	73549	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	75919	4	LINCS_phase1_level3_epsilon
+Novartis MoABox DRUG-seq	val	76966642	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	77999	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,tahoe100
+Novartis MoABox DRUG-seq	val	84815	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	86	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	92337	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	9799888	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	9843750	4	CIGS MCE,LINCS_phase2_level3
+Novartis MoABox DRUG-seq	val	9865554	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	9884220	4	CIGS MCE
+Novartis MoABox DRUG-seq	val	9981404	4	CIGS MCE
+dilimap_train	test	11033	4	CIGS MCE
+dilimap_train	test	208902	4	CIGS MCE,LINCS_phase2_level3,srivatsan20_sciplex3
+dilimap_train	test	208908	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3,srivatsan20_sciplex3
+dilimap_train	test	2092	4	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+dilimap_train	test	2801	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+dilimap_train	test	3033	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+dilimap_train	test	3042	4	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+dilimap_train	test	36462	4	Ginkgo GDPx2,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+dilimap_train	test	3823	4	LINCS_phase1_level3_epsilon
+dilimap_train	test	4046	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+dilimap_train	test	4075	4	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+dilimap_train	test	43815	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+dilimap_train	test	441243	4	LINCS_phase1_level3_epsilon,tahoe100
+dilimap_train	test	4449	4	Novartis MoABox DRUG-seq
+dilimap_train	test	5281078	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+dilimap_train	test	5394	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+dilimap_train	test	5452	3	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+dilimap_train	test	54676228	4	CIGS MCE,tahoe100
+dilimap_train	test	68617	4	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+dilimap_train	test	6883	4	CIGS MCE,Novartis MoABox DRUG-seq
+dilimap_train	test	6915944	4	LINCS_phase2_level3
+dilimap_train	test	6918296	4	CIGS MCE
+dilimap_train	val	124087	4	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+dilimap_train	val	1349907	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+dilimap_train	val	16362	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,tahoe100
+dilimap_train	val	2082	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+dilimap_train	val	2157	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+dilimap_train	val	2265	4	CIGS MCE,LINCS_phase2_level3
+dilimap_train	val	26757	4	Novartis MoABox DRUG-seq
+dilimap_train	val	2756	4	CIGS MCE,LINCS_phase1_level3_epsilon
+dilimap_train	val	28417	4	LINCS_phase1_level3_epsilon
+dilimap_train	val	3062316	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3,srivatsan20_sciplex3
+dilimap_train	val	3121	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+dilimap_train	val	3158	4	LINCS_phase1_level3_epsilon
+dilimap_train	val	3333	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+dilimap_train	val	3826	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+dilimap_train	val	3869	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+dilimap_train	val	3878	4	CIGS MCE,LINCS_phase2_level3
+dilimap_train	val	392622	4	CIGS MCE,LINCS_phase1_level3_epsilon,tahoe100
+dilimap_train	val	4091	4	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+dilimap_train	val	5035	4	LINCS_phase2_level3,op3
+dilimap_train	val	5329102	4	LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3,tahoe100
+dilimap_train	val	5770	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+dilimap_train	val	5832	2	LINCS_phase1_level3_epsilon
+op3	test	11609955	4	LINCS_phase2_level3,srivatsan20_sciplex3
+op3	test	11676786	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+op3	test	15547703	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+op3	test	24748204	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,srivatsan20_sciplex3
+op3	test	25102847	4	LINCS_phase2_level3
+op3	test	2801	4	LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+op3	test	53340666	4	CIGS MCE,LINCS_phase2_level3
+op3	test	60823	4	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+op3	test	9912743	4	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+op3	test	9956119	4	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+op3	val	11450633	4	Novartis MoABox DRUG-seq
+op3	val	11950170	4	CIGS MCE,tahoe100
+op3	val	25023738	4	CIGS MCE
+op3	val	3767	4	CIGS MCE,LINCS_phase2_level3,dilimap_train
+op3	val	46908026	4	CIGS MCE,Novartis MoABox DRUG-seq
+op3	val	51346455	4	CIGS MCE
+op3	val	5311	4	LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train
+op3	val	72201027	4	CIGS MCE,Novartis MoABox DRUG-seq
+op3	val	9549298	4	CIGS MCE
+op3	val	9907093	4	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+srivatsan20_sciplex3	test	11249084	15	CIGS MCE
+srivatsan20_sciplex3	test	11609586	12	CIGS MCE
+srivatsan20_sciplex3	test	12136798	16	CIGS MCE
+srivatsan20_sciplex3	test	135400182	12	CIGS MCE,tahoe100
+srivatsan20_sciplex3	test	135440466	12	CIGS MCE,Novartis MoABox DRUG-seq,op3
+srivatsan20_sciplex3	test	2159	12	CIGS MCE
+srivatsan20_sciplex3	test	24901704	12	LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+srivatsan20_sciplex3	test	2662	12	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train,tahoe100
+srivatsan20_sciplex3	test	2746	12	LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+srivatsan20_sciplex3	test	3117	12	LINCS_phase1_level3_epsilon,dilimap_train,op3
+srivatsan20_sciplex3	test	31307	12	CIGS MCE,Ginkgo GDPx2,LINCS_phase1_level3_epsilon,tahoe100
+srivatsan20_sciplex3	test	49831257	12	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3,tahoe100
+srivatsan20_sciplex3	test	5284587	12	CIGS MCE
+srivatsan20_sciplex3	test	5287969	8	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+srivatsan20_sciplex3	test	5288674	11	LINCS_phase1_level3_epsilon
+srivatsan20_sciplex3	test	5328940	12	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,op3
+srivatsan20_sciplex3	test	57336514	12	CIGS MCE
+srivatsan20_sciplex3	val	11228183	12	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3
+srivatsan20_sciplex3	val	11256664	16	Novartis MoABox DRUG-seq
+srivatsan20_sciplex3	val	11381449	16	CIGS MCE,Novartis MoABox DRUG-seq
+srivatsan20_sciplex3	val	11427553	11	LINCS_phase2_level3
+srivatsan20_sciplex3	val	11707110	12	CIGS MCE,LINCS_phase1_level3_epsilon,op3,tahoe100
+srivatsan20_sciplex3	val	24753719	16	CIGS MCE,LINCS_phase1_level3_epsilon
+srivatsan20_sciplex3	val	2756	12	CIGS MCE,LINCS_phase1_level3_epsilon
+srivatsan20_sciplex3	val	3002977	12	CIGS MCE,dilimap_train
+srivatsan20_sciplex3	val	3950	12	CIGS MCE,dilimap_train
+srivatsan20_sciplex3	val	444732	12	CIGS MCE,LINCS_phase1_level3_epsilon
+srivatsan20_sciplex3	val	50878566	12	CIGS MCE,LINCS_phase2_level3
+srivatsan20_sciplex3	val	5494449	16	CIGS MCE,LINCS_phase2_level3
+srivatsan20_sciplex3	val	6445562	12	CIGS MCE,LINCS_phase1_level3_epsilon
+srivatsan20_sciplex3	val	667490	12	CIGS MCE
+srivatsan20_sciplex3	val	67324851	16	CIGS MCE,Novartis MoABox DRUG-seq
+srivatsan20_sciplex3	val	68019246	16	CIGS MCE
+srivatsan20_sciplex3	val	78357767	11	CIGS MCE,Novartis MoABox DRUG-seq
+tahoe100	test	10184653	144	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+tahoe100	test	110635	142	CIGS MCE,LINCS_phase1_level3_epsilon
+tahoe100	test	119607	141	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train
+tahoe100	test	12136798	144	CIGS MCE
+tahoe100	test	135398745	144	CIGS MCE,Novartis MoABox DRUG-seq,dilimap_train
+tahoe100	test	135401907	144	CIGS MCE,dilimap_train
+tahoe100	test	14296	142	CIGS MCE
+tahoe100	test	16124208	142	CIGS MCE,srivatsan20_sciplex3
+tahoe100	test	176870	143	CIGS MCE,Novartis MoABox DRUG-seq
+tahoe100	test	2244	144	CIGS MCE,CIGS TCM,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq,dilimap_train
+tahoe100	test	24776445	141	CIGS MCE,LINCS_phase2_level3,dilimap_train
+tahoe100	test	3385	144	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,srivatsan20_sciplex3
+tahoe100	test	3397	143	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,dilimap_train,op3
+tahoe100	test	370	143	CIGS MCE,CIGS TCM,Novartis MoABox DRUG-seq
+tahoe100	test	44462760	144	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+tahoe100	test	445639	144	CIGS MCE
+tahoe100	test	451668	141	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3,srivatsan20_sciplex3
+tahoe100	test	4829	143	CIGS MCE,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+tahoe100	test	5311180	143	CIGS MCE
+tahoe100	test	5327711	141	CIGS MCE
+tahoe100	test	5493444	144	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+tahoe100	test	5509	143	CIGS MCE,LINCS_phase1_level3_epsilon
+tahoe100	test	5564	144	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+tahoe100	test	5583	144	CIGS MCE,Novartis MoABox DRUG-seq
+tahoe100	test	6364534	143	CIGS MCE
+tahoe100	test	637568	143	CIGS MCE
+tahoe100	test	6419992	144	CIGS MCE
+tahoe100	test	656656	144	CIGS MCE
+tahoe100	test	66065	144	CIGS MCE,CIGS TCM,Novartis MoABox DRUG-seq
+tahoe100	test	6917864	144	CIGS MCE,CIGS TCM
+tahoe100	test	73442	144	CIGS MCE,CIGS TCM
+tahoe100	test	74990	144	CIGS MCE
+tahoe100	test	9415	142	CIGS MCE,CIGS TCM
+tahoe100	test	9444	142	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq,op3,srivatsan20_sciplex3
+tahoe100	val	10621	143	CIGS TCM,LINCS_phase1_level3_epsilon
+tahoe100	val	11256664	141	Novartis MoABox DRUG-seq
+tahoe100	val	11310	144	CIGS MCE
+tahoe100	val	11570805	143	CIGS MCE
+tahoe100	val	118959080	143	CIGS MCE
+tahoe100	val	129073603	141	CIGS MCE
+tahoe100	val	135410875	140	CIGS MCE
+tahoe100	val	137319707	144	CIGS MCE
+tahoe100	val	148124	141	CIGS MCE,Ginkgo GDPx2
+tahoe100	val	16004692	143	CIGS MCE,LINCS_phase2_level3
+tahoe100	val	16923	144	CIGS MCE
+tahoe100	val	204	144	CIGS TCM,LINCS_phase1_level3_epsilon
+tahoe100	val	2194	144	CIGS MCE,LINCS_phase1_level3_epsilon
+tahoe100	val	23725625	144	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+tahoe100	val	24906252	140	CIGS MCE
+tahoe100	val	25141092	142	CIGS MCE
+tahoe100	val	2520	142	CIGS MCE,Novartis MoABox DRUG-seq
+tahoe100	val	28061	144	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+tahoe100	val	3034010	142	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,dilimap_train
+tahoe100	val	3440	143	CIGS MCE,Ginkgo GDPx2,LINCS_phase1_level3_epsilon,LINCS_phase2_level3,Novartis MoABox DRUG-seq
+tahoe100	val	445858	141	CIGS MCE
+tahoe100	val	4463	143	CIGS MCE,LINCS_phase1_level3_epsilon,LINCS_phase2_level3
+tahoe100	val	45256689	142	CIGS MCE
+tahoe100	val	5284373	143	CIGS MCE,CIGS TCM,LINCS_phase1_level3_epsilon,Novartis MoABox DRUG-seq
+tahoe100	val	5312125	140	CIGS MCE
+tahoe100	val	53340664	143	CIGS MCE
+tahoe100	val	5388983	143	CIGS MCE,LINCS_phase1_level3_epsilon
+tahoe100	val	5459308	144	CIGS MCE
+tahoe100	val	56649450	142	CIGS MCE,LINCS_phase2_level3
+tahoe100	val	6029	144	CIGS MCE,CIGS TCM
+tahoe100	val	6437836	142	CIGS MCE
+tahoe100	val	67462786	96	CIGS MCE
+tahoe100	val	6989	142	CIGS MCE,CIGS TCM,Novartis MoABox DRUG-seq
+tahoe100	val	72172	142	CIGS MCE,LINCS_phase2_level3,Novartis MoABox DRUG-seq

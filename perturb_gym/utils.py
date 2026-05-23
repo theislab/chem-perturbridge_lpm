@@ -75,6 +75,9 @@ def hash_training_config_excluding_seed(training_config: TrainingConfig) -> str:
     """
     flattened_config = flatten_dict(training_config)
     flattened_config.pop("environment_config.seed", None)
+    for key in list(flattened_config):
+        if key.startswith("model_config.wandb_config"):
+            flattened_config.pop(key)
 
     # Convert to ordered list of tuples
     items = sorted(flattened_config.items())

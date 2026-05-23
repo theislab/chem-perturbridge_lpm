@@ -418,6 +418,11 @@ def _split_plibdata[PlibDataT: PlibData](
 
     split_pdata = type(pdata)(data=split_data)
     remaining_pdata = type(pdata)(data=remaining_data)
+    if isinstance(pdata, OnDiskPlibData):
+        split_pdata.cache_shards_in_memory = pdata.cache_shards_in_memory
+        remaining_pdata.cache_shards_in_memory = pdata.cache_shards_in_memory
+        split_pdata._shard_cache = {}
+        remaining_pdata._shard_cache = {}
 
     return remaining_pdata, split_pdata
 
