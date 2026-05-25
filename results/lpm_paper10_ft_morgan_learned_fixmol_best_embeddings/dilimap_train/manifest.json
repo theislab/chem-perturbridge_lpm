@@ -1,0 +1,41 @@
+{
+  "model_family": "finetune_morgan_learned_fixed_updated_embeddings",
+  "dataset_slug": "dilimap_train",
+  "dataset": "dilimap_train",
+  "seed": 17,
+  "config_id": "lpm_paper10_morgan_init_learned_finetune_fixmol_dilimap_train_seed17_molholdout_h100_1x_bs4096_200epoch_lustre",
+  "val_rmse": 0.58245309,
+  "test_rmse": 0.6092,
+  "checkpoint": {
+    "checkpoint_path": "/ictstr01/groups/ml01/workspace/artur.szalata/code/chem-perturbridge_lpm/.plib_cache/results/lpm_paper10_morgan_init_learned_finetune_fixmol_dilimap_train_seed17_molholdout_h100_1x_bs4096_200epoch_lustre/LPM_127b5b71a487cff9/seed_17/checkpoints/best-validation-rmse-epoch0150.ckpt",
+    "checkpoint_format": "lightning_checkpoint",
+    "epoch": 150,
+    "global_step": 151
+  },
+  "on_disk_shard_root": "/lustre/groups/ml01/workspace/olga.novitskaia/lpm_style/.plib_cache/plibdata_multiout/lpm_multiout_all_data_plus_tahoe_novartis_op3_molholdout_h100_2x_bs4096_200epoch_lustre",
+  "on_disk_data_sources": [
+    "dili_train_CL_0000182"
+  ],
+  "dataset_symbols": [
+    "dilimap_train"
+  ],
+  "n_relevant_lines": 1,
+  "n_relevant_molecules": 250,
+  "embedding_dim": 128,
+  "missing_context_symbols": [],
+  "missing_perturbation_symbols": [],
+  "outputs": {
+    "line": {
+      "embeddings_npy": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/dilimap_train/line_embeddings.npy",
+      "metadata_parquet": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/dilimap_train/line_metadata.parquet",
+      "metadata_tsv": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/dilimap_train/line_metadata.tsv",
+      "pickle": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/dilimap_train/df_line.pkl"
+    },
+    "molecule": {
+      "embeddings_npy": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/dilimap_train/molecule_embeddings.npy",
+      "metadata_parquet": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/dilimap_train/molecule_metadata.parquet",
+      "metadata_tsv": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/dilimap_train/molecule_metadata.tsv",
+      "pickle": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/dilimap_train/df_molecule.pkl"
+    }
+  }
+}

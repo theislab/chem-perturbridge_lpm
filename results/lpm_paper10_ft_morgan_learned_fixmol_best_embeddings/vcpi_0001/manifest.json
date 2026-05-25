@@ -1,0 +1,41 @@
+{
+  "model_family": "finetune_morgan_learned_fixed_updated_embeddings",
+  "dataset_slug": "vcpi_0001",
+  "dataset": "Ginkgo VCPI vcpi-0001 (tvc-bhr-009)",
+  "seed": 31,
+  "config_id": "lpm_paper10_morgan_init_learned_finetune_fixmol_vcpi_0001_seed31_molholdout_h100_1x_bs4096_200epoch_lustre",
+  "val_rmse": 0.55350365,
+  "test_rmse": 0.5706,
+  "checkpoint": {
+    "checkpoint_path": "/ictstr01/groups/ml01/workspace/artur.szalata/code/chem-perturbridge_lpm/.plib_cache/results/lpm_paper10_morgan_init_learned_finetune_fixmol_vcpi_0001_seed31_molholdout_h100_1x_bs4096_200epoch_lustre/LPM_95054eb62cd13760/seed_31/checkpoints/best-validation-rmse-epoch0065.ckpt",
+    "checkpoint_format": "lightning_checkpoint",
+    "epoch": 65,
+    "global_step": 264
+  },
+  "on_disk_shard_root": "/lustre/groups/ml01/workspace/olga.novitskaia/lpm_style/.plib_cache/plibdata_multiout/lpm_multiout_all_data_plus_tahoe_novartis_op3_molholdout_h100_2x_bs4096_200epoch_lustre",
+  "on_disk_data_sources": [
+    "vcpi_0001_CVCL_0006"
+  ],
+  "dataset_symbols": [
+    "Ginkgo VCPI vcpi-0001 (tvc-bhr-009)"
+  ],
+  "n_relevant_lines": 1,
+  "n_relevant_molecules": 2272,
+  "embedding_dim": 128,
+  "missing_context_symbols": [],
+  "missing_perturbation_symbols": [],
+  "outputs": {
+    "line": {
+      "embeddings_npy": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/vcpi_0001/line_embeddings.npy",
+      "metadata_parquet": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/vcpi_0001/line_metadata.parquet",
+      "metadata_tsv": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/vcpi_0001/line_metadata.tsv",
+      "pickle": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/vcpi_0001/df_line.pkl"
+    },
+    "molecule": {
+      "embeddings_npy": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/vcpi_0001/molecule_embeddings.npy",
+      "metadata_parquet": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/vcpi_0001/molecule_metadata.parquet",
+      "metadata_tsv": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/vcpi_0001/molecule_metadata.tsv",
+      "pickle": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/vcpi_0001/df_molecule.pkl"
+    }
+  }
+}

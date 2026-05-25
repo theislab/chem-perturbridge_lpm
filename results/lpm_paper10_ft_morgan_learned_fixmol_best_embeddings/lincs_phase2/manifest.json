@@ -1,0 +1,70 @@
+{
+  "model_family": "finetune_morgan_learned_fixed_updated_embeddings",
+  "dataset_slug": "lincs_phase2",
+  "dataset": "LINCS_phase2_level3",
+  "seed": 19,
+  "config_id": "lpm_paper10_morgan_init_learned_finetune_fixmol_lincs_phase2_seed19_molholdout_h100_2x_bs4096_200epoch_lustre",
+  "val_rmse": 0.46323436,
+  "test_rmse": 0.4811,
+  "checkpoint": {
+    "checkpoint_path": "/ictstr01/groups/ml01/workspace/artur.szalata/code/chem-perturbridge_lpm/.plib_cache/results/lpm_paper10_morgan_init_learned_finetune_fixmol_lincs_phase2_seed19_molholdout_h100_2x_bs4096_200epoch_lustre/LPM_41cfc44ccec8c750/seed_19/checkpoints/best-validation-rmse-epoch0033.ckpt",
+    "checkpoint_format": "lightning_checkpoint",
+    "epoch": 33,
+    "global_step": 408
+  },
+  "on_disk_shard_root": "/lustre/groups/ml01/workspace/olga.novitskaia/lpm_style/.plib_cache/plibdata_multiout/lpm_multiout_all_data_plus_tahoe_novartis_op3_molholdout_h100_2x_bs4096_200epoch_lustre",
+  "on_disk_data_sources": [
+    "l1000_phase2_ASC.C",
+    "l1000_phase2_CD34",
+    "l1000_phase2_CVCL_0023",
+    "l1000_phase2_CVCL_0027",
+    "l1000_phase2_CVCL_0030",
+    "l1000_phase2_CVCL_0031",
+    "l1000_phase2_CVCL_0033",
+    "l1000_phase2_CVCL_0035",
+    "l1000_phase2_CVCL_0062",
+    "l1000_phase2_CVCL_0065",
+    "l1000_phase2_CVCL_0132",
+    "l1000_phase2_CVCL_0178",
+    "l1000_phase2_CVCL_0320",
+    "l1000_phase2_CVCL_0332",
+    "l1000_phase2_CVCL_0395",
+    "l1000_phase2_CVCL_0598",
+    "l1000_phase2_CVCL_1794",
+    "l1000_phase2_CVCL_2959",
+    "l1000_phase2_CVCL_3383",
+    "l1000_phase2_CVCL_5136",
+    "l1000_phase2_CVCL_B161",
+    "l1000_phase2_CVCL_U602",
+    "l1000_phase2_CVCL_VU89",
+    "l1000_phase2_MNEU.E",
+    "l1000_phase2_NEU",
+    "l1000_phase2_NPC",
+    "l1000_phase2_NPC.CAS9",
+    "l1000_phase2_NPC.TAK",
+    "l1000_phase2_SKL",
+    "l1000_phase2_SKL.C"
+  ],
+  "dataset_symbols": [
+    "LINCS_phase2_level3"
+  ],
+  "n_relevant_lines": 30,
+  "n_relevant_molecules": 1791,
+  "embedding_dim": 128,
+  "missing_context_symbols": [],
+  "missing_perturbation_symbols": [],
+  "outputs": {
+    "line": {
+      "embeddings_npy": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/lincs_phase2/line_embeddings.npy",
+      "metadata_parquet": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/lincs_phase2/line_metadata.parquet",
+      "metadata_tsv": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/lincs_phase2/line_metadata.tsv",
+      "pickle": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/lincs_phase2/df_line.pkl"
+    },
+    "molecule": {
+      "embeddings_npy": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/lincs_phase2/molecule_embeddings.npy",
+      "metadata_parquet": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/lincs_phase2/molecule_metadata.parquet",
+      "metadata_tsv": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/lincs_phase2/molecule_metadata.tsv",
+      "pickle": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/lincs_phase2/df_molecule.pkl"
+    }
+  }
+}

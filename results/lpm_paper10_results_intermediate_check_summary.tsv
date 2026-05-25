@@ -1,0 +1,13 @@
+dataset_slug	dataset	all_val_rmse_mean	all_val_rmse_std	all_val_n	all_test_rmse_mean	all_test_rmse_std	all_test_n	all_val_rmse_mean_std	all_test_rmse_mean_std	finetune_frozen_mol_val_rmse_mean	finetune_frozen_mol_val_rmse_std	finetune_frozen_mol_val_n	finetune_frozen_mol_test_rmse_mean	finetune_frozen_mol_test_rmse_std	finetune_frozen_mol_test_n	finetune_frozen_mol_val_rmse_mean_std	finetune_frozen_mol_test_rmse_mean_std	scratch_target_only_val_rmse_mean	scratch_target_only_val_rmse_std	scratch_target_only_val_n	scratch_target_only_test_rmse_mean	scratch_target_only_test_rmse_std	scratch_target_only_test_n	scratch_target_only_val_rmse_mean_std	scratch_target_only_test_rmse_mean_std
+cigs_mce	CIGS MCE			0			0	NA	NA			0			0	NA	NA	0.58719388	0.00014150	4	0.57132500	0.00136961	4	0.5872 +/- 0.0001 (n=4)	0.5713 +/- 0.0014 (n=4)
+cigs_tcm	CIGS TCM			0			0	NA	NA			0			0	NA	NA	0.44857485	0.00017448	6	0.40806667	0.00032660	6	0.4486 +/- 0.0002 (n=6)	0.4081 +/- 0.0003 (n=6)
+dilimap_train	dilimap_train			0			0	NA	NA			0			0	NA	NA	0.58291655	0.00190779	10	0.60953000	0.00136386	10	0.5829 +/- 0.0019 (n=10)	0.6095 +/- 0.0014 (n=10)
+gdpx2	Ginkgo GDPx2			0			0	NA	NA			0			0	NA	NA	0.57264422	0.00217910	5	0.43268000	0.00403448	5	0.5726 +/- 0.0022 (n=5)	0.4327 +/- 0.0040 (n=5)
+lincs_phase1	LINCS_phase1_level3_epsilon			0			0	NA	NA			0			0	NA	NA	0.61932084	0.00054168	4	0.63327500	0.00133510	4	0.6193 +/- 0.0005 (n=4)	0.6333 +/- 0.0013 (n=4)
+lincs_phase2	LINCS_phase2_level3			0			0	NA	NA			0			0	NA	NA	0.47248710	0.00043207	6	0.48863333	0.00044572	6	0.4725 +/- 0.0004 (n=6)	0.4886 +/- 0.0004 (n=6)
+novartis	Novartis MoABox DRUG-seq			0			0	NA	NA			0			0	NA	NA	0.67812264	0.00065843	10	0.54082000	0.00056332	10	0.6781 +/- 0.0007 (n=10)	0.5408 +/- 0.0006 (n=10)
+op3	op3			0			0	NA	NA			0			0	NA	NA	0.41503270	0.00353221	4	0.34832500	0.00144309	4	0.4150 +/- 0.0035 (n=4)	0.3483 +/- 0.0014 (n=4)
+sciplex	srivatsan20_sciplex3			0			0	NA	NA			0			0	NA	NA	0.71622397	0.00193482	3	0.68430000	0.00010000	3	0.7162 +/- 0.0019 (n=3)	0.6843 +/- 0.0001 (n=3)
+tahoe100	tahoe100			0			0	NA	NA			0			0	NA	NA	0.74489998	0.00001801	2	0.73800000	0.00014142	2	0.7449 +/- 0.0000 (n=2)	0.7380 +/- 0.0001 (n=2)
+vcpi_0001	Ginkgo VCPI vcpi-0001 (tvc-bhr-009)			0			0	NA	NA			0			0	NA	NA	0.55351127	0.00003634	10	0.57072000	0.00006325	10	0.5535 +/- 0.0000 (n=10)	0.5707 +/- 0.0001 (n=10)
+vcpi_0002	Ginkgo VCPI vcpi-0002 (tvc-kdl-010)			0			0	NA	NA			0			0	NA	NA	0.51002847	0.00003836	10			0	0.5100 +/- 0.0000 (n=10)	NA

@@ -1,0 +1,6 @@
+{
+  "model_family": "finetune_morgan_learned_fixed_updated_embeddings",
+  "long_table": "results/lpm_paper10_results_long.tsv",
+  "datasets": 12,
+  "selection_tsv": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/best_checkpoint_embedding_exports.tsv"
+}

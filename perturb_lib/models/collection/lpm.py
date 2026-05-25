@@ -71,6 +71,17 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             preemption / crash. Set False to skip and save a bit of disk I/O.
         keep_best_validation_checkpoint: If True, keep the best ``Validation RMSE``
             checkpoint whenever validation data is provided and checkpointing is enabled.
+        pretrained_perturbation_embeddings_path: Optional path to learned compound embeddings
+            exported by LPM training. Supported inputs are a directory containing ``df_pert.pkl``,
+            a direct ``df_pert.pkl`` path, or ``compound_embeddings.npy`` with sibling
+            ``compound_metadata.parquet``/``.tsv``. Embeddings are aligned to the current
+            perturbation vocabulary by symbol.
+        freeze_pretrained_perturbation_embeddings: If True and pretrained perturbation
+            embeddings are provided, keep the perturbation embedding table fixed during training.
+        initialize_from_checkpoint: Optional checkpoint whose weights are loaded before fitting,
+            without resuming optimizer state or epoch counters.
+        freeze_initialized_perturbation_embeddings: If True with ``initialize_from_checkpoint``,
+            keep only the initialized perturbation/molecule embedding table fixed during training.
         output_mode: ``scalar`` keeps the original one-row-per-readout behavior; ``multiout``
             predicts all readouts for each sample and computes loss only for available readouts.
             ``auto`` selects ``multiout`` when the dataset has sample-level ragged readout columns.
@@ -96,6 +107,10 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         epoch_checkpoint_every_n: int = 0,
         epoch_checkpoint_save_last: bool = True,
         keep_best_validation_checkpoint: bool = True,
+        pretrained_perturbation_embeddings_path: str | None = None,
+        freeze_pretrained_perturbation_embeddings: bool = True,
+        initialize_from_checkpoint: str | None = None,
+        freeze_initialized_perturbation_embeddings: bool = False,
         output_mode: Literal["auto", "scalar", "multiout"] = "auto",
     ):
         super().__init__()
@@ -118,6 +133,10 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.epoch_checkpoint_every_n = epoch_checkpoint_every_n
         self.epoch_checkpoint_save_last = epoch_checkpoint_save_last
         self.keep_best_validation_checkpoint = keep_best_validation_checkpoint
+        self.pretrained_perturbation_embeddings_path = pretrained_perturbation_embeddings_path
+        self.freeze_pretrained_perturbation_embeddings = freeze_pretrained_perturbation_embeddings
+        self.initialize_from_checkpoint = initialize_from_checkpoint
+        self.freeze_initialized_perturbation_embeddings = freeze_initialized_perturbation_embeddings
         self.optimizer_name = optimizer_name
         self.embedding_aggregation_mode = embedding_aggregation_mode
         self.output_mode = output_mode
@@ -196,13 +215,27 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
                 self.output_dim = len(self.vocab.readout_vocab) if self.active_output_mode == "multiout" else 1
                 self.predictor = self.build_predictor()
         if "context_embedding_layer.weight" in state_dict:
-            self.context_embedding_layer = nn.Embedding.from_pretrained(state_dict["context_embedding_layer.weight"])
+            self.context_embedding_layer = nn.Embedding.from_pretrained(
+                state_dict["context_embedding_layer.weight"], freeze=False
+            )
         if "perturb_embedding_layer.weight" in state_dict:
-            self.perturb_embedding_layer = nn.EmbeddingBag.from_pretrained(state_dict["perturb_embedding_layer.weight"])
+            self.perturb_embedding_layer = nn.EmbeddingBag.from_pretrained(
+                state_dict["perturb_embedding_layer.weight"],
+                freeze=self.freeze_initialized_perturbation_embeddings,
+                mode=self.embedding_aggregation_mode,
+            )
         if "readout_embedding_layer.weight" in state_dict:
-            self.readout_embedding_layer = nn.Embedding.from_pretrained(state_dict["readout_embedding_layer.weight"])
+            self.readout_embedding_layer = nn.Embedding.from_pretrained(
+                state_dict["readout_embedding_layer.weight"], freeze=False
+            )
         if "dataset_embedding_layer.weight" in state_dict:
-            self.dataset_embedding_layer = nn.Embedding.from_pretrained(state_dict["dataset_embedding_layer.weight"])
+            self.dataset_embedding_layer = nn.Embedding.from_pretrained(
+                state_dict["dataset_embedding_layer.weight"], freeze=False
+            )
+        if "log_dose_layer.weight" in state_dict and self.log_dose_layer is None:
+            self.log_dose_layer = nn.Linear(1, self.embedding_dim)
+        if "time_layer.weight" in state_dict and self.time_layer is None:
+            self.time_layer = nn.Linear(1, self.embedding_dim)
         super().load_state_dict(state_dict, strict, assign)
 
     @staticmethod
@@ -260,9 +293,17 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
 
         self.dataset_embedding_layer = nn.Embedding(len(self.vocab.dataset_vocab), self.embedding_dim)
         self.context_embedding_layer = nn.Embedding(len(self.vocab.context_vocab), self.embedding_dim)
-        self.perturb_embedding_layer = nn.EmbeddingBag(
-            len(self.vocab.perturb_vocab), self.embedding_dim, mode=self.embedding_aggregation_mode
-        )
+        pretrained_perturbation_embeddings = self._load_pretrained_perturbation_embeddings()
+        if pretrained_perturbation_embeddings is None:
+            self.perturb_embedding_layer = nn.EmbeddingBag(
+                len(self.vocab.perturb_vocab), self.embedding_dim, mode=self.embedding_aggregation_mode
+            )
+        else:
+            self.perturb_embedding_layer = nn.EmbeddingBag.from_pretrained(
+                pretrained_perturbation_embeddings,
+                freeze=self.freeze_pretrained_perturbation_embeddings,
+                mode=self.embedding_aggregation_mode,
+            )
         self.readout_embedding_layer = (
             None
             if self.active_output_mode == "multiout"
@@ -271,6 +312,138 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.log_dose_layer = nn.Linear(1, self.embedding_dim)
         self.time_layer = nn.Linear(1, self.embedding_dim)
         self.predictor = self.build_predictor()
+        self._initialize_from_checkpoint_if_requested()
+
+    @staticmethod
+    def _load_checkpoint_state(path: Path) -> dict[str, Any]:
+        checkpoint = torch.load(path, map_location="cpu", weights_only=False)
+        if isinstance(checkpoint, dict) and "state_dict" in checkpoint:
+            return checkpoint["state_dict"]
+        if isinstance(checkpoint, tuple) and len(checkpoint) == 3:
+            return checkpoint[2]
+        raise ValueError(
+            f"Unsupported checkpoint format at {path}. Expected a Lightning checkpoint with "
+            "'state_dict' or a serialized LPM tuple."
+        )
+
+    def _initialize_from_checkpoint_if_requested(self) -> None:
+        if self.initialize_from_checkpoint is None:
+            return
+        checkpoint_path = Path(self.initialize_from_checkpoint).expanduser()
+        if not checkpoint_path.is_file():
+            raise FileNotFoundError(f"Initialization checkpoint not found: {checkpoint_path}")
+        state_dict = self._load_checkpoint_state(checkpoint_path)
+        self.load_state_dict(dict(state_dict), strict=True)
+        if self.perturb_embedding_layer is not None:
+            self.perturb_embedding_layer.weight.requires_grad_(
+                not self.freeze_initialized_perturbation_embeddings
+            )
+        logger.info(
+            "Initialized model weights from %s; perturbation embeddings trainable=%s.",
+            checkpoint_path,
+            not self.freeze_initialized_perturbation_embeddings,
+        )
+
+    def _load_pretrained_perturbation_embeddings(self) -> torch.Tensor | None:
+        if self.pretrained_perturbation_embeddings_path is None:
+            return None
+        if self.vocab is None:
+            raise ValueError("Vocabulary must be initialized before loading pretrained perturbation embeddings.")
+
+        path = Path(self.pretrained_perturbation_embeddings_path).expanduser()
+        if path.is_dir():
+            df_pert_path = path / "df_pert.pkl"
+            npy_path = path / "compound_embeddings.npy"
+            if df_pert_path.is_file():
+                path = df_pert_path
+            elif npy_path.is_file():
+                path = npy_path
+            else:
+                raise FileNotFoundError(
+                    f"{path} does not contain df_pert.pkl or compound_embeddings.npy."
+                )
+        if not path.is_file():
+            raise FileNotFoundError(path)
+
+        if path.suffix == ".pkl":
+            embeddings_by_symbol = self._read_df_pert_pickle(path)
+        elif path.suffix == ".npy":
+            embeddings_by_symbol = self._read_embedding_npy(path)
+        else:
+            raise ValueError(
+                "pretrained_perturbation_embeddings_path must be a directory, df_pert.pkl, "
+                f"or compound_embeddings.npy; got {path}"
+            )
+
+        perturb_symbols = self.vocab.perturb_vocab["symbol"].to_list()
+        missing = [symbol for symbol in perturb_symbols if symbol not in embeddings_by_symbol]
+        if missing:
+            preview = ", ".join(missing[:10])
+            raise ValueError(
+                f"Pretrained perturbation embeddings are missing {len(missing)} symbol(s), "
+                f"including: {preview}"
+            )
+
+        import numpy as np
+
+        weights = np.stack([embeddings_by_symbol[symbol] for symbol in perturb_symbols]).astype("float32", copy=False)
+        if weights.ndim != 2:
+            raise ValueError(f"Expected 2D pretrained embeddings, got shape={weights.shape}.")
+        if weights.shape[1] != self.embedding_dim:
+            raise ValueError(
+                f"Pretrained perturbation embedding dim {weights.shape[1]} does not match "
+                f"configured embedding_dim {self.embedding_dim}."
+            )
+
+        trainable = not self.freeze_pretrained_perturbation_embeddings
+        logger.info(
+            "Loaded pretrained perturbation embeddings from "
+            f"{path} with shape={weights.shape}; trainable={trainable}."
+        )
+        return torch.from_numpy(weights)
+
+    @staticmethod
+    def _read_df_pert_pickle(path: Path) -> dict[str, Any]:
+        import pandas as pd
+
+        df = pd.read_pickle(path)
+        required_columns = {"symbol", "lpm_style_embeddings"}
+        missing_columns = required_columns.difference(df.columns)
+        if missing_columns:
+            raise ValueError(f"{path} is missing required columns: {sorted(missing_columns)}")
+        return {
+            str(symbol): vector
+            for symbol, vector in zip(df["symbol"].tolist(), df["lpm_style_embeddings"].tolist(), strict=True)
+        }
+
+    @staticmethod
+    def _read_embedding_npy(path: Path) -> dict[str, Any]:
+        import numpy as np
+        import pandas as pd
+
+        metadata_parquet = path.parent / "compound_metadata.parquet"
+        metadata_tsv = path.parent / "compound_metadata.tsv"
+        if metadata_parquet.is_file():
+            metadata = pd.read_parquet(metadata_parquet)
+        elif metadata_tsv.is_file():
+            metadata = pd.read_csv(metadata_tsv, sep="\t")
+        else:
+            raise FileNotFoundError(
+                f"Could not find compound_metadata.parquet or compound_metadata.tsv next to {path}."
+            )
+        if "symbol" not in metadata.columns:
+            raise ValueError(f"Compound metadata next to {path} must contain a symbol column.")
+
+        embeddings = np.load(path)
+        if len(metadata) != embeddings.shape[0]:
+            raise ValueError(
+                f"Metadata rows ({len(metadata)}) do not match embedding rows ({embeddings.shape[0]})."
+            )
+        row_indices = metadata["code"].tolist() if "code" in metadata.columns else list(range(len(metadata)))
+        return {
+            str(symbol): embeddings[int(row_idx)]
+            for symbol, row_idx in zip(metadata["symbol"].tolist(), row_indices, strict=True)
+        }
 
     def _check_layers_initialized(self) -> None:
         if (

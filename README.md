@@ -127,3 +127,213 @@ cd ~/lpm_style
 poetry run tensorboard --logdir .plib_cache/results/<config_id>
 ```
 Then open `http://localhost:6006`. Pointing `--logdir` at the config results root lets TensorBoard compare seeds and `model_hash` runs side by side.
+
+### 6. Reproduce the 10-seed molecule-holdout table
+
+This workflow generates the paper-style table with 10 seeds for each model family:
+
+* `all_datasets`
+* `finetune_frozen_molecule_embeddings`
+* `scratch_target_only`
+* `all_datasets_morgan_fixed`
+* `finetune_morgan_fixed`
+* `scratch_target_only_morgan_fixed`
+* `all_datasets_morgan_learned`
+* `finetune_morgan_learned_fixed_updated_embeddings`
+
+The fixed seed list is `13, 17, 19, 23, 29, 31, 37, 41, 43, 47`. All runs use the cross-dataset molecule-holdout split baked into the preprocessed shard root. The split artifact is:
+
+```
+results/cross_dataset_molecule_holdout_split_all_data_plus_tahoe_novartis_op3/df_annot_split.parquet
+```
+
+The preprocessed shard root used by the configs is:
+
+```
+/lustre/groups/ml01/workspace/olga.novitskaia/lpm_style/.plib_cache/plibdata_multiout/lpm_multiout_all_data_plus_tahoe_novartis_op3_molholdout_h100_2x_bs4096_200epoch_lustre
+```
+
+The source and single-dataset base configs must exist before generating the 10-seed configs:
+
+```
+perturb_gym/configs/collection/lpm_multiout_transfer_source_all_data_plus_tahoe_novartis_op3_molholdout_h100_2x_bs4096_200epoch_lustre.yaml
+perturb_gym/configs/collection/lpm_multiout_all_data_plus_tahoe_novartis_op3_molholdout_h100_2x_bs4096_200epoch_lustre.yaml
+```
+
+#### 6.1 Generate and submit the non-Morgan runs
+
+Generate configs for the all-dataset source runs and target-only scratch runs:
+
+```
+./lpm_training_venv/bin/python scripts/create_lpm_paper10_configs.py
+```
+
+This writes `results/lpm_paper10_config_manifest.tsv` plus YAML configs under `perturb_gym/configs/collection/`.
+
+Submit the all-dataset source and scratch target-only runs:
+
+```
+./lpm_training_venv/bin/python scripts/submit_lpm_paper10_source_scratch_jobs.py
+```
+
+This script submits:
+
+* 10 all-dataset source jobs.
+* 120 scratch target-only jobs: 12 datasets x 10 seeds.
+* A dependent selector job, `run_lpm_paper10_select_and_submit.sh`, after the 10 source jobs finish.
+
+The selector job chooses, for each target dataset, the all-dataset source checkpoint with the best validation RMSE across all source seeds and epochs. It then creates and submits:
+
+* 120 `finetune_frozen_molecule_embeddings` jobs.
+* 10 source-checkpoint eval jobs, one per source seed.
+* A dependent summary job.
+
+Useful outputs from this wave:
+
+```
+results/lpm_paper10_source_scratch_slurm_jobs.tsv
+results/lpm_paper10_source_dataset_checkpoint_selection.tsv
+results/lpm_paper10_source_dataset_checkpoint_selection_long.tsv
+results/lpm_paper10_finetune_config_manifest.tsv
+results/lpm_paper10_finetune_slurm_jobs.tsv
+results/lpm_paper10_source_dataset_eval_seed*.tsv
+```
+
+#### 6.2 Build Morgan fingerprint embeddings
+
+Build the frozen Morgan fingerprint artifact before creating Morgan configs:
+
+```
+./lpm_training_venv/bin/python scripts/build_morgan_perturbation_embeddings.py
+```
+
+By default this writes:
+
+```
+.plib_cache/morgan_perturbation_embeddings/pubchem_morgan_radius2_nbits128/
+```
+
+The produced `compound_embeddings.npy` is a 128-bit radius-2 Morgan fingerprint matrix aligned to the perturbation vocabulary. Missing or control entries are zero vectors unless `--missing-policy error` is used.
+
+#### 6.3 Generate and submit Morgan runs
+
+Generate configs for both Morgan variants:
+
+```
+./lpm_training_venv/bin/python scripts/create_lpm_paper10_morgan_variant_configs.py --variant all
+```
+
+This writes:
+
+```
+results/lpm_paper10_morgan_fixed_config_manifest.tsv
+results/lpm_paper10_morgan_learned_config_manifest.tsv
+```
+
+Submit the frozen-Morgan runs:
+
+```
+./lpm_training_venv/bin/python scripts/submit_lpm_paper10_morgan_variant_jobs.py --variant morgan_fixed
+```
+
+This submits:
+
+* 10 all-dataset runs with frozen Morgan molecule embeddings.
+* 120 scratch target-only runs with frozen Morgan molecule embeddings.
+* A dependent selector job that creates and submits 120 `finetune_morgan_fixed` jobs.
+* Per-source eval jobs and a summary job.
+
+Submit the Morgan-initialized-learned source runs:
+
+```
+./lpm_training_venv/bin/python scripts/submit_lpm_paper10_morgan_variant_jobs.py --variant morgan_learned
+```
+
+This submits:
+
+* 10 all-dataset runs initialized from Morgan fingerprints, with molecule embeddings learnable during all-dataset training.
+* A dependent selector job that creates and submits 120 `finetune_morgan_learned_fixed_updated_embeddings` jobs. These fine-tunes initialize from the selected all-dataset checkpoint and keep the updated molecule embeddings fixed.
+* Per-source eval jobs and a summary job.
+
+Useful outputs from the Morgan waves:
+
+```
+results/lpm_paper10_morgan_fixed_source_scratch_slurm_jobs.tsv
+results/lpm_paper10_morgan_fixed_source_dataset_checkpoint_selection.tsv
+results/lpm_paper10_morgan_fixed_finetune_config_manifest.tsv
+results/lpm_paper10_morgan_fixed_finetune_slurm_jobs.tsv
+results/lpm_paper10_morgan_fixed_source_dataset_eval_seed*.tsv
+
+results/lpm_paper10_morgan_learned_source_scratch_slurm_jobs.tsv
+results/lpm_paper10_morgan_learned_source_dataset_checkpoint_selection.tsv
+results/lpm_paper10_morgan_learned_finetune_config_manifest.tsv
+results/lpm_paper10_morgan_learned_finetune_slurm_jobs.tsv
+results/lpm_paper10_morgan_learned_source_dataset_eval_seed*.tsv
+```
+
+#### 6.4 Monitor and regenerate the table
+
+Monitor jobs with:
+
+```
+squeue --me
+sacct -u "$USER" --starttime now-2days --format=JobID,JobName%80,State,Elapsed,Timelimit,ExitCode
+```
+
+The submit scripts create summary jobs automatically. You can also regenerate the table at any time from whatever results are present:
+
+```
+./lpm_training_venv/bin/python scripts/summarize_lpm_paper10_results.py
+```
+
+Final table outputs:
+
+```
+results/lpm_paper10_results_long.tsv
+results/lpm_paper10_results_summary.tsv
+results/lpm_paper10_results_summary.md
+```
+
+`results/lpm_paper10_results_long.tsv` contains one row per model family, seed, and dataset. `results/lpm_paper10_results_summary.tsv` contains the mean +/- standard deviation table used for paper reporting.
+
+To write a separate intermediate snapshot instead of overwriting the default files:
+
+```
+./lpm_training_venv/bin/python scripts/summarize_lpm_paper10_results.py \
+  --output-prefix results/lpm_paper10_results_current_check
+```
+
+#### 6.5 Extract best fine-tuned Morgan-learned embeddings
+
+After `results/lpm_paper10_results_long.tsv` exists and the `finetune_morgan_learned_fixed_updated_embeddings` rows are complete, extract the best-validation checkpoint embeddings for each dataset:
+
+```
+./lpm_training_venv/bin/python scripts/extract_lpm_paper10_ft_morgan_learned_fixmol_embeddings.py \
+  --long-table results/lpm_paper10_results_long.tsv \
+  --output-root results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings
+```
+
+For each dataset, the extractor selects the `finetune_morgan_learned_fixed_updated_embeddings` checkpoint with the lowest validation RMSE, then writes line/context embeddings and molecule embeddings for all lines and molecules present in that dataset's configured shards, including validation and test molecules.
+
+Main output:
+
+```
+results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/best_checkpoint_embedding_exports.tsv
+```
+
+Each dataset also gets its own output directory:
+
+```
+results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/<dataset_slug>/
+|-- line_embeddings.npy
+|-- line_metadata.parquet
+|-- line_metadata.tsv
+|-- df_line.pkl
+|-- molecule_embeddings.npy
+|-- molecule_metadata.parquet
+|-- molecule_metadata.tsv
+|-- df_molecule.pkl
+`-- manifest.json
+```
+
+The metadata files align rows to embedding matrix rows. `df_line.pkl` and `df_molecule.pkl` are convenience pandas pickles with list-valued embedding columns.

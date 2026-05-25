@@ -1,0 +1,42 @@
+{
+  "model_family": "finetune_morgan_learned_fixed_updated_embeddings",
+  "dataset_slug": "cigs_mce",
+  "dataset": "CIGS MCE",
+  "seed": 19,
+  "config_id": "lpm_paper10_morgan_init_learned_finetune_fixmol_cigs_mce_seed19_molholdout_h100_2x_bs4096_200epoch_lustre",
+  "val_rmse": 0.5790543,
+  "test_rmse": 0.5749,
+  "checkpoint": {
+    "checkpoint_path": "/ictstr01/groups/ml01/workspace/artur.szalata/code/chem-perturbridge_lpm/.plib_cache/results/lpm_paper10_morgan_init_learned_finetune_fixmol_cigs_mce_seed19_molholdout_h100_2x_bs4096_200epoch_lustre/LPM_ec504948200a6bab/seed_19/checkpoints/best-validation-rmse-epoch0049.ckpt",
+    "checkpoint_format": "lightning_checkpoint",
+    "epoch": 49,
+    "global_step": 150
+  },
+  "on_disk_shard_root": "/lustre/groups/ml01/workspace/olga.novitskaia/lpm_style/.plib_cache/plibdata_multiout/lpm_multiout_all_data_plus_tahoe_novartis_op3_molholdout_h100_2x_bs4096_200epoch_lustre",
+  "on_disk_data_sources": [
+    "cigs_mce_CVCL_0062",
+    "cigs_mce_CVCL_0063"
+  ],
+  "dataset_symbols": [
+    "CIGS MCE"
+  ],
+  "n_relevant_lines": 2,
+  "n_relevant_molecules": 11160,
+  "embedding_dim": 128,
+  "missing_context_symbols": [],
+  "missing_perturbation_symbols": [],
+  "outputs": {
+    "line": {
+      "embeddings_npy": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/cigs_mce/line_embeddings.npy",
+      "metadata_parquet": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/cigs_mce/line_metadata.parquet",
+      "metadata_tsv": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/cigs_mce/line_metadata.tsv",
+      "pickle": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/cigs_mce/df_line.pkl"
+    },
+    "molecule": {
+      "embeddings_npy": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/cigs_mce/molecule_embeddings.npy",
+      "metadata_parquet": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/cigs_mce/molecule_metadata.parquet",
+      "metadata_tsv": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/cigs_mce/molecule_metadata.tsv",
+      "pickle": "results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/cigs_mce/df_molecule.pkl"
+    }
+  }
+}

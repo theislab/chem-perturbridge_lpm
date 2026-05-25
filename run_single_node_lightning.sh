@@ -56,7 +56,14 @@ export MPLCONFIGDIR="${MPLCONFIGDIR:-${TMPDIR}/matplotlib}"
 mkdir -p "$MPLCONFIGDIR"
 
 export MASTER_ADDR=${MASTER_ADDR:-127.0.0.1}
-export MASTER_PORT=${MASTER_PORT:-29500}
+if [[ -z "${MASTER_PORT:-}" ]]; then
+    if [[ -n "${SLURM_JOB_ID:-}" ]]; then
+        export MASTER_PORT="$((20000 + (SLURM_JOB_ID % 30000)))"
+    else
+        export MASTER_PORT=29500
+    fi
+fi
+echo "[run_single_node_lightning.sh] MASTER_ADDR=$MASTER_ADDR MASTER_PORT=$MASTER_PORT"
 export PERTURB_GYM_FORCE_LIGHTNING_ENV=1
 export PERTURB_GYM_RESULTS_PRE_CLEANED=1
 export DATA_PREP_JOBS="${DATA_PREP_JOBS:-4}"
