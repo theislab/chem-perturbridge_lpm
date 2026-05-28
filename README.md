@@ -8,6 +8,18 @@ It is a fork of [perturblib/perturblib](https://github.com/perturblib/perturblib
 
 This repository runs LPM training on the Chem-PerturBridge dataset collection across distributed GPU nodes via SLURM. Two training modes are shipped: L1000-only and multi-dataset.
 
+### Molecule-holdout multi-output LPM workflow
+
+The molecule-holdout multi-output LPM training and evaluation workflow is maintained on the [`model_multiout`](https://github.com/theislab/chem-perturbridge_lpm/tree/model_multiout) branch rather than on `main`. That branch contains the multi-output data conversion, molecule-holdout split setup, training/evaluation configs, 10-seed result summarization, and embedding/prediction extraction helpers.
+
+To use that workflow:
+```
+git fetch origin
+git switch model_multiout
+```
+
+Then follow the molecule-holdout multi-output LPM sections in that branch's README.
+
 ### 1. Environment
 
 The Mamba environment must be set up once before training. The path `./lpm_training_venv` below is just an example; pick any location you like, but if you change it, update the `activate_env` function in `run.sh` to match.
