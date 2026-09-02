@@ -53,6 +53,15 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         hidden_dim: Number of units in the hidden nodes.
         batch_size: Size of batches during training.
         embedding_aggregation_mode: Defines how to aggregate embeddings.
+        ablate: Covariates to remove from the model input, as a ``+``-separated string over
+            ``dataset``, ``dose``, and ``time`` (e.g. ``"dose+time"``). ``None`` keeps all of
+            them, reproducing the unablated model. An ablated covariate keeps its layer, but
+            the layer is zeroed and frozen so the block is a constant zero vector: shapes,
+            parameter counts and checkpoint layout stay identical across ablations, while the
+            feature can no longer influence the prediction. A ``+``-separated string is used
+            instead of a list because ``perturb_gym`` expands list-valued ``model_args`` into
+            separate grid-search runs, which would turn one multi-covariate ablation into
+            several single-covariate ones.
         num_workers: Number of workers to use during data loading.
         pin_memory: Whether to pin the memory.
         early_stopping_patience: Patience for early stopping in case validation set is given.
@@ -81,6 +90,7 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         hidden_dim: int,
         batch_size: int,
         embedding_aggregation_mode: Literal["sum", "mean", "max"] = "mean",
+        ablate: str | None = None,
         dropout: float = 0.0,
         num_workers: int = 0,
         pin_memory: bool = True,
@@ -112,6 +122,7 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.epoch_checkpoint_save_last = epoch_checkpoint_save_last
         self.optimizer_name = optimizer_name
         self.embedding_aggregation_mode = embedding_aggregation_mode
+        self.ablate = self._parse_ablate(ablate)
         self.lightning_trainer_pars = {} if (lightning_trainer_pars is None) else lightning_trainer_pars
         self.resume_from_checkpoint: str | None = resume_from_checkpoint
         self.loss = nn.MSELoss(reduction="none")
@@ -181,8 +192,28 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
             self.dataset_embedding_layer = nn.Embedding.from_pretrained(state_dict["dataset_embedding_layer.weight"])
         super().load_state_dict(state_dict, strict, assign)
 
+    ABLATABLE_COVARIATES = frozenset({"dataset", "dose", "time"})
+
+    @classmethod
+    def _parse_ablate(cls, ablate: str | None) -> frozenset[str]:
+        if not ablate:
+            return frozenset[str]()
+        requested = {part.strip() for part in ablate.split("+") if part.strip()}
+        unknown = sorted(requested - cls.ABLATABLE_COVARIATES)
+        if unknown:
+            raise ValueError(
+                f"Unknown covariate(s) in ablate={ablate!r}: {unknown}. "
+                f"Choose from {sorted(cls.ABLATABLE_COVARIATES)}, joined by '+'."
+            )
+        return frozenset(requested)
+
     def _initialize_vocabularies_and_embeddings(self, data: PlibData):
         self.vocab = Vocabulary.initialize_from_data(data)
+        self._build_embedding_layers()
+
+    def _build_embedding_layers(self) -> None:
+        """Instantiate the embedding layers for the current vocabulary."""
+        assert self.vocab is not None
 
         self.dataset_embedding_layer = nn.Embedding(len(self.vocab.dataset_vocab), self.embedding_dim)
         self.context_embedding_layer = nn.Embedding(len(self.vocab.context_vocab), self.embedding_dim)
@@ -192,6 +223,25 @@ class LPM(ModelMixin, pyl.LightningModule, metaclass=ABCMeta):
         self.readout_embedding_layer = nn.Embedding(len(self.vocab.readout_vocab), self.embedding_dim)
         self.log_dose_layer = nn.Linear(1, self.embedding_dim)
         self.time_layer = nn.Linear(1, self.embedding_dim)
+
+        # An ablated covariate keeps its layer, but the layer is turned into the constant
+        # zero map: every parameter is zeroed so the block emits a zero vector for any
+        # input, and frozen so it stays that way. Freezing is not optional -- the gradient
+        # of an embedding lookup does not depend on the stored value, so a zeroed but
+        # trainable table would pick up a nonzero gradient on the first step. Zeroing the
+        # Linear layers means weight *and* bias, otherwise they would still emit the bias.
+        # A constant block adds nothing the first predictor layer's bias cannot already
+        # express, so this is equivalent to dropping the feature while leaving tensor
+        # shapes, parameter counts and checkpoint layout untouched.
+        for covariate, layer in (
+            ("dataset", self.dataset_embedding_layer),
+            ("dose", self.log_dose_layer),
+            ("time", self.time_layer),
+        ):
+            if covariate in self.ablate:
+                for parameter in layer.parameters():
+                    nn.init.zeros_(parameter)
+                layer.requires_grad_(False)
 
     def _check_layers_initialized(self) -> None:
         if (
