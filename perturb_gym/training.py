@@ -202,9 +202,22 @@ def train_from_config_file(
         config_results_dir = results_dir / config_file_id_or_path
 
     if config_results_dir.is_dir() and any(config_results_dir.iterdir()):
-        if not get_user_confirmation(f"This will delete all files in '{config_results_dir}'. Continue? (yes/no)"):
-            return
-        shutil.rmtree(config_results_dir)
+        if sys.stdin.isatty():
+            if not get_user_confirmation(f"This will delete all files in '{config_results_dir}'. Continue? (yes/no)"):
+                return
+            shutil.rmtree(config_results_dir)
+        else:
+            # Every rank of a multi-node job runs this, so the directory is most
+            # likely non-empty because a peer that started marginally earlier has
+            # already begun writing into it -- deleting it would destroy a live
+            # run's logs, and prompting would block forever because srun keeps
+            # stdin open instead of returning EOF. Launchers (run.sh) clear the
+            # directory once, before any rank starts, which is the safe place for
+            # it.
+            plib.logger.warning(
+                f"'{config_results_dir}' is not empty and no terminal is attached to confirm deleting it; "
+                "leaving it in place. Clear it before launching if a clean directory is required."
+            )
     config_results_dir.mkdir(exist_ok=True)
 
     # loop over training configurations training different perturbation models
