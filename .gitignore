@@ -128,6 +128,8 @@ packrat/lib*/
 .idea/
 .DS_Store
 .plib_cache
+.plib_cache_paper_narrowed
+.nccl/
 lightning_logs
 checkpoints
 slurm-*.out
