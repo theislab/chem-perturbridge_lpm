@@ -337,3 +337,33 @@ results/lpm_paper10_ft_morgan_learned_fixmol_best_embeddings/<dataset_slug>/
 ```
 
 The metadata files align rows to embedding matrix rows. `df_line.pkl` and `df_molecule.pkl` are convenience pandas pickles with list-valued embedding columns.
+
+### 7. Compound-clustered bootstrap CIs
+
+`notebooks/paper10_bootstrap.ipynb` compares `scratch_target_only` with `finetune_morgan_learned_fixed_updated_embeddings` on test RMSE over the held-out molecules of the 11 paper datasets with a test split.
+
+* Unit: one `(molecule, context, log_dose, time)` condition; unit RMSE is averaged over the 10 seeds.
+* Unit Δ = `RMSE(Scratch) − RMSE(FT)` (positive ⇒ FT better); unit win = 1 if FT is better.
+* 95% nested BCa CIs for mean Δ and win rate, clustered by molecule and nested over `context`, `time`.
+
+**7.1** **Score unit-level test RMSE (GPU)**
+
+Requires `results/lpm_paper10_results_current_check_long.tsv`, which lists the 220 checkpoints to score (paths and test RMSE per family, seed, dataset).
+```
+cd ~/lpm_style
+mkdir -p logs
+bash scripts/submit_paper10_unit_rmse_parallel.sh
+```
+This writes a task list, submits one GPU array task per checkpoint (220 in total), and merges the per-checkpoint results once all tasks finish.
+
+Outputs are written to `results/paper10_bootstrap/`.
+
+**7.2** **Run the bootstrap notebook**
+
+Requires the merged unit table from 7.1 and [`cluster_bootstrap_ci.py`](https://github.com/theislab/Chem-PerturBridge_analysis/blob/4df7a2dbd08277f051822951aa862c1dcc94ba28/scripts/cluster_bootstrap_ci.py) from Chem-PerturBridge_analysis.
+
+Keep `RUN_SCORING = False` and run all cells of `notebooks/paper10_bootstrap.ipynb`. Results are written to `results/paper10_bootstrap/`.
+
+### 8. Seed-level t-tests
+
+`notebooks/result_t_tests.ipynb` runs per-dataset Welch t-tests on the 10 seed test RMSEs (Scratch vs variant), Holm-corrected across datasets. It reads `results/lpm_paper10_results_current_check_{summary,long}.tsv`.
