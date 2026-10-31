@@ -117,6 +117,16 @@ tail -f logs/perturb_lib.<jobid>.out     # follow the training log
 
 SLURM logs are written to `logs/perturb_lib.<jobid>.{out,err}` (path set by `LOG_DIR` in `run.sh`).
 
+**4.4** **Multi-node networking**
+
+`run.sh` uses InfiniBand, which needs a newer NCCL. Install it once:
+```
+lpm_training_venv/bin/pip install --target .nccl/2.27.7 nvidia-nccl-cu12==2.27.7
+```
+Or use Ethernet instead (slower): `NCCL_IB_DISABLE=1 sbatch run.sh -c <config_id>`.
+
+`scripts/port_shim.c` is compiled by `run.sh` automatically and keeps NCCL's ports inside the firewall's allowed range (disable with `PORT_SHIM=0`).
+
 ### 5. Checkpoints and outputs
 
 Per-run outputs (checkpoints, `model.pt`, TensorBoard logs) live under `.plib_cache/results/<config_id>/<model_hash>/seed_<seed>/`.
@@ -139,3 +149,20 @@ cd ~/lpm_style
 poetry run tensorboard --logdir .plib_cache/results/<config_id>
 ```
 Then open `http://localhost:6006`. Pointing `--logdir` at the config results root lets TensorBoard compare seeds and `model_hash` runs side by side.
+
+### 6. Experiments
+
+* **Original**: full model, 25 epochs.
+  * `lpm_modified_l1000_data`: L1000 only
+  * `lpm_modified_all_data`: all data
+
+* **Step-matched**: same number of optimizer steps instead of epochs.
+  * `lpm_modified_l1000_data_stepmatched`: L1000, matched to all-data epoch 19
+  * `lpm_modified_all_data_stepmatched`: all data, matched to L1000 epoch 19
+
+* **Ablation**: original configs with covariates removed via `model_args.ablate` (`+`-separated over `dataset`, `dose`, `time`); ablated layers are zeroed and frozen.
+  * `lpm_abl_l1000_dataset`, `lpm_abl_all_data_dataset`: no dataset
+  * `lpm_abl_l1000_dose_time`, `lpm_abl_all_data_dose_time`: no dose and time
+  * `lpm_abl_l1000_dataset_dose_time`, `lpm_abl_all_data_dataset_dose_time`: no dataset, dose and time
+
+Submit any of them with `sbatch run.sh -c <config_id>`. Results are written to `.plib_cache/results/<config_id>/<model_hash>/seed_<seed>/`.
