@@ -15,16 +15,16 @@
 # rate, whereas L1000 descends in 20 smaller steps to 0.5438x. The two runs therefore see
 # similar-but-not-identical learning rates, and the all-data run ends on a higher one.
 #
-# Shards are read from .plib_cache_paper/plibdata, the same cache as
+# Shards are read from .plib_cache/plibdata, the same cache as
 # lpm_modified_l1000_data_stepmatched, so the two runs stay directly comparable.
 #
-# Submit with: sbatch run.sh -c lpm_modified_all_data_stepmatched -d .plib_cache_paper
+# Submit with: sbatch run.sh -c lpm_modified_all_data_stepmatched
 
 environment_configs:
   - seed: 13
 
 data_configs:
-  - on_disk_shard_root: .plib_cache_paper/plibdata
+  - on_disk_shard_root: .plib_cache/plibdata
     on_disk_data_sources:
       - cigs_mce_CVCL_0062
       - cigs_mce_CVCL_0063

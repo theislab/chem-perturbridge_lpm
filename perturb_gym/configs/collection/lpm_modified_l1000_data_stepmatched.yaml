@@ -1,6 +1,6 @@
 # L1000-only LPM training, step-matched to epoch 19 of the all-data run (all_25_epochs).
 #
-# Shards live under .plib_cache_paper/plibdata (the cache the paper runs used), where the
+# Shards live under .plib_cache/plibdata (the cache the paper runs used), where the
 # L1000 train split is 209,050,434 rows -> 12,760 steps/epoch at batch_size 16384, versus
 # 104,456 steps/epoch for all-data. Epoch 19 of all-data is global step 2,089,120.
 #
@@ -8,13 +8,13 @@
 # learning_rate_decay is instead 0.97^(12760/104456) = 0.9962861, which reproduces the
 # all-data learning-rate-versus-step curve exactly.
 #
-# Submit with: sbatch run.sh -c lpm_modified_l1000_data_stepmatched -d .plib_cache_paper
+# Submit with: sbatch run.sh -c lpm_modified_l1000_data_stepmatched
 
 environment_configs:
   - seed: 13
 
 data_configs:
-  - on_disk_shard_root: .plib_cache_paper/plibdata
+  - on_disk_shard_root: .plib_cache/plibdata
     on_disk_data_sources:
       - l1000_phase1_CD34
       - l1000_phase1_CVCL_0002

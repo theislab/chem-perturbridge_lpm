@@ -5,7 +5,7 @@ Mirrors notebooks/03_LPM_style_write_shards.ipynb, but reads the narrowed
 annotation under .plib_cache_paper_narrowed and writes shards there.
 
 Default paths (relative to repo root):
-  raw:    .plib_cache_paper/raw_datasets
+  raw:    .plib_cache/raw_datasets
   annot:  .plib_cache_paper_narrowed/annotations/df_annot_split_narrowed.parquet
   shards: .plib_cache_paper_narrowed/plibdata
 
@@ -29,11 +29,11 @@ import pandas as pd
 from tqdm import tqdm
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_RAW = REPO_ROOT / ".plib_cache_paper" / "raw_datasets"
+DEFAULT_RAW = REPO_ROOT / ".plib_cache" / "raw_datasets"
 DEFAULT_ANNOT = (
     REPO_ROOT / ".plib_cache_paper_narrowed" / "annotations" / "df_annot_split_narrowed.parquet"
 )
-DEFAULT_SOURCE_ANNOT = REPO_ROOT / ".plib_cache_paper" / "annotations" / "df_annot_split.parquet"
+DEFAULT_SOURCE_ANNOT = REPO_ROOT / ".plib_cache" / "annotations" / "df_annot_split.parquet"
 DEFAULT_SHARDS = REPO_ROOT / ".plib_cache_paper_narrowed" / "plibdata"
 DEFAULT_SHARDSIZE = 200_000
 

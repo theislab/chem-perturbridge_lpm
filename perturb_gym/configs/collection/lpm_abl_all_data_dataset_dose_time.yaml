@@ -4,7 +4,7 @@ environment_configs:
   - seed: 13
 
 data_configs:
-  - on_disk_shard_root: .plib_cache_paper/plibdata
+  - on_disk_shard_root: .plib_cache/plibdata
     on_disk_data_sources:
       - cigs_mce_CVCL_0062
       - cigs_mce_CVCL_0063
