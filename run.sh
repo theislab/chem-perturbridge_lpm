@@ -63,8 +63,8 @@ readonly NARROWED_CACHE_DIR="${SLURM_SUBMIT_DIR:-$(pwd)}/.plib_cache_paper_narro
 # Slurm silently drops stdout/stderr.
 readonly LOG_DIR="logs"
 
-# The compute-node firewall rejects inbound TCP outside 60001-63000 (measured by
-# scripts/probe_ddp_ports.sh; everything else returns icmp-host-prohibited).
+# The compute-node firewall rejects inbound TCP outside 60001-63000 (everything
+# else returns icmp-host-prohibited).
 # Candidates are drawn from 61001-63000 rather than 60001-60999 because the
 # latter overlaps ip_local_port_range (32768-60999), so the kernel could hand the
 # port to another process as an ephemeral port before we bind it. Ports observed
