@@ -15,7 +15,14 @@
 # supergpu04/07 are not configured in the cluster, so a contiguous supergpu[02-35]
 # range makes sbatch fail with "Invalid node name specified". List only the
 # supergpus that actually exist in gpu_p.
-#SBATCH --exclude=gpusrv34,gpusrv53,gpusrv62,supergpu[02-03,05,08-09,14-32]
+# gpusrv[26,29,41,46,59,72] are excluded on the strength of a single failure
+# (job 40054914): all 16 nodes passed the all-peers probe on the selected
+# 10.233.0.109:61001, then these six never connected to the rank-0 TCP store, so
+# init_process_group died with "10/16 clients joined" after the full 30-minute
+# timeout. Since the probe had just verified that exact pair from every node, the
+# fault may be transient rather than a property of these six -- drop them from
+# this list if a later job fails the same way on different nodes.
+#SBATCH --exclude=gpusrv34,gpusrv53,gpusrv62,supergpu[02-03,05,08-09,14-32],gpusrv[26,29,41,46,59,72]
 
 # ============================================================================
 # Slurm launcher for multi-node DDP LPM training.
