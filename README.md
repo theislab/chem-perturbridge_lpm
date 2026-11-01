@@ -163,11 +163,11 @@ Then open `http://localhost:6006`. Pointing `--logdir` at the config results roo
 
 ### 6. Experiments
 
-* **Original**: full model, 25 epochs.
+* **Original**: full model, configured for up to 25 epochs.
   * `lpm_modified_l1000_data`: L1000 only
   * `lpm_modified_all_data`: all data
 
-* **Step-matched**: same number of optimizer steps instead of epochs.
+* **Step-matched**: match the other original run's optimizer-step count after 20 completed epochs (epoch 19, counted from zero).
   * `lpm_modified_l1000_data_stepmatched`: L1000, matched to all-data epoch 19
   * `lpm_modified_all_data_stepmatched`: all data, matched to L1000 epoch 19
 
