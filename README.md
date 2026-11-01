@@ -63,6 +63,17 @@ Each entry is a `(dataset, context)` slice named `<dataset_id>_<context_id>` (e.
 
 Rerun the `LPM_style_step1_*.ipynb`, `LPM_style_step2_*.ipynb`, and `LPM_style_step3_*.ipynb` notebooks in this order.
 
+**2.4** **Build L1000-compound-narrowed shards**
+
+To build multi-dataset shards restricted to L1000 compounds, submit the following from the repository root:
+
+```bash
+mkdir -p logs
+sbatch scripts/run_write_narrowed_plibdata_shards.sh
+```
+
+The script reads raw data from `.plib_cache/raw_datasets` and writes shards to `.plib_cache_paper_narrowed/plibdata`. Add `--build-annot` to rebuild the narrowed annotations first; missing annotations are built automatically.
+
 ### 3. Config files
 
 YAML configs live in `perturb_gym/configs/collection/`. The filename stem is the config id passed to `run.sh -c <id>`. Each YAML declares `environment_configs` (seeds), `data_configs` (shard root and slices), and `model_configs` (architecture, optimizer, trainer parameters). Two configs are shipped:
